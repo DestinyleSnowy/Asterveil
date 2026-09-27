@@ -1,0 +1,10 @@
+node_modules/
+.output/
+.wxt/
+.tmp/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

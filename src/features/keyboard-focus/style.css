@@ -1,0 +1,6 @@
+:where(a[href], button, input, select, textarea, [tabindex]):focus-visible {
+  /* biome-ignore lint/complexity/noImportantStyles: Override site focus resets only while this module is enabled. */
+  outline: 2px solid #8270ef !important;
+  /* biome-ignore lint/complexity/noImportantStyles: Keep the accessibility outline outside the focused element. */
+  outline-offset: 3px !important;
+}

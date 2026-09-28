@@ -13,12 +13,6 @@ export const moduleCatalog = [
     defaultEnabled: true,
   },
   {
-    id: 'home-performance',
-    title: '首页加速',
-    description: '',
-    defaultEnabled: true,
-  },
-  {
     id: 'keyboard-focus',
     title: '键盘焦点',
     description: '为键盘选中的链接、按钮与输入框显示清晰轮廓。',

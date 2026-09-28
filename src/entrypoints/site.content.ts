@@ -28,7 +28,7 @@ export default defineContentScript({
       const url = new URL(location.href);
       if (settingsResolved) theme?.update(url, settings);
       if (settings) {
-        runtime.reconcile(url, settings, domReady);
+        if (domReady) runtime.reconcile(url, settings);
         floatingSettings?.setAppearance(settings.accentColor, settings.colorMode);
       }
     };

@@ -15,7 +15,7 @@ export class ModuleRuntime {
     }
   }
 
-  reconcile(url: URL, settings: Settings, domReady = true): void {
+  reconcile(url: URL, settings: Settings): void {
     if (this.disposed) return;
     if (this.pageUrl !== url.href) {
       this.stopAll();
@@ -25,11 +25,7 @@ export class ModuleRuntime {
     for (const definition of this.definitions) {
       try {
         const shouldRun =
-          site &&
-          settings.enabled &&
-          settings.modules[definition.id] &&
-          (domReady || definition.runAt === 'document-start') &&
-          definition.matches(url);
+          site && settings.enabled && settings.modules[definition.id] && definition.matches(url);
         if (!shouldRun) {
           this.stop(definition.id);
           continue;

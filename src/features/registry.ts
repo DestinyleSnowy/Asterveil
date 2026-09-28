@@ -9,15 +9,8 @@ export const modules = [
   },
   {
     id: 'local-avatars',
-    runAt: 'document-start',
     matches: () => true,
     load: () => import('./local-avatars').then((module) => module.default),
-  },
-  {
-    id: 'home-performance',
-    runAt: 'document-start',
-    matches: (url) => url.pathname === '/',
-    load: () => import('./home-performance').then((module) => module.default),
   },
   {
     id: 'keyboard-focus',

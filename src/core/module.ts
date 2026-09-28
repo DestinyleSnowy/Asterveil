@@ -16,7 +16,6 @@ export interface FeatureModule {
 
 export interface ModuleDefinition {
   readonly id: ModuleId;
-  readonly runAt?: 'document-start';
   readonly matches: (url: URL) => boolean;
   readonly load: () => Promise<FeatureModule>;
 }

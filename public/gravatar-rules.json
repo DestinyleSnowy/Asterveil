@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": { "type": "block" },
+    "condition": {
+      "initiatorDomains": ["jx.7fa4.cn", "in.7fa4.cn"],
+      "requestDomains": ["gravatar.com", "gravatar.loli.net"],
+      "resourceTypes": ["image"]
+    }
+  }
+]

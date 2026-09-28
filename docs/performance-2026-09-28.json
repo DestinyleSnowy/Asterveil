@@ -1,0 +1,4733 @@
+{
+  "date": "2026-09-28",
+  "origin": "https://jx.7fa4.cn:8888",
+  "method": "Chrome authenticated session, existing extensions active, no throttling. One per-tab cache-disabled navigation. Remaining samples allow cache; first-use assets can still transfer. Resource counts include embedded/blocked/cancelled entries. Not field percentiles or optimization A/B.",
+  "samples": [
+    {
+      "label": "home-warm-1",
+      "path": "/",
+      "navigation": {
+        "ttfb": 134.20000004768372,
+        "domContentLoaded": 652.9000000953674,
+        "load": 7203,
+        "transfer": 300,
+        "encoded": 264494,
+        "decoded": 264494,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 476
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 476
+        }
+      ],
+      "summary": {
+        "requests": 161,
+        "transfer": 2412597,
+        "decoded": 3849998,
+        "avatars": 134,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 3307,
+        "rows": 367,
+        "images": 249,
+        "localAvatars": 248
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 708,
+            "duration": 0,
+            "size": 5693,
+            "tag": "TD"
+          },
+          {
+            "ms": 9576,
+            "duration": 0,
+            "size": 296656,
+            "tag": "IMG",
+            "url": "/index_image/0"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 504.7999999523163,
+            "duration": 0,
+            "value": 0.08913766172359486,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 693.1000001430511,
+            "duration": 0,
+            "value": 0.0004338022447879814,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 841.7999999523163,
+            "duration": 0,
+            "value": 0.000003881668776608585,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 855.7000000476837,
+            "duration": 0,
+            "value": 0.0000028399476235441337,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 863.5,
+            "duration": 0,
+            "value": 0.00000602089956905065,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 866.2999999523163,
+            "duration": 0,
+            "value": 0.0000012854877117340119,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 961.4000000953674,
+            "duration": 0,
+            "value": 0.000015288435118028735,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 965.2999999523163,
+            "duration": 0,
+            "value": 0.000002950591053896142,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 967.7999999523163,
+            "duration": 0,
+            "value": 3.172674537340908e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 974.7999999523163,
+            "duration": 0,
+            "value": 2.966423930868552e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 982.1000001430511,
+            "duration": 0,
+            "value": 2.6574836742213656e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 987.2999999523163,
+            "duration": 0,
+            "value": 2.5452096566968843e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 1039,
+            "duration": 0,
+            "value": 0.000002238372981974492,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 1059.5,
+            "duration": 0,
+            "value": 4.970179068461786e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 1083.7999999523163,
+            "duration": 0,
+            "value": 6.371488258362682e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 1629.5,
+            "duration": 0,
+            "value": 0.00008656734803818558,
+            "hadRecentInput": false
+          }
+        ],
+        "longtask": [
+          {
+            "ms": 159.60000014305115,
+            "duration": 66
+          },
+          {
+            "ms": 509,
+            "duration": 153
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/index_image/0",
+          "type": "img",
+          "start": 151.60000014305115,
+          "ms": 7049,
+          "end": 7200.600000143051,
+          "transfer": 2410774,
+          "encoded": 2410474,
+          "decoded": 2410474,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/time",
+          "type": "xmlhttprequest",
+          "start": 758.9000000953674,
+          "ms": 829.2999999523163,
+          "end": 1588.2000000476837,
+          "transfer": 323,
+          "encoded": 23,
+          "decoded": 23,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/uneval",
+          "type": "xmlhttprequest",
+          "start": 757.5,
+          "ms": 828.5,
+          "end": 1586,
+          "transfer": 300,
+          "encoded": 2161,
+          "decoded": 2161,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/my_report/:id",
+          "type": "xmlhttprequest",
+          "start": 757.9000000953674,
+          "ms": 828.2999999523163,
+          "end": 1586.2000000476837,
+          "transfer": 300,
+          "encoded": 9620,
+          "decoded": 9620,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 762.9000000953674,
+          "ms": 825,
+          "end": 1587.9000000953674,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 762.5,
+          "ms": 823.7999999523163,
+          "end": 1586.2999999523163,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 764.4000000953674,
+          "ms": 823.7000000476837,
+          "end": 1588.1000001430511,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 157.29999995231628,
+          "ms": 120.70000004768372,
+          "end": 278,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 157.40000009536743,
+          "ms": 120.70000004768372,
+          "end": 278.10000014305115,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 157.29999995231628,
+          "ms": 117.10000014305115,
+          "end": 274.40000009536743,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 151.5,
+          "ms": 36.299999952316284,
+          "end": 187.79999995231628,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 151.40000009536743,
+          "ms": 36.200000047683716,
+          "end": 187.60000014305115,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 151.40000009536743,
+          "ms": 35.700000047683716,
+          "end": 187.10000014305115,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 151.40000009536743,
+          "ms": 35.59999990463257,
+          "end": 187,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 151.29999995231628,
+          "ms": 35.5,
+          "end": 186.79999995231628,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 151.40000009536743,
+          "ms": 35.5,
+          "end": 186.90000009536743,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 151.29999995231628,
+          "ms": 34.5,
+          "end": 185.79999995231628,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 151.29999995231628,
+          "ms": 34.10000014305115,
+          "end": 185.40000009536743,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 151,
+          "ms": 32.5,
+          "end": 183.5,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 157.20000004768372,
+          "ms": 32.09999990463257,
+          "end": 189.29999995231628,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 151.29999995231628,
+          "ms": 32,
+          "end": 183.29999995231628,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 151.29999995231628,
+          "ms": 31.700000047683716,
+          "end": 183,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 276,
+          "ms": 7.5,
+          "end": 283.5,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 275.5,
+          "ms": 7.400000095367432,
+          "end": 282.90000009536743,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 275.2999999523163,
+          "ms": 7,
+          "end": 282.2999999523163,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 275.2999999523163,
+          "ms": 6.200000047683716,
+          "end": 281.5,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 470.2999999523163,
+          "ms": 2,
+          "end": 472.2999999523163,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "home-warm-2",
+      "path": "/",
+      "navigation": {
+        "ttfb": 126.29999995231628,
+        "domContentLoaded": 422,
+        "load": 2120.0999999046326,
+        "transfer": 300,
+        "encoded": 264494,
+        "decoded": 264494,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 356
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 356
+        }
+      ],
+      "summary": {
+        "requests": 210,
+        "transfer": 2412597,
+        "decoded": 3849998,
+        "avatars": 182,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 3307,
+        "rows": 367,
+        "images": 249,
+        "localAvatars": 248
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 356,
+            "duration": 0,
+            "size": 52693,
+            "tag": "TD"
+          },
+          {
+            "ms": 4684,
+            "duration": 0,
+            "size": 296656,
+            "tag": "IMG",
+            "url": "/index_image/0"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 385,
+            "duration": 0,
+            "value": 0.20671569498534262,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 451.09999990463257,
+            "duration": 0,
+            "value": 0.037663341991315026,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 658.3999998569489,
+            "duration": 0,
+            "value": 0.000001482539814996768,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 716.5999999046326,
+            "duration": 0,
+            "value": 0.000025183746728408948,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 720.8999998569489,
+            "duration": 0,
+            "value": 0.0000032052115974084243,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 736.2999999523163,
+            "duration": 0,
+            "value": 8.493989973248992e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 741.1999998092651,
+            "duration": 0,
+            "value": 3.4145242225405385e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 803.6999998092651,
+            "duration": 0,
+            "value": 0.0000022490900472836465,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 823.3999998569489,
+            "duration": 0,
+            "value": 6.902984993206955e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 886.7999999523163,
+            "duration": 0,
+            "value": 0.00009183800324667407,
+            "hadRecentInput": false
+          }
+        ]
+      },
+      "cpu": [
+        {
+          "name": "LayoutCount",
+          "value": 51
+        },
+        {
+          "name": "RecalcStyleCount",
+          "value": 57
+        },
+        {
+          "name": "LayoutDuration",
+          "value": 0.056358
+        },
+        {
+          "name": "RecalcStyleDuration",
+          "value": 0.110055
+        },
+        {
+          "name": "ScriptDuration",
+          "value": 0.172255
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.768113
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 8267844
+        }
+      ],
+      "resources": [
+        {
+          "url": "/index_image/0",
+          "type": "img",
+          "start": 186.19999980926514,
+          "ms": 1931.4000000953674,
+          "end": 2117.5999999046326,
+          "transfer": 2410774,
+          "encoded": 2410474,
+          "decoded": 2410474,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/time",
+          "type": "xmlhttprequest",
+          "start": 509.89999985694885,
+          "ms": 360.7999999523163,
+          "end": 870.6999998092651,
+          "transfer": 323,
+          "encoded": 23,
+          "decoded": 23,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/my_report/:id",
+          "type": "xmlhttprequest",
+          "start": 508,
+          "ms": 333.09999990463257,
+          "end": 841.0999999046326,
+          "transfer": 300,
+          "encoded": 9620,
+          "decoded": 9620,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/uneval",
+          "type": "xmlhttprequest",
+          "start": 507,
+          "ms": 332.39999985694885,
+          "end": 839.3999998569489,
+          "transfer": 300,
+          "encoded": 2161,
+          "decoded": 2161,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 514.0999999046326,
+          "ms": 327.09999990463257,
+          "end": 841.1999998092651,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 514.5999999046326,
+          "ms": 326.7999999523163,
+          "end": 841.3999998569489,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 516.8999998569489,
+          "ms": 325.2000000476837,
+          "end": 842.0999999046326,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 185.5,
+          "ms": 0,
+          "end": 185.5,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 185.59999990463257,
+          "ms": 0,
+          "end": 185.59999990463257,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 185.69999980926514,
+          "ms": 0,
+          "end": 185.69999980926514,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 185.69999980926514,
+          "ms": 0,
+          "end": 185.69999980926514,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 185.69999980926514,
+          "ms": 0,
+          "end": 185.69999980926514,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 185.69999980926514,
+          "ms": 0,
+          "end": 185.69999980926514,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 185.79999995231628,
+          "ms": 0,
+          "end": 185.79999995231628,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 185.79999995231628,
+          "ms": 0,
+          "end": 185.79999995231628,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 185.79999995231628,
+          "ms": 0,
+          "end": 185.79999995231628,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 185.79999995231628,
+          "ms": 0,
+          "end": 185.79999995231628,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 185.89999985694885,
+          "ms": 0,
+          "end": 185.89999985694885,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 193.19999980926514,
+          "ms": 0,
+          "end": 193.19999980926514,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 193.19999980926514,
+          "ms": 0,
+          "end": 193.19999980926514,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 193.29999995231628,
+          "ms": 0,
+          "end": 193.29999995231628,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 193.29999995231628,
+          "ms": 0,
+          "end": 193.29999995231628,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 291.39999985694885,
+          "ms": 0,
+          "end": 291.39999985694885,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 291.5,
+          "ms": 0,
+          "end": 291.5,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 291.59999990463257,
+          "ms": 0,
+          "end": 291.59999990463257,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 291.59999990463257,
+          "ms": 0,
+          "end": 291.59999990463257,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 291.69999980926514,
+          "ms": 0,
+          "end": 291.69999980926514,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 292,
+          "ms": 0,
+          "end": 292,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "home-cache-disabled",
+      "path": "/",
+      "navigation": {
+        "ttfb": 124.40000009536743,
+        "domContentLoaded": 4917.5,
+        "load": 5970.099999904633,
+        "transfer": 264794,
+        "encoded": 264494,
+        "decoded": 264494,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 4072
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 4072
+        }
+      ],
+      "summary": {
+        "requests": 168,
+        "transfer": 3858098,
+        "decoded": 3849998,
+        "avatars": 141,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 3307,
+        "rows": 367,
+        "images": 249,
+        "localAvatars": 248
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 4072,
+            "duration": 0,
+            "size": 6188,
+            "tag": "TD"
+          },
+          {
+            "ms": 8128,
+            "duration": 0,
+            "size": 296656,
+            "tag": "IMG",
+            "url": "/index_image/0"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 3962.5999999046326,
+            "duration": 0,
+            "value": 0.003930050299314023,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 4753.599999904633,
+            "duration": 0,
+            "value": 0.00014098798331655852,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 4770.900000095367,
+            "duration": 0,
+            "value": 0.0013471350509129212,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 4945.900000095367,
+            "duration": 0,
+            "value": 0.0004338022447879814,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5142.099999904633,
+            "duration": 0,
+            "value": 0.000022152211335714388,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5156.5,
+            "duration": 0,
+            "value": 0.000002354082435068458,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5163.200000047684,
+            "duration": 0,
+            "value": 5.853310059965326e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5169.799999952316,
+            "duration": 0,
+            "value": 5.358532654577507e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5176.900000095367,
+            "duration": 0,
+            "value": 5.134482508741514e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5204.099999904633,
+            "duration": 0,
+            "value": 4.540998566882617e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5241.200000047684,
+            "duration": 0,
+            "value": 0.000002911232911610953,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5264.599999904633,
+            "duration": 0,
+            "value": 0.0000016495194097962042,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5294.299999952316,
+            "duration": 0,
+            "value": 6.822077996099513e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 5501.299999952316,
+            "duration": 0,
+            "value": 0.00008656734803818558,
+            "hadRecentInput": false
+          }
+        ],
+        "longtask": [
+          {
+            "ms": 4800,
+            "duration": 124
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/index_image/0",
+          "type": "img",
+          "start": 274.7000000476837,
+          "ms": 5690.799999952316,
+          "end": 5965.5,
+          "transfer": 2410774,
+          "encoded": 2410474,
+          "decoded": 2410474,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 845.7000000476837,
+          "ms": 3948.7000000476837,
+          "end": 4794.400000095367,
+          "transfer": 199860,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 845.7000000476837,
+          "ms": 3913.7000000476837,
+          "end": 4759.400000095367,
+          "transfer": 51142,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 845.7999999523163,
+          "ms": 3778,
+          "end": 4623.799999952316,
+          "transfer": 9682,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 201,
+          "ms": 3669.9000000953674,
+          "end": 3870.9000000953674,
+          "transfer": 628819,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 845.5999999046326,
+          "ms": 2872.800000190735,
+          "end": 3718.4000000953674,
+          "transfer": 276030,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 201.70000004768372,
+          "ms": 2536.7999999523163,
+          "end": 2738.5,
+          "transfer": 87227,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 201.70000004768372,
+          "ms": 2095,
+          "end": 2296.7000000476837,
+          "transfer": 6778,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 201.5,
+          "ms": 1688,
+          "end": 1889.5,
+          "transfer": 11799,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 3911.0999999046326,
+          "ms": 848.8000001907349,
+          "end": 4759.900000095367,
+          "transfer": 40448,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 3911,
+          "ms": 794.2999999523163,
+          "end": 4705.299999952316,
+          "transfer": 38628,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 3911.5999999046326,
+          "ms": 793.4000000953674,
+          "end": 4705,
+          "transfer": 24788,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 3911.2000000476837,
+          "ms": 793.3999998569489,
+          "end": 4704.599999904633,
+          "transfer": 25204,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 201.40000009536743,
+          "ms": 734.5999999046326,
+          "end": 936,
+          "transfer": 2408,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 201.70000004768372,
+          "ms": 734,
+          "end": 935.7000000476837,
+          "transfer": 1097,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 201.29999995231628,
+          "ms": 729.7000000476837,
+          "end": 931,
+          "transfer": 7754,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 3948.9000000953674,
+          "ms": 714.1999998092651,
+          "end": 4663.099999904633,
+          "transfer": 12540,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 201.5,
+          "ms": 656,
+          "end": 857.5,
+          "transfer": 3302,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 201.29999995231628,
+          "ms": 655.1000001430511,
+          "end": 856.4000000953674,
+          "transfer": 1720,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 201.29999995231628,
+          "ms": 654.7000000476837,
+          "end": 856,
+          "transfer": 3582,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 201.40000009536743,
+          "ms": 654.3999998569489,
+          "end": 855.7999999523163,
+          "transfer": 733,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/my_report/:id",
+          "type": "xmlhttprequest",
+          "start": 5025.799999952316,
+          "ms": 449.90000009536743,
+          "end": 5475.700000047684,
+          "transfer": 9920,
+          "encoded": 9620,
+          "decoded": 9620,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/uneval",
+          "type": "xmlhttprequest",
+          "start": 5025.299999952316,
+          "ms": 444.90000009536743,
+          "end": 5470.200000047684,
+          "transfer": 2461,
+          "encoded": 2161,
+          "decoded": 2161,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 5028.700000047684,
+          "ms": 442.09999990463257,
+          "end": 5470.799999952316,
+          "transfer": 329,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 5029,
+          "ms": 442,
+          "end": 5471,
+          "transfer": 434,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 5030.400000095367,
+          "ms": 440.69999980926514,
+          "end": 5471.099999904633,
+          "transfer": 316,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/time",
+          "type": "xmlhttprequest",
+          "start": 5027.099999904633,
+          "ms": 275.5,
+          "end": 5302.599999904633,
+          "transfer": 323,
+          "encoded": 23,
+          "decoded": 23,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "rankings-warm-1",
+      "path": "/progress/quiz",
+      "navigation": {
+        "ttfb": 55.299999952316284,
+        "domContentLoaded": 140.90000009536743,
+        "load": 150.40000009536743,
+        "transfer": 300,
+        "encoded": 11698,
+        "decoded": 11698,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 164
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 164
+        }
+      ],
+      "summary": {
+        "requests": 27,
+        "transfer": 1500,
+        "decoded": 1768861,
+        "avatars": 1,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 4179,
+        "rows": 106,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 164,
+            "duration": 0,
+            "size": 5433,
+            "tag": "DIV"
+          },
+          {
+            "ms": 1288,
+            "duration": 0,
+            "size": 7666,
+            "tag": "H1"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 523.7999999523163,
+            "duration": 0,
+            "value": 0.9194418730847804,
+            "hadRecentInput": false
+          }
+        ],
+        "longtask": [
+          {
+            "ms": 1756.5999999046326,
+            "duration": 103
+          }
+        ]
+      },
+      "cpu": [
+        {
+          "name": "LayoutCount",
+          "value": 8
+        },
+        {
+          "name": "RecalcStyleCount",
+          "value": 25
+        },
+        {
+          "name": "LayoutDuration",
+          "value": 0.121689
+        },
+        {
+          "name": "RecalcStyleDuration",
+          "value": 0.099851
+        },
+        {
+          "name": "ScriptDuration",
+          "value": 0.229805
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.834962
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 9599188
+        }
+      ],
+      "resources": [
+        {
+          "url": "/progress/contest_table/json",
+          "type": "xmlhttprequest",
+          "start": 537.5999999046326,
+          "ms": 1218.4000000953674,
+          "end": 1756,
+          "transfer": 300,
+          "encoded": 86256,
+          "decoded": 86256,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/progress/contest_table/html",
+          "type": "xmlhttprequest",
+          "start": 153.40000009536743,
+          "ms": 174.69999980926514,
+          "end": 328.09999990463257,
+          "transfer": 300,
+          "encoded": 254885,
+          "decoded": 254885,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 160.5,
+          "ms": 135.90000009536743,
+          "end": 296.40000009536743,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 161.09999990463257,
+          "ms": 135.60000014305115,
+          "end": 296.7000000476837,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 162.5,
+          "ms": 133.70000004768372,
+          "end": 296.2000000476837,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 69.29999995231628,
+          "ms": 0,
+          "end": 69.29999995231628,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 69.29999995231628,
+          "ms": 0,
+          "end": 69.29999995231628,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 69.40000009536743,
+          "ms": 0,
+          "end": 69.40000009536743,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 69.5,
+          "ms": 0,
+          "end": 69.5,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 69.59999990463257,
+          "ms": 0,
+          "end": 69.59999990463257,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 69.70000004768372,
+          "ms": 0,
+          "end": 69.70000004768372,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 69.79999995231628,
+          "ms": 0,
+          "end": 69.79999995231628,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 70,
+          "ms": 0,
+          "end": 70,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 70,
+          "ms": 0,
+          "end": 70,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 70.09999990463257,
+          "ms": 0,
+          "end": 70.09999990463257,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 70.20000004768372,
+          "ms": 0,
+          "end": 70.20000004768372,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 70.59999990463257,
+          "ms": 0,
+          "end": 70.59999990463257,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 70.59999990463257,
+          "ms": 0,
+          "end": 70.59999990463257,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 70.70000004768372,
+          "ms": 0,
+          "end": 70.70000004768372,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 70.70000004768372,
+          "ms": 0,
+          "end": 70.70000004768372,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 128.09999990463257,
+          "ms": 0,
+          "end": 128.09999990463257,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 128.20000004768372,
+          "ms": 0,
+          "end": 128.20000004768372,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 128.29999995231628,
+          "ms": 0,
+          "end": 128.29999995231628,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 128.40000009536743,
+          "ms": 0,
+          "end": 128.40000009536743,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 128.5,
+          "ms": 0,
+          "end": 128.5,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 128.79999995231628,
+          "ms": 0,
+          "end": 128.79999995231628,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "plans-warm-1",
+      "path": "/user_plans/:id",
+      "navigation": {
+        "ttfb": 45.299999952316284,
+        "domContentLoaded": 131.89999985694885,
+        "load": 153.59999990463257,
+        "transfer": 12356,
+        "encoded": 12056,
+        "decoded": 12056,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 160
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 160
+        }
+      ],
+      "summary": {
+        "requests": 52,
+        "transfer": 8700,
+        "decoded": 1438028,
+        "avatars": 1,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 439,
+        "rows": 29,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 160,
+            "duration": 0,
+            "size": 5433,
+            "tag": "DIV"
+          },
+          {
+            "ms": 408,
+            "duration": 0,
+            "size": 8810,
+            "tag": "PRE"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 215.79999995231628,
+            "duration": 0,
+            "value": 0.19642860983467803,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 283.2999999523163,
+            "duration": 0,
+            "value": 0.0009683848529979879,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 397.2999999523163,
+            "duration": 0,
+            "value": 0.0026496495508460632,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 493.39999985694885,
+            "duration": 0,
+            "value": 0.00037344440960960433,
+            "hadRecentInput": false
+          }
+        ]
+      },
+      "cpu": [
+        {
+          "name": "LayoutCount",
+          "value": 35
+        },
+        {
+          "name": "RecalcStyleCount",
+          "value": 38
+        },
+        {
+          "name": "LayoutDuration",
+          "value": 0.048193
+        },
+        {
+          "name": "RecalcStyleDuration",
+          "value": 0.081689
+        },
+        {
+          "name": "ScriptDuration",
+          "value": 0.146492
+        },
+        {
+          "name": "TaskDuration",
+          "value": 0.438421
+        },
+        {
+          "name": "JSHeapUsedSize",
+          "value": 13017052
+        }
+      ],
+      "resources": [
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 174.29999995231628,
+          "ms": 130.29999995231628,
+          "end": 304.59999990463257,
+          "transfer": 300,
+          "encoded": 398,
+          "decoded": 398,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 176.29999995231628,
+          "ms": 130,
+          "end": 306.2999999523163,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 175.09999990463257,
+          "ms": 129.59999990463257,
+          "end": 304.69999980926514,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 182.5,
+          "ms": 129.59999990463257,
+          "end": 312.09999990463257,
+          "transfer": 300,
+          "encoded": 395,
+          "decoded": 395,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 179.89999985694885,
+          "ms": 129.20000004768372,
+          "end": 309.09999990463257,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 182,
+          "ms": 129.19999980926514,
+          "end": 311.19999980926514,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 180.89999985694885,
+          "ms": 128.90000009536743,
+          "end": 309.7999999523163,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 177.5,
+          "ms": 128.89999985694885,
+          "end": 306.39999985694885,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 175.69999980926514,
+          "ms": 128.70000004768372,
+          "end": 304.39999985694885,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 176.89999985694885,
+          "ms": 128.60000014305115,
+          "end": 305.5,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 181.39999985694885,
+          "ms": 128.60000014305115,
+          "end": 310,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 178.69999980926514,
+          "ms": 128.5,
+          "end": 307.19999980926514,
+          "transfer": 300,
+          "encoded": 383,
+          "decoded": 383,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 179.29999995231628,
+          "ms": 127.79999995231628,
+          "end": 307.09999990463257,
+          "transfer": 300,
+          "encoded": 342,
+          "decoded": 342,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 180.39999985694885,
+          "ms": 127.79999995231628,
+          "end": 308.19999980926514,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 178.09999990463257,
+          "ms": 127.5,
+          "end": 305.59999990463257,
+          "transfer": 300,
+          "encoded": 395,
+          "decoded": 395,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 184.5,
+          "ms": 126.79999995231628,
+          "end": 311.2999999523163,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 183.89999985694885,
+          "ms": 125.10000014305115,
+          "end": 309,
+          "transfer": 300,
+          "encoded": 336,
+          "decoded": 336,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 183.19999980926514,
+          "ms": 124.90000009536743,
+          "end": 308.09999990463257,
+          "transfer": 300,
+          "encoded": 383,
+          "decoded": 383,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 204.29999995231628,
+          "ms": 108.89999985694885,
+          "end": 313.19999980926514,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 204.69999980926514,
+          "ms": 107.60000014305115,
+          "end": 312.2999999523163,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 206.5,
+          "ms": 106.89999985694885,
+          "end": 313.39999985694885,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 169.39999985694885,
+          "ms": 78.5,
+          "end": 247.89999985694885,
+          "transfer": 300,
+          "encoded": 320,
+          "decoded": 320,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 170,
+          "ms": 77.69999980926514,
+          "end": 247.69999980926514,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 170.89999985694885,
+          "ms": 76.60000014305115,
+          "end": 247.5,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 171.5,
+          "ms": 76,
+          "end": 247.5,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 172,
+          "ms": 75.39999985694885,
+          "end": 247.39999985694885,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 172.59999990463257,
+          "ms": 75.29999995231628,
+          "end": 247.89999985694885,
+          "transfer": 300,
+          "encoded": 407,
+          "decoded": 407,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 173.09999990463257,
+          "ms": 74.59999990463257,
+          "end": 247.69999980926514,
+          "transfer": 300,
+          "encoded": 422,
+          "decoded": 422,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user_plan",
+          "type": "xmlhttprequest",
+          "start": 173.79999995231628,
+          "ms": 73.79999995231628,
+          "end": 247.59999990463257,
+          "transfer": 300,
+          "encoded": 422,
+          "decoded": 422,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 64.69999980926514,
+          "ms": 0,
+          "end": 64.69999980926514,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 64.79999995231628,
+          "ms": 0,
+          "end": 64.79999995231628,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 64.79999995231628,
+          "ms": 0,
+          "end": 64.79999995231628,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 64.89999985694885,
+          "ms": 0,
+          "end": 64.89999985694885,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 64.89999985694885,
+          "ms": 0,
+          "end": 64.89999985694885,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 64.89999985694885,
+          "ms": 0,
+          "end": 64.89999985694885,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 65,
+          "ms": 0,
+          "end": 65,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 65,
+          "ms": 0,
+          "end": 65,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 65.09999990463257,
+          "ms": 0,
+          "end": 65.09999990463257,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 65.09999990463257,
+          "ms": 0,
+          "end": 65.09999990463257,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 65.19999980926514,
+          "ms": 0,
+          "end": 65.19999980926514,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 65.39999985694885,
+          "ms": 0,
+          "end": 65.39999985694885,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 65.39999985694885,
+          "ms": 0,
+          "end": 65.39999985694885,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 65.5,
+          "ms": 0,
+          "end": 65.5,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 65.5,
+          "ms": 0,
+          "end": 65.5,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 132.29999995231628,
+          "ms": 0,
+          "end": 132.29999995231628,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 132.39999985694885,
+          "ms": 0,
+          "end": 132.39999985694885,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 132.39999985694885,
+          "ms": 0,
+          "end": 132.39999985694885,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 132.5,
+          "ms": 0,
+          "end": 132.5,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 132.59999990463257,
+          "ms": 0,
+          "end": 132.59999990463257,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 132.59999990463257,
+          "ms": 0,
+          "end": 132.59999990463257,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 132.89999985694885,
+          "ms": 0,
+          "end": 132.89999985694885,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "problem-warm-1",
+      "path": "/problem/73053",
+      "navigation": {
+        "ttfb": 194.90000009536743,
+        "domContentLoaded": 371.5,
+        "load": 861.5,
+        "transfer": 53855,
+        "encoded": 53555,
+        "decoded": 53555,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 276
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 276
+        }
+      ],
+      "summary": {
+        "requests": 50,
+        "transfer": 192522,
+        "decoded": 4537949,
+        "avatars": 1,
+        "blocking": 11
+      },
+      "dom": {
+        "elements": 736,
+        "rows": 0,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 276,
+            "duration": 0,
+            "size": 1700,
+            "tag": "A"
+          },
+          {
+            "ms": 356,
+            "duration": 0,
+            "size": 10322,
+            "tag": "PRE"
+          },
+          {
+            "ms": 612,
+            "duration": 0,
+            "size": 19431,
+            "tag": "P"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 402.59999990463257,
+            "duration": 0,
+            "value": 0.000022218311354597452,
+            "hadRecentInput": false
+          }
+        ],
+        "longtask": [
+          {
+            "ms": 411.90000009536743,
+            "duration": 124
+          },
+          {
+            "ms": 562,
+            "duration": 123
+          },
+          {
+            "ms": 723.2999999523163,
+            "duration": 126
+          },
+          {
+            "ms": 897.2000000476837,
+            "duration": 59
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-500.woff2",
+          "type": "css",
+          "start": 908.2000000476837,
+          "ms": 147.89999985694885,
+          "end": 1056.0999999046326,
+          "transfer": 63572,
+          "encoded": 63272,
+          "decoded": 63272,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/open-sans-v15-greek_latin_latin-ext_vietnamese_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 304.7000000476837,
+          "ms": 112.89999985694885,
+          "end": 417.59999990463257,
+          "transfer": 59900,
+          "encoded": 59600,
+          "decoded": 59600,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 907.7999999523163,
+          "ms": 83.5,
+          "end": 991.2999999523163,
+          "transfer": 63704,
+          "encoded": 63404,
+          "decoded": 63404,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 385.09999990463257,
+          "ms": 71.5,
+          "end": 456.59999990463257,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 386.40000009536743,
+          "ms": 70.19999980926514,
+          "end": 456.59999990463257,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 391.09999990463257,
+          "ms": 65.40000009536743,
+          "end": 456.5,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/monaco-editor-tomorrow.js",
+          "type": "xmlhttprequest",
+          "start": 848.7999999523163,
+          "ms": 43.799999952316284,
+          "end": 892.5999999046326,
+          "transfer": 4446,
+          "encoded": 4146,
+          "decoded": 4146,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/highlights/languages/cpp.min.js",
+          "type": "script",
+          "start": 253.5,
+          "ms": 29.09999990463257,
+          "end": 282.59999990463257,
+          "transfer": 0,
+          "encoded": 6004,
+          "decoded": 6004,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/highlights/languages/c.min.js",
+          "type": "script",
+          "start": 253.5,
+          "ms": 26.59999990463257,
+          "end": 280.09999990463257,
+          "transfer": 0,
+          "encoded": 3902,
+          "decoded": 3902,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/highlights/highlight.min.js",
+          "type": "script",
+          "start": 253.29999995231628,
+          "ms": 26.40000009536743,
+          "end": 279.7000000476837,
+          "transfer": 0,
+          "encoded": 91914,
+          "decoded": 91914,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/highlights/styles/base16/default-light.min.css",
+          "type": "link",
+          "start": 253,
+          "ms": 25.40000009536743,
+          "end": 278.40000009536743,
+          "transfer": 0,
+          "encoded": 1406,
+          "decoded": 1406,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/monaco-editor/0.18.1/min/vs/editor/editor.main.js",
+          "type": "script",
+          "start": 345.09999990463257,
+          "ms": 17.40000009536743,
+          "end": 362.5,
+          "transfer": 0,
+          "encoded": 2197098,
+          "decoded": 2197098,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/python.js",
+          "type": "script",
+          "start": 684.5,
+          "ms": 16.299999952316284,
+          "end": 700.7999999523163,
+          "transfer": 0,
+          "encoded": 8864,
+          "decoded": 8864,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/ruby.js",
+          "type": "script",
+          "start": 684.9000000953674,
+          "ms": 16.09999990463257,
+          "end": 701,
+          "transfer": 0,
+          "encoded": 9861,
+          "decoded": 9861,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/pascal.js",
+          "type": "script",
+          "start": 684.0999999046326,
+          "ms": 14.100000143051147,
+          "end": 698.2000000476837,
+          "transfer": 0,
+          "encoded": 5800,
+          "decoded": 5800,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/javascript.js",
+          "type": "script",
+          "start": 683.5,
+          "ms": 13.900000095367432,
+          "end": 697.4000000953674,
+          "transfer": 0,
+          "encoded": 15941,
+          "decoded": 15941,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/java.js",
+          "type": "script",
+          "start": 682.9000000953674,
+          "ms": 13.899999856948853,
+          "end": 696.7999999523163,
+          "transfer": 0,
+          "encoded": 6626,
+          "decoded": 6626,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/monaco-editor/0.18.1/min/vs/loader.js",
+          "type": "script",
+          "start": 301.2000000476837,
+          "ms": 10.5,
+          "end": 311.7000000476837,
+          "transfer": 0,
+          "encoded": 30186,
+          "decoded": 30186,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/monaco-editor.css",
+          "type": "link",
+          "start": 301.5,
+          "ms": 10.5,
+          "end": 312,
+          "transfer": 0,
+          "encoded": 1922,
+          "decoded": 1922,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/monaco-editor.js",
+          "type": "script",
+          "start": 301.5,
+          "ms": 10.400000095367432,
+          "end": 311.90000009536743,
+          "transfer": 0,
+          "encoded": 23948,
+          "decoded": 23948,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/monaco-tokenizer.js",
+          "type": "script",
+          "start": 680.2000000476837,
+          "ms": 6.8999998569488525,
+          "end": 687.0999999046326,
+          "transfer": 0,
+          "encoded": 12977,
+          "decoded": 12977,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/c_cpp.js",
+          "type": "script",
+          "start": 680.7000000476837,
+          "ms": 6.700000047683716,
+          "end": 687.4000000953674,
+          "transfer": 0,
+          "encoded": 9114,
+          "decoded": 9114,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/csharp.js",
+          "type": "script",
+          "start": 681,
+          "ms": 6.5,
+          "end": 687.5,
+          "transfer": 0,
+          "encoded": 5483,
+          "decoded": 5483,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/vendor/tokenizer/definitions/haskell.js",
+          "type": "script",
+          "start": 681.2999999523163,
+          "ms": 6.200000047683716,
+          "end": 687.5,
+          "transfer": 0,
+          "encoded": 11439,
+          "decoded": 11439,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/monaco-editor/0.18.1/min/vs/editor/editor.main.nls.js",
+          "type": "script",
+          "start": 522.5999999046326,
+          "ms": 5.400000095367432,
+          "end": 528,
+          "transfer": 0,
+          "encoded": 39283,
+          "decoded": 39283,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/monaco-editor/0.18.1/min/vs/editor/editor.main.css",
+          "type": "link",
+          "start": 507.2999999523163,
+          "ms": 4.200000047683716,
+          "end": 511.5,
+          "transfer": 0,
+          "encoded": 301370,
+          "decoded": 301370,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 209.20000004768372,
+          "ms": 0,
+          "end": 209.20000004768372,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 209.29999995231628,
+          "ms": 0,
+          "end": 209.29999995231628,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 209.40000009536743,
+          "ms": 0,
+          "end": 209.40000009536743,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 209.5,
+          "ms": 0,
+          "end": 209.5,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 209.5,
+          "ms": 0,
+          "end": 209.5,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 209.59999990463257,
+          "ms": 0,
+          "end": 209.59999990463257,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 209.79999995231628,
+          "ms": 0,
+          "end": 209.79999995231628,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 209.90000009536743,
+          "ms": 0,
+          "end": 209.90000009536743,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 209.90000009536743,
+          "ms": 0,
+          "end": 209.90000009536743,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 210.09999990463257,
+          "ms": 0,
+          "end": 210.09999990463257,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 210.20000004768372,
+          "ms": 0,
+          "end": 210.20000004768372,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 257.2999999523163,
+          "ms": 0,
+          "end": 257.2999999523163,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 257.5,
+          "ms": 0,
+          "end": 257.5,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 257.59999990463257,
+          "ms": 0,
+          "end": 257.59999990463257,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 257.59999990463257,
+          "ms": 0,
+          "end": 257.59999990463257,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 257.7999999523163,
+          "ms": 0,
+          "end": 257.7999999523163,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 257.90000009536743,
+          "ms": 0,
+          "end": 257.90000009536743,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 258.2999999523163,
+          "ms": 0,
+          "end": 258.2999999523163,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 301.7000000476837,
+          "ms": 0,
+          "end": 301.7000000476837,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 301.7999999523163,
+          "ms": 0,
+          "end": 301.7999999523163,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 301.7999999523163,
+          "ms": 0,
+          "end": 301.7999999523163,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 301.90000009536743,
+          "ms": 0,
+          "end": 301.90000009536743,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/monaco-editor/0.18.1/min/vs/base/worker/workerMain.js",
+          "type": "other",
+          "start": 1008.2999999523163,
+          "ms": -46.200000047683716,
+          "end": 962.0999999046326,
+          "transfer": 0,
+          "encoded": 136669,
+          "decoded": 136669,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "contest-warm-1",
+      "path": "/contest/23041",
+      "navigation": {
+        "ttfb": 74.40000009536743,
+        "domContentLoaded": 144.29999995231628,
+        "load": 177.10000014305115,
+        "transfer": 300,
+        "encoded": 18072,
+        "decoded": 18072,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 192
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 192
+        }
+      ],
+      "summary": {
+        "requests": 28,
+        "transfer": 1223,
+        "decoded": 1614019,
+        "avatars": 1,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 219,
+        "rows": 5,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 192,
+            "duration": 0,
+            "size": 7252,
+            "tag": "H1"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 1191.2999999523163,
+            "duration": 0,
+            "value": 0.000049614469224442846,
+            "hadRecentInput": false
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 191.5,
+          "ms": 67.70000004768372,
+          "end": 259.2000000476837,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 190.10000014305115,
+          "ms": 47.69999980926514,
+          "end": 237.79999995231628,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 189.70000004768372,
+          "ms": 44.700000047683716,
+          "end": 234.40000009536743,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/time",
+          "type": "xmlhttprequest",
+          "start": 188.60000014305115,
+          "ms": 43,
+          "end": 231.60000014305115,
+          "transfer": 323,
+          "encoded": 23,
+          "decoded": 23,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 84.60000014305115,
+          "ms": 0,
+          "end": 84.60000014305115,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 84.79999995231628,
+          "ms": 0,
+          "end": 84.79999995231628,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 84.79999995231628,
+          "ms": 0,
+          "end": 84.79999995231628,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 84.79999995231628,
+          "ms": 0,
+          "end": 84.79999995231628,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 84.90000009536743,
+          "ms": 0,
+          "end": 84.90000009536743,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 85,
+          "ms": 0,
+          "end": 85,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 85.10000014305115,
+          "ms": 0,
+          "end": 85.10000014305115,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 85.29999995231628,
+          "ms": 0,
+          "end": 85.29999995231628,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 85.29999995231628,
+          "ms": 0,
+          "end": 85.29999995231628,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 85.40000009536743,
+          "ms": 0,
+          "end": 85.40000009536743,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 85.5,
+          "ms": 0,
+          "end": 85.5,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 85.79999995231628,
+          "ms": 0,
+          "end": 85.79999995231628,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 85.79999995231628,
+          "ms": 0,
+          "end": 85.79999995231628,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 86,
+          "ms": 0,
+          "end": 86,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 86.10000014305115,
+          "ms": 0,
+          "end": 86.10000014305115,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 148.60000014305115,
+          "ms": 0,
+          "end": 148.60000014305115,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 148.79999995231628,
+          "ms": 0,
+          "end": 148.79999995231628,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 149.29999995231628,
+          "ms": 0,
+          "end": 149.29999995231628,
+          "transfer": 0,
+          "encoded": 63404,
+          "decoded": 63404,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-500.woff2",
+          "type": "css",
+          "start": 149.5,
+          "ms": 0,
+          "end": 149.5,
+          "transfer": 0,
+          "encoded": 63272,
+          "decoded": 63272,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 149.60000014305115,
+          "ms": 0,
+          "end": 149.60000014305115,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 149.70000004768372,
+          "ms": 0,
+          "end": 149.70000004768372,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/open-sans-v15-greek_latin_latin-ext_vietnamese_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 149.90000009536743,
+          "ms": 0,
+          "end": 149.90000009536743,
+          "transfer": 0,
+          "encoded": 59600,
+          "decoded": 59600,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 150.29999995231628,
+          "ms": 0,
+          "end": 150.29999995231628,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "rankings-warm-2",
+      "path": "/progress/quiz",
+      "navigation": {
+        "ttfb": 61.299999952316284,
+        "domContentLoaded": 130.59999990463257,
+        "load": 142.59999990463257,
+        "transfer": 300,
+        "encoded": 11698,
+        "decoded": 11698,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 164
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 164
+        }
+      ],
+      "summary": {
+        "requests": 29,
+        "transfer": 1500,
+        "decoded": 1955137,
+        "avatars": 1,
+        "blocking": 10
+      },
+      "dom": {
+        "elements": 4179,
+        "rows": 106,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 164,
+            "duration": 0,
+            "size": 5433,
+            "tag": "DIV"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 428.2000000476837,
+            "duration": 0,
+            "value": 0.916846484791889,
+            "hadRecentInput": false
+          }
+        ],
+        "longtask": [
+          {
+            "ms": 990.5999999046326,
+            "duration": 158
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/progress/contest_table/json",
+          "type": "xmlhttprequest",
+          "start": 565.3999998569489,
+          "ms": 424,
+          "end": 989.3999998569489,
+          "transfer": 300,
+          "encoded": 86256,
+          "decoded": 86256,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/progress/contest_table/html",
+          "type": "xmlhttprequest",
+          "start": 152.59999990463257,
+          "ms": 158.40000009536743,
+          "end": 311,
+          "transfer": 300,
+          "encoded": 254885,
+          "decoded": 254885,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 156.70000004768372,
+          "ms": 77.09999990463257,
+          "end": 233.79999995231628,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 158.20000004768372,
+          "ms": 75.39999985694885,
+          "end": 233.59999990463257,
+          "transfer": 300,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 156.29999995231628,
+          "ms": 51.799999952316284,
+          "end": 208.09999990463257,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 71.29999995231628,
+          "ms": 0,
+          "end": 71.29999995231628,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 71.39999985694885,
+          "ms": 0,
+          "end": 71.39999985694885,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 71.5,
+          "ms": 0,
+          "end": 71.5,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 71.59999990463257,
+          "ms": 0,
+          "end": 71.59999990463257,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 71.70000004768372,
+          "ms": 0,
+          "end": 71.70000004768372,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 71.79999995231628,
+          "ms": 0,
+          "end": 71.79999995231628,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 71.79999995231628,
+          "ms": 0,
+          "end": 71.79999995231628,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 71.89999985694885,
+          "ms": 0,
+          "end": 71.89999985694885,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 72,
+          "ms": 0,
+          "end": 72,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 72,
+          "ms": 0,
+          "end": 72,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 72.09999990463257,
+          "ms": 0,
+          "end": 72.09999990463257,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 72.59999990463257,
+          "ms": 0,
+          "end": 72.59999990463257,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 72.59999990463257,
+          "ms": 0,
+          "end": 72.59999990463257,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 72.79999995231628,
+          "ms": 0,
+          "end": 72.79999995231628,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 72.79999995231628,
+          "ms": 0,
+          "end": 72.79999995231628,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 135.39999985694885,
+          "ms": 0,
+          "end": 135.39999985694885,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 135.59999990463257,
+          "ms": 0,
+          "end": 135.59999990463257,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 136,
+          "ms": 0,
+          "end": 136,
+          "transfer": 0,
+          "encoded": 63404,
+          "decoded": 63404,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-500.woff2",
+          "type": "css",
+          "start": 136.20000004768372,
+          "ms": 0,
+          "end": 136.20000004768372,
+          "transfer": 0,
+          "encoded": 63272,
+          "decoded": 63272,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 136.29999995231628,
+          "ms": 0,
+          "end": 136.29999995231628,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 136.39999985694885,
+          "ms": 0,
+          "end": 136.39999985694885,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/open-sans-v15-greek_latin_latin-ext_vietnamese_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 136.70000004768372,
+          "ms": 0,
+          "end": 136.70000004768372,
+          "transfer": 0,
+          "encoded": 59600,
+          "decoded": 59600,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 137.20000004768372,
+          "ms": 0,
+          "end": 137.20000004768372,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "label": "learning-warm-1",
+      "path": "/problems/tag/:id",
+      "navigation": {
+        "ttfb": 321.59999990463257,
+        "domContentLoaded": 915.2000000476837,
+        "load": 939.9000000953674,
+        "transfer": 237270,
+        "encoded": 236970,
+        "decoded": 236970,
+        "protocol": "h2"
+      },
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 424
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 424
+        }
+      ],
+      "summary": {
+        "requests": 29,
+        "transfer": 916,
+        "decoded": 1613996,
+        "avatars": 1,
+        "blocking": 14
+      },
+      "dom": {
+        "elements": 2073,
+        "rows": 5,
+        "images": 1,
+        "localAvatars": 1
+      },
+      "vitals": {
+        "largest-contentful-paint": [
+          {
+            "ms": 424,
+            "duration": 0,
+            "size": 1700,
+            "tag": "A"
+          },
+          {
+            "ms": 1096,
+            "duration": 0,
+            "size": 5433,
+            "tag": "DIV"
+          }
+        ],
+        "layout-shift": [
+          {
+            "ms": 437,
+            "duration": 0,
+            "value": 4.7522564877483275e-7,
+            "hadRecentInput": false
+          },
+          {
+            "ms": 1028,
+            "duration": 0,
+            "value": 0.000022218311354597452,
+            "hadRecentInput": false
+          }
+        ]
+      },
+      "resources": [
+        {
+          "url": "/notices",
+          "type": "xmlhttprequest",
+          "start": 961.9000000953674,
+          "ms": 43.19999980926514,
+          "end": 1005.0999999046326,
+          "transfer": 300,
+          "encoded": 29,
+          "decoded": 29,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/user/:id/squat",
+          "type": "xmlhttprequest",
+          "start": 962.5,
+          "ms": 42.700000047683716,
+          "end": 1005.2000000476837,
+          "transfer": 300,
+          "encoded": 134,
+          "decoded": 134,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/sign_check",
+          "type": "xmlhttprequest",
+          "start": 964.5999999046326,
+          "ms": 40.700000047683716,
+          "end": 1005.2999999523163,
+          "transfer": 316,
+          "encoded": 16,
+          "decoded": 16,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.css",
+          "type": "link",
+          "start": 351.09999990463257,
+          "ms": 0,
+          "end": 351.09999990463257,
+          "transfer": 0,
+          "encoded": 628519,
+          "decoded": 628519,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/tomorrow.css",
+          "type": "link",
+          "start": 351.09999990463257,
+          "ms": 0,
+          "end": 351.09999990463257,
+          "transfer": 0,
+          "encoded": 3282,
+          "decoded": 3282,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/math.css",
+          "type": "link",
+          "start": 351.2000000476837,
+          "ms": 0,
+          "end": 351.2000000476837,
+          "transfer": 0,
+          "encoded": 1420,
+          "decoded": 1420,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/style.css",
+          "type": "link",
+          "start": 351.2999999523163,
+          "ms": 0,
+          "end": 351.2999999523163,
+          "transfer": 0,
+          "encoded": 7454,
+          "decoded": 7454,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/morris.js/0.5.1/morris.css",
+          "type": "link",
+          "start": 351.40000009536743,
+          "ms": 0,
+          "end": 351.40000009536743,
+          "transfer": 0,
+          "encoded": 433,
+          "decoded": 433,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fira-mono.css",
+          "type": "link",
+          "start": 351.5,
+          "ms": 0,
+          "end": 351.5,
+          "transfer": 0,
+          "encoded": 2108,
+          "decoded": 2108,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/lato.css",
+          "type": "link",
+          "start": 351.5,
+          "ms": 0,
+          "end": 351.5,
+          "transfer": 0,
+          "encoded": 3002,
+          "decoded": 3002,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/open-sans.css",
+          "type": "link",
+          "start": 351.7000000476837,
+          "ms": 0,
+          "end": 351.7000000476837,
+          "transfer": 0,
+          "encoded": 11499,
+          "decoded": 11499,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/exo-2.css",
+          "type": "link",
+          "start": 351.7999999523163,
+          "ms": 0,
+          "end": 351.7999999523163,
+          "transfer": 0,
+          "encoded": 797,
+          "decoded": 797,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/jquery/3.3.1/jquery.min.js",
+          "type": "script",
+          "start": 351.7999999523163,
+          "ms": 0,
+          "end": 351.7999999523163,
+          "transfer": 0,
+          "encoded": 86927,
+          "decoded": 86927,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/md-block.js",
+          "type": "script",
+          "start": 351.90000009536743,
+          "ms": 0,
+          "end": 351.90000009536743,
+          "transfer": 0,
+          "encoded": 6478,
+          "decoded": 6478,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2",
+          "type": "css",
+          "start": 397.2000000476837,
+          "ms": 0,
+          "end": 397.2000000476837,
+          "transfer": 0,
+          "encoded": 40148,
+          "decoded": 40148,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/themes/default/assets/fonts/outline-icons.woff2",
+          "type": "css",
+          "start": 397.2999999523163,
+          "ms": 0,
+          "end": 397.2999999523163,
+          "transfer": 0,
+          "encoded": 12240,
+          "decoded": 12240,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 397.5,
+          "ms": 0,
+          "end": 397.5,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "[embedded resource]",
+          "type": "css",
+          "start": 397.5,
+          "ms": 0,
+          "end": 397.5,
+          "transfer": 0,
+          "encoded": 0,
+          "decoded": 0,
+          "blocking": "non-blocking",
+          "protocol": "",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 397.7000000476837,
+          "ms": 0,
+          "end": 397.7000000476837,
+          "transfer": 0,
+          "encoded": 63404,
+          "decoded": 63404,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/fira-mono-v6-greek_latin_latin-ext_greek-ext_cyrillic-ext_cyrillic-500.woff2",
+          "type": "css",
+          "start": 397.7999999523163,
+          "ms": 0,
+          "end": 397.7999999523163,
+          "transfer": 0,
+          "encoded": 63272,
+          "decoded": 63272,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-regular.woff2",
+          "type": "css",
+          "start": 397.90000009536743,
+          "ms": 0,
+          "end": 397.90000009536743,
+          "transfer": 0,
+          "encoded": 24904,
+          "decoded": 24904,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/lato-v14-latin_latin-ext-700.woff2",
+          "type": "css",
+          "start": 397.90000009536743,
+          "ms": 0,
+          "end": 397.90000009536743,
+          "transfer": 0,
+          "encoded": 24488,
+          "decoded": 24488,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/open-sans-v15-greek_latin_latin-ext_vietnamese_greek-ext_cyrillic-ext_cyrillic-regular.woff2",
+          "type": "css",
+          "start": 398.2000000476837,
+          "ms": 0,
+          "end": 398.2000000476837,
+          "transfer": 0,
+          "encoded": 59600,
+          "decoded": 59600,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/google-fonts/fonts/exo-2-v4-latin_latin-ext_cyrillic-600.woff2",
+          "type": "css",
+          "start": 398.5,
+          "ms": 0,
+          "end": 398.5,
+          "transfer": 0,
+          "encoded": 38328,
+          "decoded": 38328,
+          "blocking": "non-blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/semantic-ui/2.4.1/semantic.min.js",
+          "type": "script",
+          "start": 907.7999999523163,
+          "ms": 0,
+          "end": 907.7999999523163,
+          "transfer": 0,
+          "encoded": 275730,
+          "decoded": 275730,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/Chart.js/3.9.1/chart.min.js",
+          "type": "script",
+          "start": 908.7000000476837,
+          "ms": 0,
+          "end": 908.7000000476837,
+          "transfer": 0,
+          "encoded": 199560,
+          "decoded": 199560,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/cdnjs/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js",
+          "type": "script",
+          "start": 910.2999999523163,
+          "ms": 0,
+          "end": 910.2999999523163,
+          "transfer": 0,
+          "encoded": 50842,
+          "decoded": 50842,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        },
+        {
+          "url": "/self/script.js",
+          "type": "script",
+          "start": 910.9000000953674,
+          "ms": 0,
+          "end": 910.9000000953674,
+          "transfer": 0,
+          "encoded": 9382,
+          "decoded": 9382,
+          "blocking": "blocking",
+          "protocol": "h2",
+          "status": 200
+        }
+      ]
+    }
+  ],
+  "compression": {
+    "method": "Unmodified public files; Node gzip level 6, Brotli quality 5; offline sizes, not deployed responses.",
+    "raw": 1241578,
+    "gzip": 284413,
+    "brotli": 261996
+  }
+}

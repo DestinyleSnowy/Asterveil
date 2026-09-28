@@ -1,4 +1,6 @@
 import { type ModuleId, moduleCatalog } from './catalog';
+import { type ColorMode, isColorMode } from './color-mode';
+import { defaultAccentColor, isAccentColor } from './palette';
 
 export const settingsKey = 'asterveil:settings';
 
@@ -6,6 +8,8 @@ export interface Settings {
   readonly schemaVersion: 1;
   readonly revision: number;
   readonly enabled: boolean;
+  readonly accentColor: string;
+  readonly colorMode: ColorMode;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
 
@@ -18,6 +22,8 @@ export function defaultSettings(): Settings {
     schemaVersion: 1,
     revision: 0,
     enabled: true,
+    accentColor: defaultAccentColor,
+    colorMode: 'light',
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
     ) as Record<ModuleId, boolean>,
@@ -38,6 +44,10 @@ export function decodeSettings(value: unknown): Settings {
   ) {
     throw new Error('设置数据无效，未覆盖现有数据。');
   }
+  const accentColor = value.accentColor ?? defaultAccentColor;
+  if (!isAccentColor(accentColor)) throw new Error('主题颜色数据无效。');
+  const colorMode = value.colorMode ?? 'light';
+  if (!isColorMode(colorMode)) throw new Error('显示模式数据无效。');
   const modules = { ...defaultSettings().modules };
   for (const { id } of moduleCatalog) {
     const enabled = value.modules[id];
@@ -46,5 +56,12 @@ export function decodeSettings(value: unknown): Settings {
     }
     if (enabled !== undefined) modules[id] = enabled;
   }
-  return { schemaVersion: 1, revision: value.revision, enabled: value.enabled, modules };
+  return {
+    schemaVersion: 1,
+    revision: value.revision,
+    enabled: value.enabled,
+    accentColor: accentColor.toLowerCase(),
+    colorMode,
+    modules,
+  };
 }

@@ -15,7 +15,7 @@ export class ModuleRuntime {
     }
   }
 
-  reconcile(url: URL, settings: Settings): void {
+  reconcile(url: URL, settings: Settings, domReady = true): void {
     if (this.disposed) return;
     if (this.pageUrl !== url.href) {
       this.stopAll();
@@ -25,7 +25,11 @@ export class ModuleRuntime {
     for (const definition of this.definitions) {
       try {
         const shouldRun =
-          site && settings.enabled && settings.modules[definition.id] && definition.matches(url);
+          site &&
+          settings.enabled &&
+          settings.modules[definition.id] &&
+          (domReady || definition.runAt === 'document-start') &&
+          definition.matches(url);
         if (!shouldRun) {
           this.stop(definition.id);
           continue;
@@ -38,7 +42,9 @@ export class ModuleRuntime {
           .then(async () => {
             if (scope.signal.aborted) return;
             const module = await definition.load();
-            if (!scope.signal.aborted) return module.mount({ url: new URL(url), site, scope });
+            if (!scope.signal.aborted) {
+              return module.mount({ url: new URL(url), site, scope, settings });
+            }
           })
           .catch((error: unknown) => {
             if (scope.signal.aborted) return;
@@ -62,8 +68,8 @@ export class ModuleRuntime {
   }
 
   private stop(id: ModuleId): void {
-    const scope = this.active.get(id);
+    const active = this.active.get(id);
     this.active.delete(id);
-    scope?.dispose();
+    active?.dispose();
   }
 }

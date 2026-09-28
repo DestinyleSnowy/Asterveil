@@ -1,0 +1,141 @@
+/* Detail pages share the selected palette without changing site interactions. */
+html[data-asterveil-page="problem"] .ui.main.container > .ui.center.aligned.grid {
+  margin-bottom: 22px;
+}
+html[data-asterveil-page="problem"] .ui.main.container > .ui.center.aligned.grid h1 {
+  color: var(--av-heading);
+  line-height: 1.5;
+}
+html[data-asterveil-page="problem"] .ui.main.container > .ui.center.aligned.grid .ui.label {
+  background: var(--av-paper);
+  color: var(--av-muted);
+  border: 1px solid var(--av-border);
+  border-radius: 7px;
+  font-weight: 500;
+}
+html[data-asterveil-page="problem"] .ui.main.container > .ui.grid > .row > .column > .ui.buttons {
+  border: 1px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--av-shadow);
+}
+html[data-asterveil-page="problem"]
+  .ui.main.container
+  > .ui.grid
+  > .row
+  > .column
+  > .ui.buttons
+  > .ui.button {
+  /* Keep the site's action colors, including hover and pressed states. */
+  border-radius: 0;
+  box-shadow: none;
+}
+html[data-asterveil-page="problem"] .ui.main.container .ui.bottom.attached.segment.font-content {
+  border-radius: 12px;
+  padding: 24px 28px;
+  line-height: 1.85;
+  color: var(--av-text);
+}
+html[data-asterveil-page="problem"] .font-content :is(h1, h2, h3) {
+  color: var(--av-heading);
+  line-height: 1.5;
+  margin-top: 28px;
+  margin-bottom: 14px;
+}
+html[data-asterveil-page="problem"] .font-content h2 {
+  font-size: 21px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--av-tint);
+}
+html[data-asterveil-page="problem"] .font-content > div > :is(h1, h2, h3):first-child {
+  margin-top: 0;
+}
+html[data-asterveil-page="problem"] .font-content p {
+  margin-bottom: 14px;
+}
+html[data-asterveil-page="problem"] .font-content .ui.existing.segment,
+html[data-asterveil-page="submission"] #submission_content .ui.existing.segment {
+  background: var(--av-surface);
+  border: 1px solid var(--av-border);
+  border-radius: 10px;
+  box-shadow: none;
+  padding: 18px 20px;
+}
+html[data-asterveil-page="problem"] .font-content pre,
+html[data-asterveil-page="submission"] #submission_content pre {
+  overflow-x: auto;
+  max-width: 100%;
+  tab-size: 4;
+  line-height: 1.7;
+}
+html[data-asterveil-page="problem"] .font-content pre code,
+html[data-asterveil-page="submission"] #submission_content pre code {
+  font-family: Consolas, "Cascadia Code", monospace;
+  font-size: 13px;
+  line-height: inherit;
+}
+html[data-asterveil-page="problem"] .font-content .ui.copy.button {
+  background: var(--av-tint);
+  color: var(--av-accent);
+  border-radius: 6px;
+}
+html[data-asterveil-page="problem"] .ui.main.container #show_tag_title_div {
+  background: var(--av-surface);
+  border-color: var(--av-border);
+  border-radius: 8px 8px 0 0;
+}
+html[data-asterveil-page="problem"] .ui.main.container #languages-menu {
+  background: var(--av-paper);
+  border-color: var(--av-border);
+  border-radius: 8px;
+  box-shadow: none;
+}
+html[data-asterveil-page="problem"] #languages-menu .active.item {
+  background: var(--av-tint);
+  color: var(--av-accent);
+  border-color: var(--av-accent);
+}
+html[data-asterveil-page="problem"] #submit_code {
+  scroll-margin-top: 72px;
+}
+html[data-asterveil-page="submission"] #submission_content .ui.existing.segment:has(> .ui.button) {
+  background: var(--av-paper);
+  padding-top: 54px;
+  box-shadow: var(--av-shadow);
+}
+html[data-asterveil-page="submission"] #submission_content .ui.existing.segment > .ui.button {
+  background: var(--av-tint);
+  color: var(--av-accent);
+  margin: 0;
+  /* biome-ignore lint/complexity/noImportantStyles: Keep the site's inline-positioned format button inside the rounded code panel. */
+  right: 0 !important;
+  /* biome-ignore lint/complexity/noImportantStyles: Override the square inline corner of the existing format button. */
+  border-radius: 0 9px 0 9px !important;
+}
+html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion {
+  border: 1px solid var(--av-border);
+  border-radius: 10px;
+  box-shadow: var(--av-shadow);
+  overflow: hidden;
+}
+html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion .title {
+  padding: 14px 18px;
+  border-top-color: var(--av-border);
+  color: var(--av-muted);
+}
+html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion .title.active {
+  background: var(--av-surface);
+}
+html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion .content {
+  border-color: var(--av-border);
+}
+@media (hover: hover) {
+  html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion .title:hover {
+    background: var(--av-hover);
+  }
+}
+@media (max-width: 767px) {
+  html[data-asterveil-page="problem"] .ui.main.container .ui.bottom.attached.segment.font-content {
+    padding: 18px;
+  }
+}

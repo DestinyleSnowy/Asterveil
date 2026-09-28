@@ -1,35 +1,75 @@
 import { defineContentScript } from 'wxt/utils/define-content-script';
 import { ModuleRuntime } from '../core/runtime';
+import { Scope } from '../core/scope';
 import { modules } from '../features/registry';
 import { localSettings, watchSettings } from '../platform/settings-repository';
 import type { Settings } from '../shared/settings';
 import { contentMatches, resolveSite } from '../site/target';
+import { createPageTheme } from '../site/theme';
+import { mountFloatingSettings } from '../ui/settings/floating';
 
 export default defineContentScript({
   matches: contentMatches,
-  runAt: 'document_idle',
+  runAt: 'document_start',
   main(ctx) {
     if (!resolveSite(new URL(location.href))) return;
     const runtime = new ModuleRuntime(modules);
+    const uiScope = new Scope();
+    let floatingSettings: ReturnType<typeof mountFloatingSettings> | undefined;
+    let theme: ReturnType<typeof createPageTheme> | undefined;
+    let domReady = false;
+    let settingsResolved = false;
     const lifetime = new AbortController();
     let settings: Settings | undefined;
     let changes = 0;
 
     const reconcile = () => {
-      if (!ctx.isInvalid && !lifetime.signal.aborted && settings) {
-        runtime.reconcile(new URL(location.href), settings);
+      if (ctx.isInvalid || lifetime.signal.aborted) return;
+      const url = new URL(location.href);
+      if (settingsResolved) theme?.update(url, settings);
+      if (settings) {
+        runtime.reconcile(url, settings, domReady);
+        floatingSettings?.setAppearance(settings.accentColor, settings.colorMode);
       }
     };
+    const initRoot = () => {
+      if (theme || !document.documentElement || lifetime.signal.aborted) return;
+      theme = createPageTheme(uiScope, new URL(location.href));
+      reconcile();
+    };
+    const rootObserver = new MutationObserver(() => {
+      initRoot();
+      if (theme) rootObserver.disconnect();
+    });
+    initRoot();
+    if (!theme) rootObserver.observe(document, { childList: true });
+    uiScope.defer(() => rootObserver.disconnect());
+    const initDom = () => {
+      if (domReady || lifetime.signal.aborted || !document.body) return;
+      domReady = true;
+      initRoot();
+      floatingSettings = mountFloatingSettings(uiScope);
+      reconcile();
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initDom, {
+        once: true,
+        signal: lifetime.signal,
+      });
+    } else initDom();
     const onError = (error: unknown) => {
       if (lifetime.signal.aborted) return;
       changes++;
       settings = undefined;
+      settingsResolved = true;
+      reconcile();
       runtime.stopAll();
       console.error('[Asterveil] Settings unavailable', error);
     };
     const unwatch = watchSettings((value) => {
       changes++;
       settings = value;
+      settingsResolved = true;
       reconcile();
     }, onError);
 
@@ -39,6 +79,7 @@ export default defineContentScript({
       (value) => {
         if (lifetime.signal.aborted || changes !== initialChanges) return;
         settings = value;
+        settingsResolved = true;
         reconcile();
       },
       (error: unknown) => {
@@ -57,6 +98,7 @@ export default defineContentScript({
       lifetime.abort();
       unwatch();
       runtime.dispose();
+      uiScope.dispose();
     };
     ctx.onInvalidated(stop);
     window.addEventListener(

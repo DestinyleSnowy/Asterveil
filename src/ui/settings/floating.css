@@ -1,0 +1,288 @@
+:host {
+  all: initial;
+  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--av-text);
+  color-scheme: var(--av-scheme);
+}
+.settings-launcher {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 2147483646;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 7px;
+  border: 1px solid var(--av-border);
+  border-radius: 50%;
+  background: var(--av-paper);
+  box-shadow: 0 3px 12px #18202e12;
+  cursor: pointer;
+  transition:
+    transform calc(220ms * var(--av-motion, 1)) cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow calc(220ms * var(--av-motion, 1)) ease,
+    background-color calc(180ms * var(--av-motion, 1)) ease,
+    border-color calc(180ms * var(--av-motion, 1)) ease;
+}
+.settings-launcher svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  transition: transform calc(260ms * var(--av-motion, 1)) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.settings-launcher rect {
+  fill: transparent;
+}
+.settings-launcher path {
+  fill: var(--av-accent);
+}
+.settings-launcher:hover {
+  transform: translateY(-3px);
+  border-color: var(--av-accent);
+  background: var(--av-tint);
+  box-shadow: 0 8px 22px #18202e1c;
+}
+.settings-launcher:active {
+  transform: translateY(0) scale(0.94);
+}
+.settings-launcher[aria-expanded="true"] {
+  background: var(--av-tint);
+  box-shadow: 0 0 0 3px var(--av-ring);
+}
+.settings-dialog {
+  width: min(820px, calc(100vw - 32px));
+  height: min(540px, calc(100dvh - 48px));
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  margin: auto;
+  border: 1px solid var(--av-border);
+  border-radius: 18px;
+  background: var(--av-paper);
+  color: var(--av-text);
+  box-shadow: 0 18px 65px #172b4924;
+  overflow: hidden;
+}
+.settings-dialog::backdrop {
+  background: transparent;
+}
+.settings-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+.dialog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 16px;
+  min-height: 76px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--av-border);
+}
+.dialog-identity,
+.dialog-brand {
+  display: flex;
+  align-items: center;
+}
+.dialog-identity {
+  gap: 20px;
+}
+.dialog-brand {
+  gap: 12px;
+  font-size: 20px;
+  color: var(--av-heading);
+  font-weight: 600;
+}
+.dialog-brand svg {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.settings-launcher:hover svg {
+  transform: rotate(-10deg);
+}
+.dialog-heading h2 {
+  padding-left: 20px;
+  border-left: 1px solid var(--av-border);
+  font-size: 20px;
+  font-weight: 600;
+}
+.dialog-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: var(--av-surface);
+  color: var(--av-muted);
+  cursor: pointer;
+  transition:
+    transform calc(180ms * var(--av-motion, 1)) ease,
+    background-color calc(180ms * var(--av-motion, 1)) ease,
+    color calc(180ms * var(--av-motion, 1)) ease;
+}
+.dialog-close:hover {
+  transform: rotate(90deg);
+  background: var(--av-tint);
+  color: var(--av-accent);
+}
+.dialog-close:active {
+  transform: rotate(90deg) scale(0.9);
+}
+.dialog-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+.settings-nav {
+  width: 174px;
+  flex-shrink: 0;
+  padding: 24px 14px;
+  background: var(--av-surface);
+  border-right: 1px solid var(--av-border);
+}
+.settings-nav button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 14px;
+  margin-bottom: 8px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--av-muted);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color calc(180ms * var(--av-motion, 1)) ease,
+    color calc(180ms * var(--av-motion, 1)) ease,
+    transform calc(180ms * var(--av-motion, 1)) ease;
+}
+.settings-nav button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--av-accent);
+  opacity: 0;
+  transform: scaleY(0.5);
+  transition:
+    opacity calc(180ms * var(--av-motion, 1)) ease,
+    transform calc(220ms * var(--av-motion, 1)) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.settings-nav button:hover {
+  background: var(--av-hover);
+  color: var(--av-accent);
+}
+.settings-nav button:active {
+  transform: scale(0.97);
+}
+.settings-nav button[aria-current] {
+  color: var(--av-accent);
+  background: var(--av-tint);
+  font-weight: 600;
+}
+.settings-nav button[aria-current]::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+.page-view {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--av-border) transparent;
+  background: var(--av-canvas);
+}
+@media (max-width: 640px) {
+  .settings-dialog {
+    width: calc(100vw - 16px);
+    height: min(640px, calc(100dvh - 24px));
+    border-radius: 14px;
+  }
+  .dialog-heading {
+    padding: 16px;
+    min-height: 68px;
+  }
+  .dialog-identity {
+    gap: 12px;
+  }
+  .dialog-brand {
+    font-size: 18px;
+    gap: 8px;
+  }
+  .dialog-heading h2 {
+    font-size: 18px;
+    padding-left: 12px;
+  }
+  .dialog-body {
+    flex-direction: column;
+  }
+  .settings-nav {
+    width: auto;
+    display: flex;
+    flex-shrink: 0;
+    padding: 8px;
+    gap: 4px;
+    border-right: 0;
+    border-bottom: 1px solid var(--av-border);
+  }
+  .settings-nav button {
+    flex: 1;
+    margin: 0;
+    justify-content: center;
+    padding: 10px 6px;
+    gap: 7px;
+    font-size: 12px;
+  }
+  .settings-nav button::before {
+    top: auto;
+    left: 16px;
+    right: 16px;
+    bottom: 0;
+    height: 2px;
+    width: auto;
+    transform: scaleX(0.5);
+  }
+  .settings-nav button[aria-current]::before {
+    transform: scaleX(1);
+  }
+  .settings-nav .ui-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .settings-launcher {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .settings-launcher:hover,
+  .settings-launcher:hover svg,
+  .dialog-close:hover {
+    transform: none;
+  }
+}
+@media print {
+  .settings-launcher,
+  .settings-dialog {
+    display: none;
+  }
+}

@@ -1,0 +1,44 @@
+<main class="settings-view" data-section="appearance">
+  <form id="settings-form">
+    <fieldset id="controls" disabled>
+      <legend class="visually-hidden">扩展设置</legend>
+      <div id="modules"></div>
+      <fieldset id="color-mode" class="color-mode settings-card" aria-labelledby="color-mode-title">
+        <h2 id="color-mode-title">显示模式</h2>
+        <div class="mode-options">
+          <label><input type="radio" name="color-mode" value="light" /><span><i data-settings-icon="sun"></i>浅色</span></label>
+          <label><input type="radio" name="color-mode" value="dark" /><span><i data-settings-icon="moon"></i>深色</span></label>
+          <label><input type="radio" name="color-mode" value="system" /><span><i data-settings-icon="monitor"></i>跟随系统</span></label>
+        </div>
+      </fieldset>
+      <fieldset id="palette" class="palette settings-card" aria-labelledby="palette-title">
+        <h2 id="palette-title">主题配色</h2>
+        <div id="accent-presets" class="swatches">
+          <label class="swatch custom-swatch">
+            <input id="accent-color" type="color" value="#386b9e" aria-label="自定义配色" />
+            <i class="custom-chip" data-settings-icon="pipette"></i>
+            <span>自定义</span>
+          </label>
+        </div>
+      </fieldset>
+      <section class="about" aria-label="关于 Asterveil">
+        <div class="settings-card about-info">
+        <div class="about-product"><span class="emblem" aria-hidden="true"></span><h2>Asterveil</h2></div>
+        <dl class="about-details">
+          <div><dt>版本</dt><dd id="version"></dd></div>
+          <div><dt>作者</dt><dd>鱼oe不缺氧</dd></div>
+          <div><dt>开源许可</dt><dd><a href="https://github.com/DestinyleSnowy/Asterveil/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Apache-2.0</a></dd></div>
+          <div><dt>项目地址</dt><dd><a href="https://github.com/DestinyleSnowy/Asterveil" target="_blank" rel="noopener noreferrer">GitHub</a></dd></div>
+        </dl>
+        </div>
+        <label class="master row settings-card">
+          <strong>启用 Asterveil</strong>
+          <input type="checkbox" id="enabled" role="switch" aria-checked="false" />
+        </label>
+        <p class="copyright">Copyright ©️ 2026 鱼oe不缺氧. All Rights Reserverd.</p>
+      </section>
+    </fieldset>
+  </form>
+  <p id="status" role="status" aria-live="polite">正在读取设置…</p>
+  <button id="retry" type="button" hidden>重新读取</button>
+</main>

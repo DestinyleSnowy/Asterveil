@@ -2,6 +2,7 @@
   "name": "asterveil",
   "version": "0.1.0",
   "private": true,
+  "license": "Apache-2.0",
   "description": "Modular visual and interaction enhancements for 7FA4.",
   "type": "module",
   "engines": {

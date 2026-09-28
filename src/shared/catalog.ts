@@ -1,6 +1,12 @@
 // Metadata is safe to import in the popup, worker, and content script.
 export const moduleCatalog = [
   {
+    id: 'homework',
+    title: 'H 题 Markdown',
+    description: '在线作答、导出图片和 PDF、提交 PDF，以及折叠已提交作业。',
+    defaultEnabled: true,
+  },
+  {
     id: 'ui-polish',
     title: '界面微调',
     description: '调整导航、面板和表格的配色与间距。',

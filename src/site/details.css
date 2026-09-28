@@ -1,4 +1,26 @@
 /* Detail pages share the selected palette without changing site interactions. */
+html[data-asterveil-page="problem"] .asterveil-copy-title {
+  position: relative;
+  cursor: copy;
+}
+html[data-asterveil-page="problem"] .asterveil-copy-title[data-asterveil-copy-status]::after {
+  content: attr(data-asterveil-copy-status);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--av-accent);
+  color: var(--av-on-accent);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
 html[data-asterveil-page="problem"] .ui.main.container > .ui.center.aligned.grid {
   margin-bottom: 22px;
 }
@@ -29,6 +51,17 @@ html[data-asterveil-page="problem"]
   /* Keep the site's action colors, including hover and pressed states. */
   border-radius: 0;
   box-shadow: none;
+}
+html[data-asterveil-page="problem"]
+  .ui.main.container
+  .ui.button[data-asterveil="copy-problem-source"] {
+  background-color: var(--av-accent);
+  color: var(--av-on-accent);
+}
+html[data-asterveil-page="problem"]
+  .ui.main.container
+  .ui.button[data-asterveil="copy-problem-source"]:is(:hover, :focus-visible) {
+  background-color: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
 }
 html[data-asterveil-page="problem"] .ui.main.container .ui.bottom.attached.segment.font-content {
   border-radius: 12px;

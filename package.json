@@ -6,7 +6,7 @@
   "description": "Modular visual and interaction enhancements for 7FA4.",
   "type": "module",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   },
   "scripts": {
     "dev": "wxt",
@@ -19,7 +19,17 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@types/katex": "^0.16.8",
+    "@types/node": "^22.20.4",
     "typescript": "6.0.3",
     "wxt": "0.21.4"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.16",
+    "html-to-image": "^1.11.13",
+    "katex": "^0.18.9",
+    "marked": "^18.0.14",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.3.289"
   }
 }

@@ -5,6 +5,7 @@ import type { Settings } from '../shared/settings';
 import accountCss from './account.css?inline';
 import { appearancePage } from './appearance';
 import css from './appearance.css?inline';
+import chatCss from './chat.css?inline';
 import codeEditorCss from './code-editor.css?inline';
 import contestCss from './contest.css?inline';
 import darkCss from './dark.css?inline';
@@ -22,7 +23,7 @@ export function createPageTheme(scope: Scope, initialUrl: URL) {
   const previous = attributes.map((name) => root.getAttribute(name));
   const style = document.createElement('style');
   style.dataset.asterveil = 'ui-polish';
-  style.textContent = `${css}\n${detailsCss}\n${contestCss}\n${problemToolsCss}\n${accountCss}\n${darkCss}\n${codeEditorCss}`;
+  style.textContent = `${css}\n${detailsCss}\n${contestCss}\n${problemToolsCss}\n${accountCss}\n${darkCss}\n${codeEditorCss}\n${chatCss}`;
   const palette = document.createElement('style');
   palette.dataset.asterveil = 'palette';
   root.append(style, palette);

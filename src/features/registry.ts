@@ -18,9 +18,4 @@ export const modules = [
     matches: () => true,
     load: () => import('./local-avatars').then((module) => module.default),
   },
-  {
-    id: 'keyboard-focus',
-    matches: () => true,
-    load: () => import('./keyboard-focus').then((module) => module.default),
-  },
 ] satisfies readonly ModuleDefinition[];

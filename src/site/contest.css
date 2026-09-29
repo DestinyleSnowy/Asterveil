@@ -37,29 +37,15 @@ html[data-asterveil-page="contest"] #timer-progress {
   margin-top: 12px;
   margin-bottom: 28px;
 }
-html[data-asterveil-page="contest"]
-  .ui.main.container
-  .padding
-  > .ui.grid
-  > .row
-  > .column
-  > .ui.buttons {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 8px;
+/* Keep the site's adjoining action buttons and native group corner shapes. */
+html[data-asterveil-page="contest"] .ui.buttons > .ui.button[data-asterveil="contest-review"] {
+  background-color: var(--av-accent);
+  color: var(--av-on-accent);
 }
 html[data-asterveil-page="contest"]
-  .ui.main.container
-  .padding
-  > .ui.grid
-  > .row
-  > .column
-  > .ui.buttons
-  > .ui.button {
-  /* Keep the site's action colors, including hover and pressed states. */
-  border: 1px solid transparent;
-  border-radius: 8px;
-  box-shadow: var(--av-shadow);
+  .ui.buttons
+  > .ui.button[data-asterveil="contest-review"]:hover {
+  background-color: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
 }
 html[data-asterveil-page="contest"] .ui.main.container .column > .ui.selectable.celled.table {
   border-collapse: separate;

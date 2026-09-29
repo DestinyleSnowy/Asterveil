@@ -31,6 +31,13 @@ export default defineConfig({
     },
   }),
   hooks: {
+    'config:resolved'(wxt) {
+      const name = wxt.config.mode === 'light' ? 'Asterveil' : 'Asterveil Pro';
+      const suffix = wxt.config.command === 'serve' ? '-dev' : '';
+      wxt.config.outDir = resolve(wxt.config.outBaseDir, `${name}${suffix}`);
+      wxt.config.zip.name = name.replaceAll(' ', '-');
+      wxt.config.zip.artifactTemplate = '{{name}}-{{packageVersion}}-{{browser}}.zip';
+    },
     async 'build:done'(wxt) {
       const manifest = JSON.parse(
         await readFile(resolve(wxt.config.outDir, 'manifest.json'), 'utf8'),
@@ -83,7 +90,7 @@ export default defineConfig({
     },
   },
   manifest: ({ mode }) => ({
-    name: mode === 'light' ? 'Asterveil Light' : 'Asterveil Full',
+    name: mode === 'light' ? 'Asterveil' : 'Asterveil Pro',
     description: '以独立模块改善 7FA4 的视觉与操作体验。',
     minimum_chrome_version: '120',
     permissions: ['storage', 'activeTab', 'scripting', 'declarativeNetRequest'],
@@ -101,6 +108,9 @@ export default defineConfig({
       '*://211.137.101.118/*',
     ],
     icons,
-    action: { default_title: 'Asterveil', default_icon: icons },
+    action: {
+      default_title: mode === 'light' ? 'Asterveil' : 'Asterveil Pro',
+      default_icon: icons,
+    },
   }),
 });

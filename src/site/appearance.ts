@@ -12,6 +12,7 @@ export function appearancePage(url: URL): string | undefined {
   )
     return 'statistics';
   if (path === '/contests') return 'contests';
+  if (path === '/chat') return 'chat';
   if (/^\/contest\/\d+$/.test(path)) return 'contest';
   if (path === '/submissions') return 'submissions';
   if (/^\/submission\/\d+$/.test(path)) return 'submission';

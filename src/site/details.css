@@ -140,10 +140,33 @@ html[data-asterveil-page="submission"] #submission_content .ui.existing.segment 
   background: var(--av-tint);
   color: var(--av-accent);
   margin: 0;
-  /* biome-ignore lint/complexity/noImportantStyles: Keep the site's inline-positioned format button inside the rounded code panel. */
-  right: 0 !important;
-  /* biome-ignore lint/complexity/noImportantStyles: Override the square inline corner of the existing format button. */
-  border-radius: 0 9px 0 9px !important;
+  position: absolute;
+  top: 0;
+}
+html[data-asterveil-page="submission"]
+  #submission_content
+  .ui.existing.segment
+  > [onclick^="toggleFormattedCode("] {
+  left: 0;
+  /* biome-ignore lint/complexity/noImportantStyles: Move the native inline-positioned format control to the left. */
+  right: auto !important;
+  /* biome-ignore lint/complexity/noImportantStyles: Override native inline corners for the left edge. */
+  border-radius: 9px 0 9px 0 !important;
+}
+html[data-asterveil-page="submission"]
+  #submission_content
+  .ui.existing.segment
+  > .ui.button[data-asterveil="copy-submission-code"] {
+  right: 0;
+  border-radius: 0 9px 0 9px;
+  background: var(--av-accent);
+  color: var(--av-on-accent);
+}
+html[data-asterveil-page="submission"]
+  #submission_content
+  .ui.existing.segment
+  > .ui.button[data-asterveil="copy-submission-code"]:hover {
+  background: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
 }
 html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion {
   border: 1px solid var(--av-border);

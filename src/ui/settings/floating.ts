@@ -1,6 +1,7 @@
 import brandIcon from '../../../public/icon/asterveil.svg?raw';
 import { Scope } from '../../core/scope';
 import { type ColorMode, watchColorMode } from '../../shared/color-mode';
+import { productName } from '../../shared/edition';
 import { defaultAccentColor, paletteVariables } from '../../shared/palette';
 import { mountSettings } from './controller';
 import floatingCss from './floating.css?inline';
@@ -19,8 +20,8 @@ export function mountFloatingSettings(scope: Scope): {
   const launcher = document.createElement('button');
   launcher.className = 'settings-launcher';
   launcher.type = 'button';
-  launcher.title = 'Asterveil 设置';
-  launcher.setAttribute('aria-label', '打开 Asterveil 设置');
+  launcher.title = `${productName} 设置`;
+  launcher.setAttribute('aria-label', `打开 ${productName} 设置`);
   launcher.setAttribute('aria-haspopup', 'dialog');
   launcher.setAttribute('aria-expanded', 'false');
   launcher.innerHTML = brandIcon;
@@ -28,14 +29,14 @@ export function mountFloatingSettings(scope: Scope): {
   dialog.className = 'settings-dialog';
   dialog.setAttribute('aria-labelledby', 'settings-title');
   dialog.innerHTML = `
-    <div class="dialog-heading"><div class="dialog-identity"><span class="dialog-brand">${brandIcon}<span>Asterveil</span></span><h2 id="settings-title">设置</h2></div><button type="button" class="dialog-close" aria-label="关闭设置">${settingsIcon('close')}</button></div>
+    <div class="dialog-heading"><div class="dialog-identity"><span class="dialog-brand">${brandIcon}<span>${productName}</span></span><h2 id="settings-title">设置</h2></div><button type="button" class="dialog-close" aria-label="关闭设置">${settingsIcon('close')}</button></div>
     <div class="dialog-body">
       <nav class="settings-nav" aria-label="设置分类">
         <button type="button" data-section="appearance" aria-current="page">${settingsIcon('appearance')}外观配色</button>
         <button type="button" data-section="modules">${settingsIcon('modules')}功能模块</button>
         <button type="button" data-section="about">${settingsIcon('about')}关于</button>
       </nav>
-      <div class="page-view">${markup}</div>
+      <div class="page-view">${markup.replaceAll('{{productName}}', productName)}</div>
     </div>`;
   const view = dialog.querySelector<HTMLElement>('.page-view');
   if (!view) throw new Error('Settings view missing');

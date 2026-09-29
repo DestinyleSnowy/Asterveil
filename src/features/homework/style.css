@@ -1,3 +1,5 @@
+@import "./markdown.css";
+
 :host {
   display: block;
   margin: 22px 0;
@@ -172,89 +174,9 @@ textarea::placeholder {
   overflow: auto;
   background: var(--av-paper, #fff);
 }
-.paper {
-  min-height: 100%;
-  padding: 16px 20px;
-  background: var(--av-paper, #fff);
-  color: var(--av-text, #334155);
-  font:
-    15px / 1.75 "Segoe UI",
-    "Microsoft YaHei",
-    system-ui,
-    sans-serif;
-  overflow-wrap: anywhere;
-}
-.paper > :first-child {
-  margin-top: 0;
-}
 h2 {
   margin: 0 0 12px;
   font-size: 17px;
-}
-.paper h1,
-.paper h2,
-.paper h3 {
-  line-height: 1.45;
-  margin: 24px 0 12px;
-  color: var(--av-heading, #263b51);
-}
-.paper h1 {
-  font-size: 26px;
-}
-.paper h2 {
-  font-size: 22px;
-}
-.paper h3 {
-  font-size: 18px;
-}
-.paper p {
-  margin: 12px 0;
-}
-.paper pre {
-  white-space: pre-wrap;
-  background: var(--av-surface, #f5f7fa);
-  padding: 12px;
-  border-radius: 6px;
-}
-.paper code {
-  font-family: Consolas, monospace;
-  font-size: 0.9em;
-}
-.paper table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: fixed;
-}
-.paper th,
-.paper td {
-  border: 1px solid var(--av-border, #d8e1ec);
-  padding: 6px 9px;
-}
-.paper th {
-  background: var(--av-surface, #f5f7fa);
-}
-.paper blockquote {
-  margin-inline: 0;
-  border-left: 3px solid var(--av-border, #d8e1ec);
-  padding-left: 14px;
-  color: var(--av-muted, #647184);
-}
-.paper img {
-  max-width: 100%;
-  height: auto;
-}
-.paper .katex-display {
-  margin: 1.35em 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 3px 0;
-}
-.paper .katex {
-  font-size: 1.16em;
-  color: inherit;
-}
-.paper a {
-  color: var(--av-accent, #386b9e);
 }
 footer {
   justify-content: space-between;

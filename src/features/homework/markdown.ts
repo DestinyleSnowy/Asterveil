@@ -2,21 +2,45 @@ import DOMPurify from 'dompurify';
 import katex from 'katex';
 import { Marked } from 'marked';
 
-export function renderMarkdown(source: string, target: HTMLElement): void {
+export function renderMarkdown(
+  source: string,
+  target: HTMLElement,
+  options: { chat?: boolean } = {},
+): void {
   const formulas: Array<{ text: string; displayMode: boolean }> = [];
   const marker = `av-math-${crypto.randomUUID()}`;
-  const markdown = new Marked({ gfm: true, breaks: false });
+  const markdown = new Marked({ gfm: true, breaks: options.chat === true });
   markdown.use({ renderer: { checkbox: ({ checked }) => (checked ? '☑ ' : '☐ ') } });
-  for (const [name, level, expression, displayMode] of [
-    ['blockMath', 'block', /^\$\$\s*\n?([\s\S]+?)\n?\$\$(?:\n|$)/, true],
-    ['inlineMath', 'inline', /^\$([^$\n]+?)\$/, false],
+  if (options.chat) {
+    const escapeHtml = (text: string) =>
+      text
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    markdown.use({
+      renderer: {
+        html: ({ text }) => escapeHtml(text),
+        // Chat messages must not silently load third-party tracking images.
+        image: ({ href, text }) =>
+          `<a href="${escapeHtml(href)}">${escapeHtml(text || '图片')}</a>`,
+      },
+    });
+  }
+  for (const [name, level, expression, displayMode, delimiter] of [
+    ['blockMath', 'block', /^\$\$\s*\n?([\s\S]+?)\n?\$\$(?:\n|$)/, true, '$$'],
+    ['blockLatex', 'block', /^\\\[([\s\S]+?)\\\](?:\n|$)/, true, '\\['],
+    ['inlineDisplayMath', 'inline', /^\$\$([\s\S]+?)\$\$/, true, '$$'],
+    ['inlineDisplayLatex', 'inline', /^\\\[([\s\S]+?)\\\]/, true, '\\['],
+    ['inlineMath', 'inline', /^\$([^$\n]+?)\$/, false, '$'],
+    ['inlineLatex', 'inline', /^\\\(([^\n]+?)\\\)/, false, '\\('],
   ] as const) {
     markdown.use({
       extensions: [
         {
           name,
           level,
-          start: (text) => text.indexOf(displayMode ? '$$' : '$'),
+          start: (text) => text.indexOf(delimiter),
           tokenizer(text) {
             const match = expression.exec(text);
             if (match) return { type: name, raw: match[0], text: match[1] ?? '' };

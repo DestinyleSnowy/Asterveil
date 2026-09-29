@@ -1,8 +1,11 @@
+import { browser } from 'wxt/browser';
 import { defineContentScript } from 'wxt/utils/define-content-script';
 import { ModuleRuntime } from '../core/runtime';
 import { Scope } from '../core/scope';
 import { modules } from '../features/registry';
 import { localSettings, watchSettings } from '../platform/settings-repository';
+import { pdfEnabled } from '../shared/edition';
+import { editionCheckMessage, editionStopMessage } from '../shared/edition-coordination';
 import type { Settings } from '../shared/settings';
 import { contentMatches, resolveSite } from '../site/target';
 import { createPageTheme } from '../site/theme';
@@ -11,8 +14,13 @@ import { mountFloatingSettings } from '../ui/settings/floating';
 export default defineContentScript({
   matches: contentMatches,
   runAt: 'document_start',
-  main(ctx) {
+  async main(ctx) {
     if (!resolveSite(new URL(location.href))) return;
+    if (!pdfEnabled) {
+      // Do not touch the DOM until the background has ruled out an enabled Pro.
+      const allowed = await browser.runtime.sendMessage(editionCheckMessage).catch(() => false);
+      if (allowed !== true || ctx.isInvalid) return;
+    }
     const runtime = new ModuleRuntime(modules);
     const uiScope = new Scope();
     let floatingSettings: ReturnType<typeof mountFloatingSettings> | undefined;
@@ -100,6 +108,22 @@ export default defineContentScript({
       runtime.dispose();
       uiScope.dispose();
     };
+    if (!pdfEnabled) {
+      const onMessage: Parameters<typeof browser.runtime.onMessage.addListener>[0] = (
+        message,
+        sender,
+        sendResponse,
+      ) => {
+        if (message !== editionStopMessage || sender.id !== browser.runtime.id || sender.tab) {
+          return false;
+        }
+        stop();
+        sendResponse(true);
+        return false;
+      };
+      browser.runtime.onMessage.addListener(onMessage);
+      uiScope.defer(() => browser.runtime.onMessage.removeListener(onMessage));
+    }
     ctx.onInvalidated(stop);
     window.addEventListener(
       'pagehide',

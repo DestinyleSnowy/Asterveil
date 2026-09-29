@@ -93,7 +93,13 @@ export default defineConfig({
     name: mode === 'light' ? 'Asterveil' : 'Asterveil Pro',
     description: '以独立模块改善 7FA4 的视觉与操作体验。',
     minimum_chrome_version: '120',
-    permissions: ['storage', 'activeTab', 'scripting', 'declarativeNetRequest'],
+    permissions: [
+      'storage',
+      'activeTab',
+      'scripting',
+      'declarativeNetRequest',
+      ...(mode === 'light' ? ['management' as const] : []),
+    ],
     ...(mode !== 'light' && {
       web_accessible_resources: [{ resources: ['pdfjs/*'], matches: contentMatches }],
     }),

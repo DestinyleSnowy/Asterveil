@@ -2,6 +2,14 @@
 
 ## 当前边界
 
+### Pro 优先运行（2026-09-29）
+
+- 普通版独占 `management` 权限，后台同步注册扩展安装/启用监听，启动及页面注入前查询已启用的 Asterveil Pro。未打包安装的 ID 随路径变化，因此按扩展类型、准确名称及 enabled 状态识别，并排除自身 ID。
+- 普通版内容脚本等待后台检测通过后才修改 DOM。检测冲突后先通知目标标签页释放模块、主题、设置入口和订阅，再用自身 runtime ID 停用普通版；消息只接受自身后台发送，后台查询只接受已有站点校验通过的顶层内容脚本。冻结或无接收器的页面不阻塞停用，清理最多等待一秒。
+- 停用作用于整个普通版扩展，包括后台、工具栏和网络规则；不写入用户总开关、不删除设置或已保存草稿。重新启用需用户先停用 Pro；切换后刷新页面。Pro 不包含检测服务的运行入口，也不申请管理权限。
+- 使用 [Chrome management API](https://developer.chrome.com/docs/extensions/reference/api/management)；其 [Chromium 实现](https://raw.githubusercontent.com/chromium/chromium/main/extensions/browser/api/management/management_api.cc) 的禁用分支不依赖用户手势，仍遵循浏览器管理策略。
+- 13 项自动化测试覆盖 Pro 已启用、后续安装/启用、重复与过期事件、未启用及同名非扩展排除、查询失败恢复、页面清理超时和管理策略拒绝。Biome、TypeScript、两版构建与 ZIP 打包通过，产物确认只有普通版包含管理权限及检测服务。测试使用模拟浏览器 API，尚未在真实浏览器中验证自动停用流程。
+
 ### light / full 构建（2026-09-29）
 
 - WXT 的 `light` / `full` 模式生成独立目录和 ZIP，扩展名称分别为 Asterveil / Asterveil Pro，工具栏提示、设置标题、关于页与弹窗标题同步使用对应名称。构建常量控制编辑器名称与 PDF 入口，模块 ID 继续使用 `homework`，保留原有设置和草稿键。

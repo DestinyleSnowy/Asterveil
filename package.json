@@ -19,6 +19,7 @@
     "zip:full": "wxt zip --mode full",
     "zip:all": "npm run zip:light && npm run zip:full",
     "typecheck": "tsc --noEmit",
+    "test": "node --test",
     "check": "biome check . && tsc --noEmit",
     "format": "biome check --write .",
     "postinstall": "wxt prepare"

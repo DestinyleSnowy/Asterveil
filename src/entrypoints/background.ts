@@ -1,15 +1,23 @@
 import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/utils/define-background';
 import { createAvatarRuleService } from '../background/avatar-rules';
+import { createEditionPriority } from '../background/edition-priority';
 import { isSettingsSender } from '../background/settings-sender';
 import { createSettingsService } from '../background/settings-service';
 import { createSubmitterService } from '../background/submitter-service';
 import { localSettings, watchSettings } from '../platform/settings-repository';
+import { pdfEnabled } from '../shared/edition';
+import { editionCheckMessage } from '../shared/edition-coordination';
 import { isSettingsRequest, type SettingsResponse } from '../shared/protocol';
 import { isSubmitterRequest } from '../submitter/model';
 
 export default defineBackground(() => {
-  const avatarRules = createAvatarRuleService();
+  const checkEdition = pdfEnabled ? undefined : createEditionPriority();
+  const ready = checkEdition ? checkEdition().catch(() => false) : Promise.resolve(true);
+  const applyAvatarRules = createAvatarRuleService();
+  const avatarRules: typeof applyAvatarRules = async (settings) => {
+    if (await ready) await applyAvatarRules(settings);
+  };
   const reportRuleError = (error: unknown) =>
     console.error('[Asterveil] Avatar rules unavailable', error);
   let settingsChanges = 0;
@@ -42,6 +50,11 @@ export default defineBackground(() => {
   const popupUrl = browser.runtime.getURL('/popup.html');
 
   browser.runtime.onMessage.addListener((message: unknown, sender, sendResponse) => {
+    if (message === editionCheckMessage) {
+      if (!isSettingsSender(sender, browser.runtime.id)) return false;
+      void (checkEdition ? checkEdition() : ready).then(sendResponse, () => sendResponse(false));
+      return true;
+    }
     if (isSubmitterRequest(message)) {
       if (sender.id !== browser.runtime.id || sender.url !== popupUrl || sender.tab) return false;
       void submitter(message).then(sendResponse);

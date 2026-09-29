@@ -7,6 +7,7 @@ import { isColorMode } from '../../shared/color-mode';
 import { accentPresets, defaultAccentColor } from '../../shared/palette';
 import type { SettingsCommand } from '../../shared/protocol';
 import type { Settings } from '../../shared/settings';
+import { mountAvatarSettings } from './avatars';
 import { mountHomeLayoutSettings } from './home-layout';
 
 export function mountSettings(root: ParentNode, scope: Scope): void {
@@ -33,6 +34,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   let errorMessage = '';
   let storageChanges = 0;
   const homeLayout = mountHomeLayoutSettings(root, scope, save);
+  let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
 
   element('version').textContent = `v${browser.runtime.getManifest().version}`;
   element<HTMLFormElement>('settings-form').addEventListener(
@@ -66,7 +68,15 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
       text.append(description);
     }
     label.append(text, input);
-    list.append(label);
+    if (module.id === 'local-avatars') {
+      const card = document.createElement('div');
+      card.className = 'module settings-card';
+      card.dataset.moduleId = module.id;
+      label.className = 'row';
+      card.append(label);
+      avatarControls = mountAvatarSettings(card, scope, save);
+      list.append(card);
+    } else list.append(label);
     if (module.id === 'ui-polish') list.append(colorMode, palette);
     inputs.set(module.id, input);
   }
@@ -128,6 +138,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   function render(): void {
     if (scope.signal.aborted) return;
     homeLayout.render(current);
+    avatarControls?.render(current);
     controls.disabled = pending || !current;
     enabled.checked = current?.enabled ?? false;
     enabled.setAttribute('aria-checked', String(enabled.checked));

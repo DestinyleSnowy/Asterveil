@@ -1,10 +1,15 @@
 import type { Scope } from '../core/scope';
-import { avatarDataUrl, gravatarIdentity } from '../shared/avatar';
+import {
+  type AvatarStyle,
+  avatarDataUrl,
+  defaultAvatarStyle,
+  gravatarIdentity,
+} from '../shared/avatar';
 
 const attributes = ['src', 'srcset', 'data-src', 'data-srcset', 'data-original'];
 type Change = { original: string; replacement: string };
 
-export function replaceGravatarImages(scope: Scope) {
+export function replaceGravatarImages(scope: Scope, style: AvatarStyle = defaultAvatarStyle) {
   const changes = new WeakMap<Element, Map<string, Change>>();
   const tracked = new Set<WeakRef<Element>>();
   const cache = new Map<string, string>();
@@ -13,7 +18,7 @@ export function replaceGravatarImages(scope: Scope) {
     if (identity === undefined) return url;
     let replacement = cache.get(identity);
     if (!replacement) {
-      replacement = avatarDataUrl(identity);
+      replacement = avatarDataUrl(identity, style);
       if (cache.size >= 512) cache.clear();
       cache.set(identity, replacement);
     }

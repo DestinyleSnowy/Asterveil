@@ -24,7 +24,7 @@ export const moduleCatalog = [
   },
   {
     id: 'local-avatars',
-    title: '本地头像',
+    title: '头像替换',
     description: '',
     defaultEnabled: true,
   },

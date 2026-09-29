@@ -18,6 +18,7 @@ export function createSettingsService(repository: SettingsRepository) {
         accentColor:
           command.type === 'settings.accent' ? command.color.toLowerCase() : current.accentColor,
         colorMode: command.type === 'settings.color-mode' ? command.mode : current.colorMode,
+        avatarStyle: command.type === 'settings.avatar-style' ? command.style : current.avatarStyle,
         homeLayout:
           command.type === 'settings.home.reset'
             ? defaultHomeLayout()

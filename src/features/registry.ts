@@ -15,6 +15,7 @@ export const modules = [
   },
   {
     id: 'local-avatars',
+    configurationKey: (settings) => settings.avatarStyle,
     matches: () => true,
     load: () => import('./local-avatars').then((module) => module.default),
   },

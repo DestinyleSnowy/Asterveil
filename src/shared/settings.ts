@@ -1,3 +1,4 @@
+import { type AvatarStyle, defaultAvatarStyle, isAvatarStyle } from './avatar';
 import { type ModuleId, moduleCatalog } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { decodeHomeLayout, defaultHomeLayout, type HomeLayout } from './home-layout';
@@ -11,6 +12,7 @@ export interface Settings {
   readonly enabled: boolean;
   readonly accentColor: string;
   readonly colorMode: ColorMode;
+  readonly avatarStyle: AvatarStyle;
   readonly homeLayout: HomeLayout;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
@@ -26,6 +28,7 @@ export function defaultSettings(): Settings {
     enabled: true,
     accentColor: defaultAccentColor,
     colorMode: 'light',
+    avatarStyle: defaultAvatarStyle,
     homeLayout: defaultHomeLayout(),
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
@@ -56,6 +59,8 @@ export function decodeSettings(value: unknown): Settings {
   );
   const colorMode = value.colorMode ?? 'light';
   if (!isColorMode(colorMode)) throw new Error('显示模式数据无效。');
+  const avatarStyle = value.avatarStyle ?? defaultAvatarStyle;
+  if (!isAvatarStyle(avatarStyle)) throw new Error('头像样式数据无效。');
   const modules = { ...defaultSettings().modules };
   for (const { id } of moduleCatalog) {
     const enabled = value.modules[id];
@@ -70,6 +75,7 @@ export function decodeSettings(value: unknown): Settings {
     enabled: value.enabled,
     accentColor: preset?.color ?? normalizedAccent,
     colorMode,
+    avatarStyle,
     homeLayout: decodeHomeLayout(value.homeLayout),
     modules,
   };

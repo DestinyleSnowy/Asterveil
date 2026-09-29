@@ -16,6 +16,7 @@ export interface FeatureModule {
 
 export interface ModuleDefinition {
   readonly id: ModuleId;
+  readonly configurationKey?: (settings: Settings) => string;
   readonly matches: (url: URL) => boolean;
   readonly load: () => Promise<FeatureModule>;
 }

@@ -1,3 +1,4 @@
+import { type AvatarStyle, isAvatarStyle } from './avatar';
 import { isModuleId, type ModuleId } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { type HomeColumn, type HomeSectionId, isHomeColumn, isHomeSectionId } from './home-layout';
@@ -9,6 +10,7 @@ export type SettingsCommand =
   | { type: 'settings.enabled'; enabled: boolean }
   | { type: 'settings.accent'; color: string }
   | { type: 'settings.color-mode'; mode: ColorMode }
+  | { type: 'settings.avatar-style'; style: AvatarStyle }
   | { type: 'settings.home.visible'; id: HomeSectionId; visible: boolean }
   | {
       type: 'settings.home.move';
@@ -33,6 +35,8 @@ export function isSettingsRequest(value: unknown): value is SettingsRequest {
       return isAccentColor(value.color);
     case 'settings.color-mode':
       return isColorMode(value.mode);
+    case 'settings.avatar-style':
+      return isAvatarStyle(value.style);
     case 'settings.module':
       return typeof value.enabled === 'boolean' && isModuleId(value.moduleId);
     case 'settings.home.visible':

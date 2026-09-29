@@ -5,7 +5,10 @@ import type { ModuleDefinition } from './module';
 import { Scope } from './scope';
 
 export class ModuleRuntime {
-  private readonly active = new Map<ModuleId, Scope>();
+  private readonly active = new Map<
+    ModuleId,
+    { scope: Scope; configurationKey: string | undefined }
+  >();
   private pageUrl = '';
   private disposed = false;
 
@@ -30,9 +33,12 @@ export class ModuleRuntime {
           this.stop(definition.id);
           continue;
         }
-        if (this.active.has(definition.id)) continue;
+        const configurationKey = definition.configurationKey?.(settings);
+        const active = this.active.get(definition.id);
+        if (active && active.configurationKey === configurationKey) continue;
+        if (active) this.stop(definition.id);
         const scope = new Scope();
-        this.active.set(definition.id, scope);
+        this.active.set(definition.id, { scope, configurationKey });
         // A disable/navigation during loading must never mount a stale module.
         void Promise.resolve()
           .then(async () => {
@@ -45,7 +51,7 @@ export class ModuleRuntime {
           .catch((error: unknown) => {
             if (scope.signal.aborted) return;
             console.error(`[Asterveil] Module ${definition.id} failed`, error);
-            if (this.active.get(definition.id) === scope) this.stop(definition.id);
+            if (this.active.get(definition.id)?.scope === scope) this.stop(definition.id);
           });
       } catch (error) {
         this.stop(definition.id);
@@ -66,6 +72,6 @@ export class ModuleRuntime {
   private stop(id: ModuleId): void {
     const active = this.active.get(id);
     this.active.delete(id);
-    active?.dispose();
+    active?.scope.dispose();
   }
 }

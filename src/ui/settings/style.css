@@ -125,6 +125,60 @@ h2 {
   gap: 12px;
   margin-top: 20px;
 }
+.avatar-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 24px 12px;
+  margin-top: 24px;
+}
+.avatar-option {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  min-width: 60px;
+  color: var(--av-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.avatar-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.avatar-option img {
+  display: block;
+  border-radius: 11px;
+  box-shadow:
+    0 0 0 3px var(--av-paper),
+    0 0 0 5px transparent;
+  transition: box-shadow calc(180ms * var(--av-motion, 1)) ease;
+}
+.avatar-option input:checked + img {
+  box-shadow:
+    0 0 0 3px var(--av-paper),
+    0 0 0 5px var(--av-accent);
+}
+.avatar-option input:checked ~ span {
+  color: var(--av-heading);
+}
+.avatar-option input:focus-visible + img {
+  outline: 2px solid var(--av-focus);
+  outline-offset: 7px;
+}
+.avatar-options:disabled {
+  opacity: 0.5;
+}
+.avatar-options:disabled .avatar-option {
+  cursor: default;
+}
+.avatar-note {
+  margin: 18px 0 0;
+  color: var(--av-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
 .swatch {
   position: relative;
   display: grid;

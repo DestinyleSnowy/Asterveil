@@ -91,7 +91,7 @@ export default defineConfig({
   },
   manifest: ({ mode }) => ({
     name: mode === 'light' ? 'Asterveil' : 'Asterveil Pro',
-    description: '以独立模块改善 7FA4 的视觉与操作体验。',
+    description: 'The next generation of Better Names.',
     minimum_chrome_version: '120',
     permissions: [
       'storage',

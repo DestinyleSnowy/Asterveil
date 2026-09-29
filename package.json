@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "description": "Modular visual and interaction enhancements for 7FA4.",
+  "description": "The next generation of Better Names.",
   "type": "module",
   "engines": {
     "node": ">=22.13.0"

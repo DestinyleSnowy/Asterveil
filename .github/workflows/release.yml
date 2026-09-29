@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate and package release
+    uses: ./.github/workflows/ci.yml
+    with:
+      release-tag: ${{ github.ref_name }}
+
+  draft:
+    name: Create release draft
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Download verified packages from this run
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: ${{ needs.build.outputs.artifact-name }}
+          path: packages
+
+      - name: Verify downloaded checksums
+        working-directory: packages
+        run: sha256sum --check SHA256SUMS.txt
+
+      - name: Create draft with generated release notes
+        working-directory: packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$RELEASE_TAG" \
+            --verify-tag --draft --generate-notes \
+            --title "Asterveil $RELEASE_TAG" \
+            ./Asterveil-*-chrome.zip ./SHA256SUMS.txt

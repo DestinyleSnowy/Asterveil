@@ -37,6 +37,23 @@ npm run zip
 
 同一浏览器配置中两版同时启用时，普通版 Asterveil 会自动停用自身，优先使用 Asterveil Pro；启动时及 Pro 后续安装、启用时都会检测。普通版通过 `management` 权限识别已启用、名称为 `Asterveil Pro` 的扩展，并在停用前通知已打开的页面清理普通版功能。Pro 不申请此权限。仅安装但未启用的 Pro 不影响普通版；Pro 的页面总开关不改变版本优先级。切回普通版时，先在浏览器扩展管理页停用 Pro，再启用 Asterveil，并刷新网站页面；设置和已保存的草稿保留。
 
+## 自动检查与版本发布
+
+推送 `main` 后，[CI](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/ci.yml) 会在 Ubuntu 24.04 / Node.js 22 上依次执行 `npm ci`、`npm run check`、`npm test` 和 `npm run zip:all`，也可在 Actions 页面手动运行。打包命令已包含两版构建。成功后可下载包含两版 ZIP 和 `SHA256SUMS.txt` 的 artifact，保存 30 天；解开 artifact 后，再将所需版本的扩展 ZIP 解压加载。
+
+`.github/scripts/verify-packages.py` 使用 Python 3 标准库核对 ZIP 完整性、与构建目录逐文件一致、清单名称和版本、两版权限、清单引用资源、许可证及 PDF 资源差异，并生成 SHA-256 校验文件。本地完成打包后，也可运行 `python .github/scripts/verify-packages.py`。
+
+发布新版本时：
+
+1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.1 --no-git-tag-version`），提交并推送到 `main`。
+2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.1`、`git push origin v0.1.1`。
+3. [Release](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/release.yml) 工作流确认标签为 `v主版本.次版本.修订号` 且与项目版本一致，复用 CI 检查和打包，再创建附带两版 ZIP、校验文件和自动更新说明的 **Release 草稿**。
+4. 到 Releases 检查草稿和附件，确认后手动发布。已有同名 Release 不会被覆盖；如需补传附件，可从对应成功运行的 artifact 获取。
+
+日常 CI 只读取仓库，只有创建草稿的任务拥有内容写入权限。连续推送会取消同一分支的过期构建，版本发布不会被新版本取消。流程不需要个人 Token，也不上传到浏览器商店。
+
+## 页面内设置
+
 设置通过网站右下角的圆形星芒按钮打开，分为“外观配色”“首页布局”“功能模块”和“关于”，四个页面采用统一的卡片布局。“关于”提供总开关、版本、作者、许可证与项目链接。暂停后仍可打开设置，支持关闭按钮、Esc 和点击面板外部关闭。工具栏 Asterveil 图标打开 7FA4 Submitter 提交器。
 
 “首页布局”支持选择显示哪些板块、通过左侧手柄拖动或上下箭头排序，并在左右栏之间移动。涵盖今日计划、近期表现、最好表现、通知信息、学习进度、生日快乐、计时器、可批阅习题、我的日报、已批阅习题、公告和友情链接；当前账号没有的板块不会新增，未知板块保留。设置自动保存并同步到已打开的两个站点入口；窄屏先显示左栏，再显示右栏。默认沿用原站布局，“恢复默认”重置显示和顺序，关闭“自定义首页”或总开关会立即还原原站布局并保留偏好。仅移动原始节点，保留板块内的交互；隐藏通知板块不会清除任何通知。

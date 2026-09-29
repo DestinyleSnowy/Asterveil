@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      release-tag:
+        description: Version tag to validate before building a release
+        required: false
+        type: string
+        default: ''
+    outputs:
+      artifact-name:
+        description: Verified extension packages and SHA-256 checksums
+        value: ${{ jobs.build.outputs.artifact-name }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Check, test and package
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    concurrency:
+      group: build-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: ${{ github.ref_type == 'branch' }}
+    outputs:
+      artifact-name: ${{ steps.metadata.outputs.artifact-name }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Validate release version
+        if: inputs.release-tag != ''
+        env:
+          RELEASE_TAG: ${{ inputs.release-tag }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+          const { version } = JSON.parse(readFileSync('package.json', 'utf8'));
+          const { RELEASE_TAG } = process.env;
+          assert.match(RELEASE_TAG, /^v\d+\.\d+\.\d+$/, 'Use a stable version tag such as v0.1.1');
+          assert.equal(RELEASE_TAG, `v${version}`, 'Tag must match package.json version');
+          NODE
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check formatting and types
+        run: npm run check
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build and package both editions
+        run: npm run zip:all
+
+      - name: Verify packages and generate checksums
+        run: python3 .github/scripts/verify-packages.py
+
+      - name: Set artifact name
+        id: metadata
+        run: echo "artifact-name=asterveil-${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload verified packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: ${{ steps.metadata.outputs.artifact-name }}
+          path: |
+            .output/Asterveil-*-chrome.zip
+            .output/SHA256SUMS.txt
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0

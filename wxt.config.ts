@@ -3,6 +3,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { defineConfig } from 'wxt';
 import { katexAssets } from './build/katex-assets';
+import { lightEdition } from './build/light-edition';
 import { contentMatches } from './src/site/target';
 
 const icons = {
@@ -16,8 +17,9 @@ export default defineConfig({
   srcDir: 'src',
   manifestVersion: 3,
   imports: false,
-  vite: () => ({
-    plugins: [katexAssets()],
+  vite: ({ mode }) => ({
+    define: { __ASTERVEIL_PDF__: JSON.stringify(mode !== 'light') },
+    plugins: [katexAssets(), ...(mode === 'light' ? [lightEdition()] : [])],
     build: {
       rolldownOptions: {
         output: {
@@ -48,18 +50,16 @@ export default defineConfig({
         }
       }
     },
-    async 'build:publicAssets'(_wxt, files) {
+    async 'build:publicAssets'(wxt, files) {
+      const full = wxt.config.mode !== 'light';
       for (const dependency of [
         'marked',
         'dompurify',
         'katex',
         'html-to-image',
-        'pdf-lib',
-        'pdfjs-dist',
-        '@pdf-lib/standard-fonts',
-        '@pdf-lib/upng',
-        'pako',
-        'tslib',
+        ...(full
+          ? ['pdf-lib', 'pdfjs-dist', '@pdf-lib/standard-fonts', '@pdf-lib/upng', 'pako', 'tslib']
+          : []),
       ]) {
         const source = resolve('node_modules', dependency);
         for (const name of await readdir(source)) {
@@ -71,7 +71,7 @@ export default defineConfig({
           }
         }
       }
-      for (const directory of ['cmaps', 'standard_fonts', 'wasm', 'iccs']) {
+      for (const directory of full ? ['cmaps', 'standard_fonts', 'wasm', 'iccs'] : []) {
         const source = resolve('node_modules/pdfjs-dist', directory);
         for (const name of await readdir(source)) {
           files.push({
@@ -82,12 +82,14 @@ export default defineConfig({
       }
     },
   },
-  manifest: {
-    name: 'Asterveil',
+  manifest: ({ mode }) => ({
+    name: mode === 'light' ? 'Asterveil Light' : 'Asterveil Full',
     description: '以独立模块改善 7FA4 的视觉与操作体验。',
     minimum_chrome_version: '120',
     permissions: ['storage', 'activeTab', 'scripting', 'declarativeNetRequest'],
-    web_accessible_resources: [{ resources: ['pdfjs/*'], matches: contentMatches }],
+    ...(mode !== 'light' && {
+      web_accessible_resources: [{ resources: ['pdfjs/*'], matches: contentMatches }],
+    }),
     declarative_net_request: {
       rule_resources: [{ id: 'gravatar', enabled: true, path: 'gravatar-rules.json' }],
     },
@@ -100,5 +102,5 @@ export default defineConfig({
     ],
     icons,
     action: { default_title: 'Asterveil', default_icon: icons },
-  },
+  }),
 });

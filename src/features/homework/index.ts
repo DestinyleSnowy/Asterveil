@@ -1,9 +1,10 @@
 import { fontCss, layoutCss } from 'virtual:homework-katex';
 import { browser } from 'wxt/browser';
 import type { FeatureModule } from '../../core/module';
+import { editorName, pdfEnabled } from '../../shared/edition';
 import { isRecord } from '../../shared/settings';
 import { findHomework, submitHomework } from '../../site/homework';
-import { canvasBlob, captureAnswer, createPdf, downloadBlob } from './export';
+import { canvasBlob, captureAnswer, downloadBlob } from './export';
 import { formatToolbar, icon } from './icons';
 import { renderMarkdown } from './markdown';
 import style from './style.css?inline';
@@ -35,12 +36,16 @@ export default {
     document.head.append(fonts);
     scope.defer(() => fonts.remove());
     root.innerHTML = `<style>${layoutCss}\n${style}</style>
-      <section class="editor" aria-label="H 题 Markdown 编辑器">
+      <section class="editor" aria-label="${editorName}">
         <div class="toolbar" role="toolbar" aria-label="Markdown 格式">
           <div class="format-tools">${formatToolbar()}</div>
-          <div class="extra-tools">
+          ${
+            pdfEnabled
+              ? `<div class="extra-tools">
             <label class="icon-button file-button" title="上传 PDF">${icon('upload')}<input type="file" accept="application/pdf,.pdf" aria-label="上传 PDF"></label>
-          </div>
+          </div>`
+              : ''
+          }
         </div>
         <div class="panes">
           <div class="pane"><textarea aria-label="Markdown" spellcheck="false" maxlength="200000" placeholder="在此输入 Markdown…"></textarea></div>
@@ -51,7 +56,7 @@ export default {
           <div class="actions">
             <div class="export-buttons">
               <button type="button" data-action="png">${icon('download')}<span>导出图片</span></button>
-              <details class="export-options"><summary title="更多导出选项" aria-label="更多导出选项">${icon('chevron')}</summary><div class="export-menu"><button type="button" data-action="pdf">导出 PDF</button><button type="button" data-action="markdown">保存 Markdown</button></div></details>
+              <details class="export-options"><summary title="更多导出选项" aria-label="更多导出选项">${icon('chevron')}</summary><div class="export-menu">${pdfEnabled ? '<button type="button" data-action="pdf">导出 PDF</button>' : ''}<button type="button" data-action="markdown">保存 Markdown</button></div></details>
             </div>
             <button type="button" data-action="submit" class="primary">${icon('send')}<span>提交答案</span></button>
           </div>
@@ -72,7 +77,7 @@ export default {
     const visibilityRoot = visibilityHost.attachShadow({ mode: 'open' });
     visibilityRoot.innerHTML = `<style>:host { float: right; margin-left: 12px; } button { border: 1px solid var(--av-border, #d8e1ec); border-radius: 6px; padding: 4px 10px; background: var(--av-paper, #fff); color: var(--av-accent, #386b9e); font: 12px/1.5 system-ui, sans-serif; cursor: pointer; } button:hover { background: var(--av-hover, #f1f5fa); } button:focus-visible { outline: 2px solid var(--av-accent, #386b9e); outline-offset: 2px; }</style><button type="button"></button>`;
     const hide = visibilityRoot.querySelector('button') as HTMLButtonElement;
-    const upload = get<HTMLInputElement>('input[type="file"]');
+    const upload = root.querySelector<HTMLInputElement>('input[type="file"]');
     const dialog = get<HTMLDialogElement>('dialog');
     const confirm = get<HTMLButtonElement>('[data-action="confirm"]');
     const exportOptions = get<HTMLDetailsElement>('.export-options');
@@ -163,7 +168,7 @@ export default {
       exportOptions.open = false;
       for (const button of root.querySelectorAll<HTMLButtonElement>('.actions button'))
         button.disabled = true;
-      upload.disabled = true;
+      if (upload) upload.disabled = true;
       editor.readOnly = true;
       report('正在生成，请稍候…');
       try {
@@ -176,7 +181,7 @@ export default {
         busy = false;
         for (const button of root.querySelectorAll<HTMLButtonElement>('.actions button'))
           button.disabled = submitted;
-        upload.disabled = submitted;
+        if (upload) upload.disabled = submitted;
         editor.readOnly = false;
       }
     };
@@ -201,7 +206,10 @@ export default {
       try {
         const canvas = await captureAnswer(paper, scope.signal);
         try {
-          const blob = action === 'pdf' ? await createPdf(canvas) : await canvasBlob(canvas);
+          const blob =
+            pdfEnabled && action === 'pdf'
+              ? await (await import('./pdf-export')).createPdf(canvas)
+              : await canvasBlob(canvas);
           scope.signal.throwIfAborted();
           if (action === 'submit')
             openPreview(new File([blob], `${filename()}.png`, { type: 'image/png' }));
@@ -278,21 +286,22 @@ export default {
       },
       { signal: scope.signal },
     );
-    upload.addEventListener(
-      'change',
-      () => {
-        const file = upload.files?.[0];
-        upload.value = '';
-        if (file)
-          void run(async () => {
-            const { pdfToImage } = await import('./pdf');
-            const image = await pdfToImage(file, scope.signal);
-            scope.signal.throwIfAborted();
-            openPreview(image);
-          });
-      },
-      { signal: scope.signal },
-    );
+    if (pdfEnabled && upload)
+      upload.addEventListener(
+        'change',
+        () => {
+          const file = upload.files?.[0];
+          upload.value = '';
+          if (file)
+            void run(async () => {
+              const { pdfToImage } = await import('./pdf');
+              const image = await pdfToImage(file, scope.signal);
+              scope.signal.throwIfAborted();
+              openPreview(image);
+            });
+        },
+        { signal: scope.signal },
+      );
     dialog.addEventListener('cancel', closePreview, { signal: scope.signal });
     hide.addEventListener(
       'click',

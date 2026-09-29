@@ -2,12 +2,19 @@
 
 ## 当前边界
 
-### H 题 Markdown 作答（2026-09-28）
+### light / full 构建（2026-09-29）
+
+- WXT 的 `light` / `full` 模式生成独立目录和 ZIP，扩展名称为 Asterveil Light / Asterveil Full。构建常量控制编辑器名称与 PDF 入口，模块 ID 继续使用 `homework`，保留原有设置和草稿键。
+- light 使用 Markdown Editor，full 使用 Markdown Editor Pro。两版共享全部 Markdown、图片导出和提交逻辑；PDF 导出独立为 `pdf-export.ts`。light 构建插件在解析阶段排除两项 PDF 模块，并检查最终 chunk 的模块列表，任何 PDF 依赖混入都会使构建失败；不复制 PDF 资源或声明对应 web-accessible resources。
+- 保留 Marked、DOMPurify 和 KaTeX 的完整功能与安全边界，共用官方压缩版 KaTeX CSS 和 WOFF2 字体，避免维护两套渲染器。精简重点是实际排除 PDF 依赖，未通过裁剪数学字体或切换原生 MathML 牺牲已有公式排版。
+- 浏览器夹具验证两版命名、PDF 入口差异、HTML 清理、数学字体、PNG 与提交预览；Pro 额外验证多页 PDF 往返及无效文件拒绝。包含中文、求和、积分、分式、根号、表格和任务列表的样例，两版与精简前样式的 PNG 像素哈希一致。生产 light 包中无 PDF 库、资源或资源访问声明，ZIP 约 427 KB；full 约 3.26 MB。
+
+### Markdown Editor 作答（2026-09-28）
 
 - 独立 `homework` 模块默认开启，匹配普通题目及模测内题目详情。站点适配器要求 H 开头的标题、原答案图片上传表单与同源提交地址；编辑器插在已提交作业之后、原上传入口之前。
 - 编辑器使用 Shadow DOM，提供图标工具栏、左右编辑/预览与底部操作栏。导出菜单包含 PNG、PDF 和 Markdown；窄屏上下排列。草稿及作业折叠偏好按账号与题目路径保存在扩展本地存储，两个入口共用，不触发远程同步。保存失败有反馈，未编辑时不会覆盖读取失败的已有草稿。
 - Marked 解析 Markdown，DOMPurify 先清理用户 HTML，再由关闭 `trust` 的 KaTeX 填充随机标记的公式占位符。KaTeX 使用 HTML + MathML，保留官方排版度量、根号 SVG 与居中块级公式。构建插件内嵌 WOFF2 字体，文档级字体与 Shadow DOM 排版样式分开挂载；导出使用同一组字体。
-- html-to-image 生成固定宽度白底 PNG，pdf-lib 按 A4 分页并优先选附近空白行。限制画布尺寸；图片读取有超时，跨域或加载失败会报错，避免静默漏图。PDF.js 在本地将上传的 PDF 逐页渲染并合并为 PNG，限制 20 MB、20 页和 3200 万像素。
+- html-to-image 生成固定宽度白底 PNG，限制画布尺寸；图片读取有超时，跨域或加载失败会报错，避免静默漏图。Pro 使用 pdf-lib 按 A4 分页并优先选附近空白行，PDF.js 在本地将上传的 PDF 逐页渲染并合并为 PNG，限制 20 MB、20 页和 3200 万像素。
 - 原站只接受答案图片，因此 Markdown 和 PDF 均先生成图片预览，用户确认后通过独立 multipart 表单提交，保留原 action、query 与隐藏字段，避开纸面题原脚本对代码编辑器的引用。PDF.js 使用本进程 worker、关闭 WASM，所需字体、CMap、解码回退及许可证随包发布；不增加权限或第三方转换服务。
 - “已提交作业”标题栏保留展开/收起入口，整体折叠图片、批改与评价并记住选择。标题与内容共用连续边框和外侧圆角。关闭模块中止任务，清理 DOM、事件、字体与预览 URL，并恢复原作业样式。
 - 构建设置 `output.minify.codegen.asciiOnly`，避免压缩器将 KaTeX 的转义字符输出成 Chrome 拒绝加载的字面 Unicode 非字符。`build:done` 对清单中的 JS/CSS 严格检查 UTF-8 和 Unicode 非字符；相关依赖许可证复制到发布包。

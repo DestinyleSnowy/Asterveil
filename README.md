@@ -1,6 +1,6 @@
 # Asterveil
 
-面向 7FA4 的模块化浏览器扩展，提供页面美化、主题与深浅色切换、H 题 Markdown 作答、题目复制工具、本地抽象头像和外站提交器。
+面向 7FA4 的模块化浏览器扩展，提供页面美化、主题与深浅色切换、Markdown 作答、题目复制工具、本地抽象头像和外站提交器。
 
 公开仓库：[DestinyleSnowy/Asterveil](https://github.com/DestinyleSnowy/Asterveil)。
 
@@ -19,11 +19,20 @@ npm run dev
 
 ```sh
 npm run check
-npm run build
+npm run build:all
 npm run zip
 ```
 
-在 Chrome 的 `chrome://extensions` 或 Edge 的 `edge://extensions` 中开启开发者模式，选择“加载已解压的扩展程序”，加载 `.output/chrome-mv3`。安装后刷新已打开的目标网站页面。`npm run zip` 生成用于分发的 ZIP，不会发布到商店。
+在 Chrome 的 `chrome://extensions` 或 Edge 的 `edge://extensions` 中开启开发者模式，选择“加载已解压的扩展程序”，加载对应版本的目录。安装后刷新已打开的目标网站页面。
+
+| 版本 | 编辑器名称 | 图片导出/提交 | PDF 导出/上传提交 | 加载目录 |
+| --- | --- | --- | --- | --- |
+| light | Markdown Editor | 支持 | 不包含 | `.output/chrome-mv3-light` |
+| full | Markdown Editor Pro | 支持 | 支持 | `.output/chrome-mv3-full` |
+
+两版均保留完整的 Markdown/公式预览、Markdown 源文件保存、草稿、作业折叠和其他网站增强功能。light 构建完全排除 PDF 库、字体/CMap 与解码资源；Markdown 和公式使用与 full 相同的渲染器及 KaTeX 字体。
+
+`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/asterveil-0.1.0-chrome-light.zip` 和 `.output/asterveil-0.1.0-chrome-full.zip`，不会发布到商店。旧 `.output/chrome-mv3` 目录不再更新，升级时请选择上述新目录；同一浏览器配置只启用一个版本，避免重复注入。不同安装实例的本地草稿独立，切换前可保存 Markdown。
 
 设置通过网站右下角的圆形星芒按钮打开，分为“外观配色”“功能模块”和“关于”，三个页面采用统一的卡片布局。“关于”提供总开关、版本、作者、许可证与项目链接。暂停后仍可打开设置，支持关闭按钮、Esc 和点击面板外部关闭。工具栏 Asterveil 图标打开 7FA4 Submitter 提交器。
 
@@ -69,19 +78,19 @@ npm run zip
 
 更新构建后，在扩展管理页重新加载 Asterveil，再刷新网站。旧设置会自动补齐新模块的默认值及雾蓝配色，保留总开关和已有模块偏好。此后切换配色不需要刷新页面。
 
-## H 题 Markdown 作答
+## Markdown Editor / Markdown Editor Pro
 
-默认开启的“H 题 Markdown”模块在标题以 H 开头、带答案图片上传表单的题目详情中显示，也匹配模测内的题目路径。模块有独立设置开关。
+模块在 light 中名为“Markdown Editor”，在 full 中名为“Markdown Editor Pro”，默认开启并提供独立设置开关。两版都在标题以 H 开头、带答案图片上传表单的题目详情中显示，也匹配模测内的题目路径。
 
 - 在线编写 Markdown，顶部图标工具栏、左右编辑预览、底部字数与操作栏沿用当前网站主题，无常驻说明段落。支持标题、表格、代码、任务列表和 `$...$` / `$$...$$` 数学公式。
 - 草稿按账号与题目路径存于扩展本地存储，两个入口共用；可下载 Markdown 源文件。不会自动提交。
-- 导出白底 PNG 或 A4 分页 PDF。PDF 使用图片排版以保留中文、公式和代码的显示效果；分页优先选择附近空白行，特别高的表格或图片可能跨页。
-- 编辑器位于已提交作业下方、原站上传解答图片上方。“导出图片”旁的下拉菜单提供 PDF 和 Markdown 导出；“提交答案”生成当前解答的答案图片并打开确认预览。工具栏右侧保留 PDF 上传图标；上传的 PDF 在本地逐页转换、纵向合并后预览。原站上传控件限定 PNG/JPEG，因此最终通过原站 multipart 表单提交图片，保留题目参数和隐藏字段，不向服务器直接发送 PDF。仅点击“确认提交”才发送。
+- 两版都可导出白底 PNG。Pro 额外支持 A4 分页 PDF，使用图片排版以保留中文、公式和代码的显示效果；分页优先选择附近空白行，特别高的表格或图片可能跨页。
+- 编辑器位于已提交作业下方、原站上传解答图片上方。“导出图片”旁的下拉菜单提供 Markdown 保存，Pro 额外提供 PDF 导出；“提交答案”生成当前解答的答案图片并打开确认预览。Pro 的工具栏有 PDF 上传图标，上传后在本地逐页转换、纵向合并并预览。原站上传控件限定 PNG/JPEG，因此最终通过原站 multipart 表单提交图片，保留题目参数和隐藏字段，不向服务器直接发送 PDF。仅点击“确认提交”才发送。
 - “已提交作业”标题旁的“收起”按钮折叠整个内容区（答案图片、批改信息和同学评价）并记住该题的选择；标题栏保留“展开”入口。标题和内容共用连续边框与外侧圆角，不修改服务器记录或他人的查看权限。关闭模块时恢复原样。
 
-PDF 上传限制 20 MB、20 页，转换后的图片最多 3200 万像素；过大的文档需拆分。导出依赖图片允许浏览器读取，图片加载或跨域读取失败会提示更换图片，不会静默漏图。受密码保护的 PDF 需先解密。
+Pro 的 PDF 上传限制为 20 MB、20 页，转换后的图片最多 3200 万像素；过大的文档需拆分。导出依赖图片允许浏览器读取，图片加载或跨域读取失败会提示更换图片，不会静默漏图。受密码保护的 PDF 需先解密。
 
-Markdown 经过 DOMPurify 清理，公式禁用信任扩展；PDF 处理、字库和 CMap 随扩展打包，不使用第三方转换服务。原站图片上传入口保持可用。本地草稿会随扩展卸载而删除，重要内容请保存 Markdown。
+Markdown 经过 DOMPurify 清理，公式禁用信任扩展；Pro 的 PDF 处理、字库和 CMap 随扩展打包，不使用第三方转换服务。原站图片上传入口保持可用。本地草稿会随扩展卸载而删除，重要内容请保存 Markdown。
 
 ## 目录
 
@@ -100,6 +109,7 @@ docs/
   architecture.md 选型比较、设计约束与服务接入路线
 build/
   katex-assets.ts  内嵌公式字体与排版样式的构建插件
+  light-edition.ts 排除 light 的 PDF 模块并检查构建依赖
 ```
 
 ## 添加模块

@@ -11,7 +11,7 @@ export function katexAssets() {
     },
     async load(source: string) {
       if (source !== `\0${id}`) return;
-      const css = await readFile(resolve('node_modules/katex/dist/katex.css'), 'utf8');
+      const css = await readFile(resolve('node_modules/katex/dist/katex.min.css'), 'utf8');
       const faces = css.match(/@font-face\s*\{[^}]+\}/g) ?? [];
       const embedded = await Promise.all(
         faces.map(async (face) => {
@@ -19,7 +19,7 @@ export function katexAssets() {
           if (!name) throw new Error('KaTeX font has no WOFF2 source');
           const data = await readFile(resolve('node_modules/katex/dist/fonts', name));
           return face.replace(
-            /src:[^;]+;/,
+            /src:[^;}]+;?/,
             `src: url(data:font/woff2;base64,${data.toString('base64')}) format("woff2");`,
           );
         }),

@@ -7,6 +7,7 @@ import { localSettings, watchSettings } from '../platform/settings-repository';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage, editionStopMessage } from '../shared/edition-coordination';
 import type { Settings } from '../shared/settings';
+import { createHomeLayout } from '../site/home-layout';
 import { contentMatches, resolveSite } from '../site/target';
 import { createPageTheme } from '../site/theme';
 import { mountFloatingSettings } from '../ui/settings/floating';
@@ -25,6 +26,7 @@ export default defineContentScript({
     const uiScope = new Scope();
     let floatingSettings: ReturnType<typeof mountFloatingSettings> | undefined;
     let theme: ReturnType<typeof createPageTheme> | undefined;
+    let homeLayout: ReturnType<typeof createHomeLayout> | undefined;
     let domReady = false;
     let settingsResolved = false;
     const lifetime = new AbortController();
@@ -35,6 +37,7 @@ export default defineContentScript({
       if (ctx.isInvalid || lifetime.signal.aborted) return;
       const url = new URL(location.href);
       if (settingsResolved) theme?.update(url, settings);
+      homeLayout?.update(url, settings);
       if (settings) {
         if (domReady) runtime.reconcile(url, settings);
         floatingSettings?.setAppearance(settings.accentColor, settings.colorMode);
@@ -57,6 +60,7 @@ export default defineContentScript({
       domReady = true;
       initRoot();
       floatingSettings = mountFloatingSettings(uiScope);
+      homeLayout = createHomeLayout(uiScope);
       reconcile();
     };
     if (document.readyState === 'loading') {

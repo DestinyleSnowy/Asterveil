@@ -39,13 +39,13 @@ html[data-asterveil-page="contest"] #timer-progress {
 }
 /* Keep the site's adjoining action buttons and native group corner shapes. */
 html[data-asterveil-page="contest"] .ui.buttons > .ui.button[data-asterveil="contest-review"] {
-  background-color: var(--av-accent);
+  background-color: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="contest"]
   .ui.buttons
   > .ui.button[data-asterveil="contest-review"]:hover {
-  background-color: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
+  background-color: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
 }
 html[data-asterveil-page="contest"] .ui.main.container .column > .ui.selectable.celled.table {
   border-collapse: separate;

@@ -3,7 +3,7 @@
 html[data-asterveil-appearance="polished"] {
   --av-canvas: #f5f7fa;
   --av-border: #e1e7ef;
-  --av-accent: #386b9e;
+  --av-accent: #3b82c4;
   --av-tint: #edf4fb;
   --av-surface: #f9fbfd;
   --av-hover: #f5f9fd;
@@ -297,7 +297,7 @@ html:is(
   text-overflow: ellipsis;
 }
 html[data-asterveil-page] .ui.main.container .ui.form .ui.blue.button {
-  background-color: var(--av-accent);
+  background-color: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page] .ui.sidebar.vertical.menu {

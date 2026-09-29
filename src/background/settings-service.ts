@@ -1,4 +1,5 @@
 import type { SettingsRepository } from '../platform/settings-repository';
+import { defaultHomeLayout, moveHomeSection } from '../shared/home-layout';
 import type { SettingsCommand } from '../shared/protocol';
 import type { Settings } from '../shared/settings';
 
@@ -17,6 +18,16 @@ export function createSettingsService(repository: SettingsRepository) {
         accentColor:
           command.type === 'settings.accent' ? command.color.toLowerCase() : current.accentColor,
         colorMode: command.type === 'settings.color-mode' ? command.mode : current.colorMode,
+        homeLayout:
+          command.type === 'settings.home.reset'
+            ? defaultHomeLayout()
+            : command.type === 'settings.home.visible'
+              ? current.homeLayout.map((item) =>
+                  item.id === command.id ? { ...item, visible: command.visible } : item,
+                )
+              : command.type === 'settings.home.move'
+                ? moveHomeSection(current.homeLayout, command.id, command.column, command.before)
+                : current.homeLayout,
         modules:
           command.type === 'settings.module'
             ? { ...current.modules, [command.moduleId]: command.enabled }

@@ -1,0 +1,20 @@
+/* biome-ignore-all lint/complexity/noImportantStyles: Override Semantic UI column widths and inline visibility without changing original styles. */
+[data-av-home-layout] [data-av-home-hidden],
+[data-av-home-layout] > [data-av-home-empty] {
+  display: none !important;
+}
+.ui.grid[data-av-home-single] > .column:not([data-av-home-empty]) {
+  width: 100% !important;
+}
+.asterveil-home-empty {
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--av-muted, #647184);
+  border: 1px dashed var(--av-border, #d8e1ec);
+  border-radius: 12px;
+}
+@media (max-width: 767px) {
+  .ui.grid[data-av-home-layout] > .column {
+    width: 100% !important;
+  }
+}

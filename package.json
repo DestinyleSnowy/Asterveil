@@ -28,6 +28,7 @@
     "@biomejs/biome": "2.5.14",
     "@types/katex": "^0.16.8",
     "@types/node": "^22.20.4",
+    "linkedom": "0.18.13",
     "typescript": "6.0.3",
     "wxt": "0.21.4"
   },

@@ -7,6 +7,7 @@ import { isColorMode } from '../../shared/color-mode';
 import { accentPresets, defaultAccentColor } from '../../shared/palette';
 import type { SettingsCommand } from '../../shared/protocol';
 import type { Settings } from '../../shared/settings';
+import { mountHomeLayoutSettings } from './home-layout';
 
 export function mountSettings(root: ParentNode, scope: Scope): void {
   function element<T extends HTMLElement>(id: string): T {
@@ -31,6 +32,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   let pendingSaves = 0;
   let errorMessage = '';
   let storageChanges = 0;
+  const homeLayout = mountHomeLayoutSettings(root, scope, save);
 
   element('version').textContent = `v${browser.runtime.getManifest().version}`;
   element<HTMLFormElement>('settings-form').addEventListener(
@@ -125,6 +127,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
 
   function render(): void {
     if (scope.signal.aborted) return;
+    homeLayout.render(current);
     controls.disabled = pending || !current;
     enabled.checked = current?.enabled ?? false;
     enabled.setAttribute('aria-checked', String(enabled.checked));

@@ -59,7 +59,7 @@ html[data-asterveil-page="chat"] #chat-app .chat-avatar {
   color: var(--av-accent);
 }
 html[data-asterveil-page="chat"] #chat-app .chat-avatar.group {
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
   border-radius: 12px;
 }
@@ -123,11 +123,11 @@ html[data-asterveil-page="chat"] #chat-app .ui.button:not(.basic) {
   border-radius: 7px;
 }
 html[data-asterveil-page="chat"] #chat-app #send-chat {
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="chat"] #chat-app #send-chat:hover {
-  background: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
+  background: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
 }
 html[data-asterveil-page="chat"]
   #chat-app

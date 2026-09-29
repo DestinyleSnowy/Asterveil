@@ -31,7 +31,7 @@ summary,
   border: 1px solid var(--av-border, #d8e1ec);
   border-radius: 6px;
   background: var(--av-paper, #fff);
-  color: var(--av-accent, #386b9e);
+  color: var(--av-accent, #3b82c4);
   font: inherit;
   line-height: 20px;
   cursor: pointer;
@@ -48,7 +48,7 @@ button:focus-visible,
 summary:focus-visible,
 textarea:focus-visible,
 .file-button:focus-within {
-  outline: 2px solid var(--av-accent, #386b9e);
+  outline: 2px solid var(--av-accent, #3b82c4);
   outline-offset: -2px;
 }
 button:disabled {
@@ -63,12 +63,12 @@ button:disabled {
   flex: none;
 }
 .primary {
-  background: var(--av-accent, #386b9e);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   border-color: transparent;
   color: var(--av-on-accent, #fff);
 }
 .primary:hover {
-  background: var(--av-accent, #386b9e);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   filter: brightness(0.93);
 }
 .toolbar,
@@ -110,7 +110,7 @@ footer,
 }
 .icon-button:hover,
 .icon-button[aria-pressed="true"] {
-  color: var(--av-accent, #386b9e);
+  color: var(--av-accent, #3b82c4);
   background: var(--av-tint, #edf3fa);
 }
 .separator {

@@ -1,6 +1,7 @@
 import { type ModuleId, moduleCatalog } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
-import { defaultAccentColor, isAccentColor } from './palette';
+import { decodeHomeLayout, defaultHomeLayout, type HomeLayout } from './home-layout';
+import { accentPresets, defaultAccentColor, isAccentColor } from './palette';
 
 export const settingsKey = 'asterveil:settings';
 
@@ -10,6 +11,7 @@ export interface Settings {
   readonly enabled: boolean;
   readonly accentColor: string;
   readonly colorMode: ColorMode;
+  readonly homeLayout: HomeLayout;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
 
@@ -24,6 +26,7 @@ export function defaultSettings(): Settings {
     enabled: true,
     accentColor: defaultAccentColor,
     colorMode: 'light',
+    homeLayout: defaultHomeLayout(),
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
     ) as Record<ModuleId, boolean>,
@@ -46,6 +49,11 @@ export function decodeSettings(value: unknown): Settings {
   }
   const accentColor = value.accentColor ?? defaultAccentColor;
   if (!isAccentColor(accentColor)) throw new Error('主题颜色数据无效。');
+  const normalizedAccent = accentColor.toLowerCase();
+  // Stored presets use their hex value; carry existing selections into the refined palette.
+  const preset = accentPresets.find((item) =>
+    item.previousColors.some((color) => color === normalizedAccent),
+  );
   const colorMode = value.colorMode ?? 'light';
   if (!isColorMode(colorMode)) throw new Error('显示模式数据无效。');
   const modules = { ...defaultSettings().modules };
@@ -60,8 +68,9 @@ export function decodeSettings(value: unknown): Settings {
     schemaVersion: 1,
     revision: value.revision,
     enabled: value.enabled,
-    accentColor: accentColor.toLowerCase(),
+    accentColor: preset?.color ?? normalizedAccent,
     colorMode,
+    homeLayout: decodeHomeLayout(value.homeLayout),
     modules,
   };
 }

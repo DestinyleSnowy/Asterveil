@@ -44,7 +44,7 @@ html[data-asterveil-page="answers"] .ui.main.container .ui.form textarea {
   resize: vertical;
 }
 html[data-asterveil-page="answers"] .ui.main.container .ui.button.set-comment {
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="answers"] #teacher_mode {
@@ -80,7 +80,7 @@ html[data-asterveil-page="suggestion"] .ui.main.container .ui.form textarea {
   padding: 14px;
 }
 html[data-asterveil-page="suggestion"] .ui.main.container .ui.form button[type="submit"] {
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
   border-radius: 7px;
   min-height: 40px;

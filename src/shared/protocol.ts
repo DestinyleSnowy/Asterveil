@@ -1,5 +1,6 @@
 import { isModuleId, type ModuleId } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
+import { type HomeColumn, type HomeSectionId, isHomeColumn, isHomeSectionId } from './home-layout';
 import { isAccentColor } from './palette';
 import { isRecord, type Settings } from './settings';
 
@@ -8,6 +9,14 @@ export type SettingsCommand =
   | { type: 'settings.enabled'; enabled: boolean }
   | { type: 'settings.accent'; color: string }
   | { type: 'settings.color-mode'; mode: ColorMode }
+  | { type: 'settings.home.visible'; id: HomeSectionId; visible: boolean }
+  | {
+      type: 'settings.home.move';
+      id: HomeSectionId;
+      column: HomeColumn;
+      before: HomeSectionId | null;
+    }
+  | { type: 'settings.home.reset' }
   | { type: 'settings.module'; moduleId: ModuleId; enabled: boolean };
 
 export type SettingsRequest = SettingsCommand & { channel: 'asterveil' };
@@ -26,6 +35,16 @@ export function isSettingsRequest(value: unknown): value is SettingsRequest {
       return isColorMode(value.mode);
     case 'settings.module':
       return typeof value.enabled === 'boolean' && isModuleId(value.moduleId);
+    case 'settings.home.visible':
+      return isHomeSectionId(value.id) && typeof value.visible === 'boolean';
+    case 'settings.home.move':
+      return (
+        isHomeSectionId(value.id) &&
+        isHomeColumn(value.column) &&
+        (value.before === null || isHomeSectionId(value.before))
+      );
+    case 'settings.home.reset':
+      return true;
     default:
       return false;
   }

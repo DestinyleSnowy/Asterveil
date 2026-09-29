@@ -17,6 +17,12 @@ export const moduleCatalog = [
     defaultEnabled: true,
   },
   {
+    id: 'home-layout',
+    title: '自定义首页',
+    description: '在“首页布局”中选择板块、调整左右栏与排列顺序。',
+    defaultEnabled: true,
+  },
+  {
     id: 'local-avatars',
     title: '本地头像',
     description: '',

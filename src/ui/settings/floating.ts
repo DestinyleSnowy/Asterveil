@@ -33,6 +33,7 @@ export function mountFloatingSettings(scope: Scope): {
     <div class="dialog-body">
       <nav class="settings-nav" aria-label="设置分类">
         <button type="button" data-section="appearance" aria-current="page">${settingsIcon('appearance')}外观配色</button>
+        <button type="button" data-section="home">${settingsIcon('home')}首页布局</button>
         <button type="button" data-section="modules">${settingsIcon('modules')}功能模块</button>
         <button type="button" data-section="about">${settingsIcon('about')}关于</button>
       </nav>

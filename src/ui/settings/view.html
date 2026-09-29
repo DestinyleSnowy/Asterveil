@@ -3,6 +3,27 @@
     <fieldset id="controls" disabled>
       <legend class="visually-hidden">扩展设置</legend>
       <div id="modules"></div>
+      <section class="home-layout-settings" aria-label="首页布局">
+        <label class="row settings-card">
+          <strong>自定义首页</strong>
+          <input id="home-layout-enabled" type="checkbox" role="switch" aria-checked="false" />
+        </label>
+        <fieldset id="home-layout-controls">
+          <div class="home-layout-heading">
+            <p>勾选要显示的板块，拖动或用箭头排序，也可调整所在栏。更改自动保存；窄屏按左栏、右栏依次显示。</p>
+            <button id="home-layout-reset" type="button">恢复默认</button>
+          </div>
+          <p class="home-layout-note">仅调整首页已有板块；当前账号没有的板块不会新增。</p>
+          <section class="settings-card home-column" aria-labelledby="home-main-title">
+            <h2 id="home-main-title">左栏</h2>
+            <ol data-home-column="main" aria-label="左栏板块"></ol>
+          </section>
+          <section class="settings-card home-column" aria-labelledby="home-side-title">
+            <h2 id="home-side-title">右栏</h2>
+            <ol data-home-column="side" aria-label="右栏板块"></ol>
+          </section>
+        </fieldset>
+      </section>
       <fieldset id="color-mode" class="color-mode settings-card" aria-labelledby="color-mode-title">
         <h2 id="color-mode-title">显示模式</h2>
         <div class="mode-options">
@@ -15,7 +36,7 @@
         <h2 id="palette-title">主题配色</h2>
         <div id="accent-presets" class="swatches">
           <label class="swatch custom-swatch">
-            <input id="accent-color" type="color" value="#386b9e" aria-label="自定义配色" />
+            <input id="accent-color" type="color" value="#3b82c4" aria-label="自定义配色" />
             <i class="custom-chip" data-settings-icon="pipette"></i>
             <span>自定义</span>
           </label>
@@ -35,7 +56,7 @@
           <strong>启用 {{productName}}</strong>
           <input type="checkbox" id="enabled" role="switch" aria-checked="false" />
         </label>
-        <p class="copyright">Copyright ©️ 2026 鱼oe不缺氧. All Rights Reserverd.</p>
+        <p class="copyright">Copyright &copy; 2026 鱼oe不缺氧. All rights reserved.</p>
       </section>
     </fieldset>
   </form>

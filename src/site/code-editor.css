@@ -131,11 +131,11 @@ html[data-asterveil-page="problem"]
 }
 html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) #submit-button {
   border-radius: 8px;
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) #submit-button:hover {
-  background: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
+  background: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
 }
 @media (max-width: 600px) {
   html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) {

@@ -11,7 +11,7 @@ html[data-asterveil-page="problem"] .asterveil-copy-title[data-asterveil-copy-st
   transform: translateX(-50%);
   padding: 3px 9px;
   border-radius: 6px;
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
   font-size: 12px;
   font-weight: 400;
@@ -55,13 +55,13 @@ html[data-asterveil-page="problem"]
 html[data-asterveil-page="problem"]
   .ui.main.container
   .ui.button[data-asterveil="copy-problem-source"] {
-  background-color: var(--av-accent);
+  background-color: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="problem"]
   .ui.main.container
   .ui.button[data-asterveil="copy-problem-source"]:is(:hover, :focus-visible) {
-  background-color: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
+  background-color: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
 }
 html[data-asterveil-page="problem"] .ui.main.container .ui.bottom.attached.segment.font-content {
   border-radius: 12px;
@@ -159,14 +159,14 @@ html[data-asterveil-page="submission"]
   > .ui.button[data-asterveil="copy-submission-code"] {
   right: 0;
   border-radius: 0 9px 0 9px;
-  background: var(--av-accent);
+  background: var(--av-solid, var(--av-accent, #3b82c4));
   color: var(--av-on-accent);
 }
 html[data-asterveil-page="submission"]
   #submission_content
   .ui.existing.segment
   > .ui.button[data-asterveil="copy-submission-code"]:hover {
-  background: color-mix(in srgb, var(--av-accent) 90%, var(--av-on-accent));
+  background: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
 }
 html[data-asterveil-page="submission"] #submission_content .ui.styled.accordion {
   border: 1px solid var(--av-border);

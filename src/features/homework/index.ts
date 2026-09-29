@@ -75,7 +75,7 @@ export default {
     const visibilityHost = document.createElement('span');
     visibilityHost.dataset.asterveilAnswerToggle = '';
     const visibilityRoot = visibilityHost.attachShadow({ mode: 'open' });
-    visibilityRoot.innerHTML = `<style>:host { float: right; margin-left: 12px; } button { border: 1px solid var(--av-border, #d8e1ec); border-radius: 6px; padding: 4px 10px; background: var(--av-paper, #fff); color: var(--av-accent, #386b9e); font: 12px/1.5 system-ui, sans-serif; cursor: pointer; } button:hover { background: var(--av-hover, #f1f5fa); } button:focus-visible { outline: 2px solid var(--av-accent, #386b9e); outline-offset: 2px; }</style><button type="button"></button>`;
+    visibilityRoot.innerHTML = `<style>:host { float: right; margin-left: 12px; } button { border: 1px solid var(--av-border, #d8e1ec); border-radius: 6px; padding: 4px 10px; background: var(--av-paper, #fff); color: var(--av-accent, #3b82c4); font: 12px/1.5 system-ui, sans-serif; cursor: pointer; } button:hover { background: var(--av-hover, #f1f5fa); } button:focus-visible { outline: 2px solid var(--av-accent, #3b82c4); outline-offset: 2px; }</style><button type="button"></button>`;
     const hide = visibilityRoot.querySelector('button') as HTMLButtonElement;
     const upload = root.querySelector<HTMLInputElement>('input[type="file"]');
     const dialog = get<HTMLDialogElement>('dialog');

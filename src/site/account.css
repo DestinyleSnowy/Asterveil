@@ -1,118 +1,86 @@
 /* biome-ignore-all lint/style/noDescendingSpecificity: Table layout adapters override shared account styles. */
 /* Account menu destinations; retain field behavior and semantic status colors. */
-html[data-asterveil-page^="account"] .ui.main.container {
-  color: var(--av-text);
-}
-html[data-asterveil-page^="account"] .ui.main.container :is(h1, h2, h3, .ui.header) {
-  color: var(--av-heading);
-  line-height: 1.5;
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.table {
-  background: var(--av-paper);
-  border-color: var(--av-border);
-  border-radius: 10px;
-  border-collapse: separate;
-  border-spacing: 0;
-  box-shadow: var(--av-shadow);
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.table > tbody > tr > td {
-  padding: 11px 12px;
-  border-color: var(--av-border);
-  line-height: 1.6;
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.table > thead > tr > th,
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .ui.table:not(:has(thead))
-  > tbody
-  > tr:first-child
-  > td {
-  background: var(--av-surface);
-  color: var(--av-heading);
-  padding: 12px;
-  border-color: var(--av-border);
-}
+html[data-asterveil-page^="account"] {
+  & .ui.main.container {
+    color: var(--av-text);
+    & :is(h1, h2, h3, .ui.header) {
+      color: var(--av-heading);
+      line-height: 1.5;
+    }
+    & .ui.table {
+      background: var(--av-paper);
+      border-color: var(--av-border);
+      border-radius: 10px;
+      border-collapse: separate;
+      border-spacing: 0;
+      box-shadow: var(--av-shadow);
+    }
+    & .ui.table > tbody > tr > td {
+      padding: 11px 12px;
+      border-color: var(--av-border);
+      line-height: 1.6;
+    }
+    & .ui.table > thead > tr > th,
+    & .ui.table:not(:has(thead)) > tbody > tr:first-child > td {
+      background: var(--av-surface);
+      color: var(--av-heading);
+      padding: 12px;
+      border-color: var(--av-border);
+    }
 
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .ui.table:not(:has(thead))
-  > tbody
-  > tr:first-child {
-  /* biome-ignore lint/complexity/noImportantStyles: Legacy tables have inline sticky coordinates; body already offsets the fixed menu. */
-  top: 0 !important;
+    & .ui.table:not(:has(thead)) > tbody > tr:first-child {
+      /* biome-ignore lint/complexity/noImportantStyles: Legacy tables have inline sticky coordinates; body already offsets the fixed menu. */
+      top: 0 !important;
+    }
+    & .ui.button {
+      border-radius: 7px;
+    }
+  }
+  &
+    .ui.main.container
+    .ui.button:not(
+      .red,
+      .orange,
+      .yellow,
+      .green,
+      .teal,
+      .blue,
+      .violet,
+      .purple,
+      .pink,
+      .brown,
+      .grey,
+      .black,
+      .positive,
+      .negative,
+      .primary,
+      .secondary
+    ) {
+    background: var(--av-tint);
+    color: var(--av-accent);
+  }
+  & .ui.main.container .ui.message {
+    border-radius: 10px;
+  }
 }
-html[data-asterveil-page^="account"] .ui.main.container .ui.form {
-  padding: 22px;
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  background: var(--av-paper);
-  box-shadow: var(--av-shadow);
+html[data-asterveil-page="account-edit"] {
+  & .ui.main.container .ui.form > .field {
+    margin-bottom: 20px;
+  }
+  & .ui.main.container .markdown-edit {
+    min-height: 160px;
+  }
 }
-html[data-asterveil-page^="account"] .ui.main.container .ui.form .field > label {
-  color: var(--av-heading);
-  margin-bottom: 8px;
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .ui.form
-  :is(input:not([type="checkbox"], [type="radio"], [type="file"]), textarea, select),
-html[data-asterveil-page^="account"] .ui.main.container .ui.selection.dropdown {
-  border-color: var(--av-border);
-  border-radius: 7px;
-  background: var(--av-surface);
-  color: var(--av-text);
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .ui.form
-  :is(input, textarea, select):focus {
-  border-color: var(--av-focus);
-  box-shadow: 0 0 0 3px var(--av-ring);
-  background: var(--av-paper);
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.button {
-  border-radius: 7px;
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .ui.button:not(
-    .red,
-    .orange,
-    .yellow,
-    .green,
-    .teal,
-    .blue,
-    .violet,
-    .purple,
-    .pink,
-    .brown,
-    .grey,
-    .black,
-    .positive,
-    .negative,
-    .primary,
-    .secondary
-  ) {
-  background: var(--av-tint);
-  color: var(--av-accent);
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.message {
-  border-radius: 10px;
-}
-html[data-asterveil-page="account-edit"] .ui.main.container .ui.form > .field {
-  margin-bottom: 20px;
-}
-html[data-asterveil-page="account-edit"] .ui.main.container .markdown-edit {
-  min-height: 160px;
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.pagination.menu {
-  border-color: var(--av-border);
-  border-radius: 8px;
-  box-shadow: none;
-}
-html[data-asterveil-page^="account"] .ui.main.container .ui.pagination.menu .active.item {
-  color: var(--av-accent);
-  background: var(--av-tint);
+html[data-asterveil-page^="account"] {
+  & .ui.main.container .ui.pagination.menu {
+    border-color: var(--av-border);
+    border-radius: 8px;
+    box-shadow: none;
+  }
+  & .ui.main.container .ui.pagination.menu .active.item {
+    color: var(--av-accent);
+    background: var(--av-tint);
+  }
 }
 html[data-asterveil-page] .ui.fixed.menu .dropdown > .menu > .item:hover {
   /* biome-ignore lint/complexity/noImportantStyles: Semantic UI dropdown colors use important declarations. */
@@ -122,15 +90,15 @@ html[data-asterveil-page] .ui.fixed.menu .dropdown > .menu > .item:hover {
 }
 
 /* Dense account tables use the viewport, without widening profile forms or help. */
-html[data-asterveil-page="account-rankings"]
-  .ui.main.container
-  > :is(.ui.toggle.checkbox, div:has(> #queue)) {
-  /* biome-ignore lint/complexity/noImportantStyles: The site's floating update controls otherwise cover the widened table. */
-  position: static !important;
-  margin: 0 28px 12px;
-}
-html[data-asterveil-page="account-rankings"] #queue:empty {
-  display: none;
+html[data-asterveil-page="account-rankings"] {
+  & .ui.main.container > :is(.ui.toggle.checkbox, div:has(> #queue)) {
+    /* biome-ignore lint/complexity/noImportantStyles: The site's floating update controls otherwise cover the widened table. */
+    position: static !important;
+    margin: 0 28px 12px;
+  }
+  & #queue:empty {
+    display: none;
+  }
 }
 html:is(
     [data-asterveil-page="account-rankings"],
@@ -142,30 +110,32 @@ html:is(
   width: calc(100% - 48px);
   max-width: none;
 }
-html[data-asterveil-page^="account"] .ui.main.container .padding.asterveil-wide-padding {
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-}
-html[data-asterveil-page^="account"] .ui.main.container .padding > .ui.table.asterveil-wide-table {
-  /* biome-ignore lint/complexity/noImportantStyles: Ranking tables fix their layout inline. */
-  table-layout: auto !important;
-  width: max-content;
-  min-width: 100%;
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .padding
-  > .ui.table.asterveil-wide-table
-  > :is(thead, tbody)
-  > tr
-  > :is(th, td) {
-  /* biome-ignore lint/complexity/noImportantStyles: Replace inline percentage widths that crush ranking columns. */
-  width: auto !important;
-  min-width: 72px;
-  padding: 10px 12px;
-  white-space: nowrap;
-  word-break: normal;
-  overflow-wrap: normal;
+html[data-asterveil-page^="account"] {
+  & .ui.main.container .padding.asterveil-wide-padding {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  & .ui.main.container .padding > .ui.table.asterveil-wide-table {
+    /* biome-ignore lint/complexity/noImportantStyles: Ranking tables fix their layout inline. */
+    table-layout: auto !important;
+    width: max-content;
+    min-width: 100%;
+  }
+  &
+    .ui.main.container
+    .padding
+    > .ui.table.asterveil-wide-table
+    > :is(thead, tbody)
+    > tr
+    > :is(th, td) {
+    /* biome-ignore lint/complexity/noImportantStyles: Replace inline percentage widths that crush ranking columns. */
+    width: auto !important;
+    min-width: 72px;
+    padding: 10px 12px;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
 }
 html[data-asterveil-page="account-rankings"]
   .ui.main.container
@@ -191,85 +161,89 @@ html[data-asterveil-page="account-schedule"]
   white-space: normal;
 }
 
-html[data-asterveil-page^="account"] .asterveil-table-toolbar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0 28px 18px;
+html[data-asterveil-page^="account"] {
+  & .asterveil-table-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 28px 18px;
+  }
+  & .asterveil-table-toolbar > .ui.button {
+    /* biome-ignore lint/complexity/noImportantStyles: Original download links are positioned fixed inline. */
+    position: static !important;
+    margin: 0;
+  }
+  & .asterveil-table-toolbar > .ui.button.asterveil-table-size {
+    margin-left: auto;
+  }
+  & .asterveil-table-toolbar-inline {
+    margin: 0 0 18px;
+  }
+  & .asterveil-table-toolbar-inline > .ui.button {
+    /* biome-ignore lint/complexity/noImportantStyles: Semantic UI floated buttons use important declarations. */
+    float: none !important;
+  }
+  & .asterveil-table-toolbar-inline > .ui.toggle.checkbox {
+    /* biome-ignore lint/complexity/noImportantStyles: Keep the original fixed update toggle in the existing action row. */
+    position: static !important;
+    margin: 0 6px;
+  }
+  & .ui.button.asterveil-table-size-inline {
+    float: right;
+    margin: 0 0 10px 12px;
+  }
+  &
+    .ui.main.container[data-asterveil-table-size="compact"]
+    .padding
+    > .ui.table.asterveil-wide-table {
+    width: 100%;
+    font-size: 12px;
+  }
+  &
+    .ui.main.container[data-asterveil-table-size="compact"]
+    .padding
+    > .ui.table.asterveil-wide-table
+    > :is(thead, tbody)
+    > tr
+    > :is(th, td) {
+    min-width: 56px;
+    padding: 6px 8px;
+  }
 }
-html[data-asterveil-page^="account"] .asterveil-table-toolbar > .ui.button {
-  /* biome-ignore lint/complexity/noImportantStyles: Original download links are positioned fixed inline. */
-  position: static !important;
-  margin: 0;
-}
-html[data-asterveil-page^="account"] .asterveil-table-toolbar > .ui.button.asterveil-table-size {
-  margin-left: auto;
-}
-html[data-asterveil-page^="account"] .asterveil-table-toolbar-inline {
-  margin: 0 0 18px;
-}
-html[data-asterveil-page^="account"] .asterveil-table-toolbar-inline > .ui.button {
-  /* biome-ignore lint/complexity/noImportantStyles: Semantic UI floated buttons use important declarations. */
-  float: none !important;
-}
-html[data-asterveil-page^="account"] .asterveil-table-toolbar-inline > .ui.toggle.checkbox {
-  /* biome-ignore lint/complexity/noImportantStyles: Keep the original fixed update toggle in the existing action row. */
-  position: static !important;
-  margin: 0 6px;
-}
-html[data-asterveil-page^="account"] .ui.button.asterveil-table-size-inline {
-  float: right;
-  margin: 0 0 10px 12px;
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container[data-asterveil-table-size="compact"]
-  .padding
-  > .ui.table.asterveil-wide-table {
-  width: 100%;
-  font-size: 12px;
-}
-html[data-asterveil-page^="account"]
-  .ui.main.container[data-asterveil-table-size="compact"]
-  .padding
-  > .ui.table.asterveil-wide-table
-  > :is(thead, tbody)
-  > tr
-  > :is(th, td) {
-  min-width: 56px;
-  padding: 6px 8px;
-}
-html[data-asterveil-page="account-rankings"]
-  .ui.main.container[data-asterveil-table-size="compact"]
-  .padding
-  > .ui.table.asterveil-wide-table {
-  /* biome-ignore lint/complexity/noImportantStyles: Compact rankings must fit the container instead of inheriting automatic column sizing. */
-  table-layout: fixed !important;
-  min-width: 0;
-}
-html[data-asterveil-page="account-rankings"]
-  .ui.main.container[data-asterveil-table-size="compact"]
-  .padding
-  > .ui.table.asterveil-wide-table
-  > :is(thead, tbody)
-  > tr
-  > :is(th, td) {
-  min-width: 0;
-  max-width: none;
-  padding: 6px;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-html[data-asterveil-page="account-rankings"]
-  .ui.main.container[data-asterveil-table-size="compact"]
-  .padding
-  > .ui.table.asterveil-wide-table
-  > :is(thead, tbody)
-  > tr
-  > :nth-child(2) {
-  /* biome-ignore lint/complexity/noImportantStyles: Reserve nickname space within the compact table's fixed width. */
-  width: 14% !important;
-  min-width: 0;
+html[data-asterveil-page="account-rankings"] {
+  &
+    .ui.main.container[data-asterveil-table-size="compact"]
+    .padding
+    > .ui.table.asterveil-wide-table {
+    /* biome-ignore lint/complexity/noImportantStyles: Compact rankings must fit the container instead of inheriting automatic column sizing. */
+    table-layout: fixed !important;
+    min-width: 0;
+  }
+  &
+    .ui.main.container[data-asterveil-table-size="compact"]
+    .padding
+    > .ui.table.asterveil-wide-table
+    > :is(thead, tbody)
+    > tr
+    > :is(th, td) {
+    min-width: 0;
+    max-width: none;
+    padding: 6px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  &
+    .ui.main.container[data-asterveil-table-size="compact"]
+    .padding
+    > .ui.table.asterveil-wide-table
+    > :is(thead, tbody)
+    > tr
+    > :nth-child(2) {
+    /* biome-ignore lint/complexity/noImportantStyles: Reserve nickname space within the compact table's fixed width. */
+    width: 14% !important;
+    min-width: 0;
+  }
 }
 html[data-asterveil-page="account-schedule"]
   .ui.main.container[data-asterveil-table-size="compact"]
@@ -282,82 +256,63 @@ html[data-asterveil-page="account-schedule"]
   max-width: 320px;
 }
 /* RPGainer: reserve room for IDs, people and timestamps instead of long prize text. */
-html[data-asterveil-page="account-rpgain"] .ui.main.container .padding {
-  overflow-x: auto;
-}
-html[data-asterveil-page="account-rpgain"] .ui.main.container .padding > .ui.table {
-  table-layout: fixed;
-  width: 100%;
-}
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table:has(tr > :nth-child(5)) {
-  min-width: 760px;
-}
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > :is(thead, tbody)
-  > tr
-  > :is(th, td) {
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > :is(thead, tbody)
-  > tr
-  > :first-child {
-  width: 56px;
-  white-space: nowrap;
-  overflow-wrap: normal;
-  font-variant-numeric: tabular-nums;
-}
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table:is(:nth-of-type(1), :nth-of-type(3))
-  > :is(thead, tbody)
-  > tr
-  > :nth-child(2),
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table:nth-of-type(3)
-  > :is(thead, tbody)
-  > tr
-  > :nth-child(3) {
-  width: 20%;
-}
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table:nth-of-type(1)
-  > :is(thead, tbody)
-  > tr
-  > :nth-child(4),
-html[data-asterveil-page="account-rpgain"]
-  .ui.main.container
-  .padding
-  > .ui.table:has(tr > :nth-child(5))
-  > :is(thead, tbody)
-  > tr
-  > :last-child {
-  width: 168px;
-  white-space: nowrap;
-  overflow-wrap: normal;
-  font-variant-numeric: tabular-nums;
+html[data-asterveil-page="account-rpgain"] {
+  & .ui.main.container {
+    & .padding {
+      overflow-x: auto;
+    }
+    & .padding > .ui.table {
+      table-layout: fixed;
+      width: 100%;
+    }
+    & .padding > .ui.table:has(tr > :nth-child(5)) {
+      min-width: 760px;
+    }
+    & .padding > .ui.table > :is(thead, tbody) > tr > :is(th, td) {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    & .padding > .ui.table > :is(thead, tbody) > tr > :first-child {
+      width: 56px;
+      white-space: nowrap;
+      overflow-wrap: normal;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+  &
+    .ui.main.container
+    .padding
+    > .ui.table:is(:nth-of-type(1), :nth-of-type(3))
+    > :is(thead, tbody)
+    > tr
+    > :nth-child(2),
+  &
+    .ui.main.container
+    .padding
+    > .ui.table:nth-of-type(3)
+    > :is(thead, tbody)
+    > tr
+    > :nth-child(3) {
+    width: 20%;
+  }
+  & .ui.main.container .padding > .ui.table:nth-of-type(1) > :is(thead, tbody) > tr > :nth-child(4),
+  &
+    .ui.main.container
+    .padding
+    > .ui.table:has(tr > :nth-child(5))
+    > :is(thead, tbody)
+    > tr
+    > :last-child {
+    width: 168px;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    font-variant-numeric: tabular-nums;
+  }
 }
 @media (max-width: 767px) {
-  html[data-asterveil-page^="account"]
-    .ui.main.container:not([data-asterveil-table-size="compact"]).asterveil-has-wide-table {
-    width: auto;
-  }
-  html[data-asterveil-page^="account"] .ui.main.container .ui.form {
-    padding: 14px;
+  html[data-asterveil-page^="account"] {
+    & .ui.main.container:not([data-asterveil-table-size="compact"]).asterveil-has-wide-table {
+      width: auto;
+    }
   }
 }

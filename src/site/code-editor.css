@@ -1,147 +1,151 @@
 /* biome-ignore-all lint/complexity/noImportantStyles: Replace the native answer editor's inline grid offsets, dimensions and borders. Monaco still owns its internal layout. */
-html[data-asterveil-page="problem"] #submit_code #languages-menu {
-  height: 480px !important;
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) {
-  display: grid;
-  grid-template-columns: 176px minmax(0, 1fr);
-  margin: 0;
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  background: var(--av-paper);
-  box-shadow: var(--av-shadow);
-  overflow: hidden;
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) > .column {
-  width: 100% !important;
-  min-width: 100%;
-  max-width: 100%;
-  height: 480px;
-  margin: 0 !important;
-  padding: 0;
-}
-html[data-asterveil-page="problem"] #submit_code #testcase-menu {
-  width: 100%;
-  height: 100% !important;
-  margin: 0;
-  padding: 12px 8px;
-  border: 0;
-  border-right: 1px solid var(--av-border);
-  border-radius: 0;
-  background: var(--av-surface);
-  box-shadow: none;
-  overflow-y: auto !important;
-}
-html[data-asterveil-page="problem"] #submit_code #testcase-menu .item {
-  padding: 12px;
-  margin-bottom: 4px;
-  border-radius: 7px !important;
-  color: var(--av-muted);
-  font:
-    13px / 1.5 Consolas,
-    "Cascadia Code",
-    monospace;
-  overflow-wrap: anywhere;
-}
-html[data-asterveil-page="problem"] #submit_code #testcase-menu .item::before,
-html[data-asterveil-page="problem"] #submit_code #testcase-menu .item::after {
-  display: none;
-}
-html[data-asterveil-page="problem"] #submit_code #testcase-menu .item:hover {
-  background: var(--av-hover);
-  color: var(--av-accent);
-}
-html[data-asterveil-page="problem"] #submit_code #testcase-menu .active.item {
-  background: var(--av-tint);
-  color: var(--av-accent);
-  box-shadow: inset 3px 0 var(--av-accent);
-  font-weight: 600;
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) .editor {
-  top: 12px;
-  left: 0;
-  height: calc(100% - 24px) !important;
-  border: 0 !important;
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor,
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor-background,
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .margin {
-  background-color: var(--av-paper);
-  color: var(--av-text);
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .mtk1 {
-  color: var(--av-text);
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .line-numbers {
-  color: var(--av-muted);
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .current-line {
-  background-color: var(--av-surface);
-  border: 0;
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .cursor {
-  background-color: var(--av-accent);
-  border-color: var(--av-accent);
-}
-html[data-asterveil-page="problem"] #submit_code .editor .monaco-editor .selected-text {
-  background-color: color-mix(in srgb, var(--av-accent) 22%, transparent);
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) > .ui.form {
-  grid-column: 1 / -1;
-  padding: 14px 18px;
-  border-top: 1px solid var(--av-border);
-  background: var(--av-surface);
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) .inline.fields {
-  margin: 0;
-}
-html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) .field {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px 16px;
-  padding: 0;
-}
-html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) label[for="answer"] {
-  margin: 0;
-  color: var(--av-muted);
-  font-size: 12px;
-  font-weight: 400;
-}
-html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) input[type="file"] {
-  width: 300px;
-  max-width: 100%;
-  padding: 6px;
-  border: 1px solid var(--av-border);
-  border-radius: 8px;
-  background: var(--av-paper);
-  color: var(--av-muted);
-}
-html[data-asterveil-page="problem"]
-  #submit_code:has(#testcase-menu)
-  input[type="file"]::file-selector-button {
-  margin-right: 10px;
-  padding: 7px 12px;
-  border: 0;
-  border-radius: 5px;
-  background: var(--av-tint);
-  color: var(--av-accent);
-  cursor: pointer;
-}
-html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) #submit-button {
-  border-radius: 8px;
-  background: var(--av-solid, var(--av-accent, #3b82c4));
-  color: var(--av-on-accent);
-}
-html[data-asterveil-page="problem"] #submit_code:has(#testcase-menu) #submit-button:hover {
-  background: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
+html[data-asterveil-page="problem"] {
+  & #submit_code {
+    & #languages-menu {
+      height: 480px !important;
+    }
+    & > .ui.grid:has(#testcase-menu) {
+      display: grid;
+      grid-template-columns: 176px minmax(0, 1fr);
+      margin: 0;
+      border: 1px solid var(--av-border);
+      border-radius: 12px;
+      background: var(--av-paper);
+      box-shadow: var(--av-shadow);
+      overflow: hidden;
+    }
+    & > .ui.grid:has(#testcase-menu) > .column {
+      width: 100% !important;
+      min-width: 100%;
+      max-width: 100%;
+      height: 480px;
+      margin: 0 !important;
+      padding: 0;
+    }
+    & #testcase-menu {
+      width: 100%;
+      height: 100% !important;
+      margin: 0;
+      padding: 12px 8px;
+      border: 0;
+      border-right: 1px solid var(--av-border);
+      border-radius: 0;
+      background: var(--av-surface);
+      box-shadow: none;
+      overflow-y: auto !important;
+    }
+    & #testcase-menu .item {
+      padding: 12px;
+      margin-bottom: 4px;
+      border-radius: 7px !important;
+      color: var(--av-muted);
+      font:
+        13px / 1.5 Consolas,
+        "Cascadia Code",
+        monospace;
+      overflow-wrap: anywhere;
+    }
+    & #testcase-menu .item::before,
+    & #testcase-menu .item::after {
+      display: none;
+    }
+    & #testcase-menu .item:hover {
+      background: var(--av-hover);
+      color: var(--av-accent);
+    }
+    & #testcase-menu .active.item {
+      background: var(--av-tint);
+      color: var(--av-accent);
+      box-shadow: inset 3px 0 var(--av-accent);
+      font-weight: 600;
+    }
+    & > .ui.grid:has(#testcase-menu) .editor {
+      top: 12px;
+      left: 0;
+      height: calc(100% - 24px) !important;
+      border: 0 !important;
+    }
+    & .editor .monaco-editor,
+    & .editor .monaco-editor-background,
+    & .editor .monaco-editor .margin {
+      background-color: var(--av-paper);
+      color: var(--av-text);
+    }
+    & .editor .monaco-editor .mtk1 {
+      color: var(--av-text);
+    }
+    & .editor .monaco-editor .line-numbers {
+      color: var(--av-muted);
+    }
+    & .editor .monaco-editor .current-line {
+      background-color: var(--av-surface);
+      border: 0;
+    }
+    & .editor .monaco-editor .cursor {
+      background-color: var(--av-accent);
+      border-color: var(--av-accent);
+    }
+    & .editor .monaco-editor .selected-text {
+      background-color: color-mix(in srgb, var(--av-accent) 22%, transparent);
+    }
+    & > .ui.grid:has(#testcase-menu) > .ui.form {
+      grid-column: 1 / -1;
+      padding: 14px 18px;
+      border-top: 1px solid var(--av-border);
+      background: var(--av-surface);
+    }
+    & > .ui.grid:has(#testcase-menu) .inline.fields {
+      margin: 0;
+    }
+    & > .ui.grid:has(#testcase-menu) .field {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      padding: 0;
+    }
+  }
+  & #submit_code:has(#testcase-menu) label[for="answer"] {
+    margin: 0;
+    color: var(--av-muted);
+    font-size: 12px;
+    font-weight: 400;
+  }
+  & #submit_code:has(#testcase-menu) input[type="file"] {
+    width: 300px;
+    max-width: 100%;
+    padding: 6px;
+    border: 1px solid var(--av-border);
+    border-radius: 8px;
+    background: var(--av-paper);
+    color: var(--av-muted);
+  }
+  & #submit_code:has(#testcase-menu) input[type="file"]::file-selector-button {
+    margin-right: 10px;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--av-tint);
+    color: var(--av-accent);
+    cursor: pointer;
+  }
+  & #submit_code:has(#testcase-menu) #submit-button {
+    border-radius: 8px;
+    background: var(--av-solid, var(--av-accent, #3b82c4));
+    color: var(--av-on-accent);
+  }
+  & #submit_code:has(#testcase-menu) #submit-button:hover {
+    background: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
+  }
 }
 @media (max-width: 600px) {
-  html[data-asterveil-page="problem"] #submit_code > .ui.grid:has(#testcase-menu) {
-    grid-template-columns: 112px minmax(0, 1fr);
-  }
-  html[data-asterveil-page="problem"] #submit_code #testcase-menu {
-    padding: 10px 6px;
+  html[data-asterveil-page="problem"] {
+    & #submit_code > .ui.grid:has(#testcase-menu) {
+      grid-template-columns: 112px minmax(0, 1fr);
+    }
+    & #submit_code #testcase-menu {
+      padding: 10px 6px;
+    }
   }
 }

@@ -1,0 +1,77 @@
+/* Keep the site's fields, errors and authentication handlers intact. */
+html[data-asterveil-page="login"] {
+  & .ui.main.container {
+    color: var(--av-text);
+    & > .ui.grid {
+      margin: 0;
+      padding: clamp(16px, 7vh, 72px) 0 24px;
+    }
+    & .ui.image.header {
+      color: var(--av-heading);
+      font-size: 28px;
+      margin-bottom: 22px;
+    }
+    & .ui.form > .ui.segment {
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    & .ui.form .field {
+      margin-bottom: 18px;
+    }
+    & .ui.form .ui.input > input {
+      min-height: 48px;
+    }
+    & .ui.form .ui.input > .icon {
+      color: var(--av-icon);
+      opacity: 1;
+    }
+    & #login {
+      background: var(--av-solid);
+      color: var(--av-on-accent);
+      border-radius: 8px;
+      min-height: 46px;
+    }
+    & #login:hover {
+      background: color-mix(in srgb, var(--av-solid) 94%, #000);
+    }
+    & #login:focus-visible {
+      outline: 2px solid var(--av-accent);
+      outline-offset: 3px;
+    }
+    & .ui.message {
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    & .ui.message:not(.error, .negative, .positive, .warning, .success, .info) {
+      background: var(--av-surface);
+      color: var(--av-muted);
+      box-shadow: inset 0 0 0 1px var(--av-border);
+    }
+    & .ui.message:empty {
+      display: none;
+    }
+    & > .ui.error.message {
+      max-width: 422px;
+      margin: 0 auto 20px;
+    }
+    & .ui.center.aligned.container {
+      color: var(--av-muted);
+      font-size: 12px;
+    }
+  }
+  @media (max-width: 767px) {
+    & .ui.fixed.menu > .ui.container {
+      overflow-x: auto;
+    }
+    & .ui.fixed.menu .item {
+      flex-shrink: 0;
+    }
+    & .ui.main.container > .ui.grid > .row > .column {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

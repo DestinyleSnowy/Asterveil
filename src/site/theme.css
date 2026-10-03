@@ -1,0 +1,11 @@
+/* Cascade order: shared surfaces, page adapters, mode and specialized controls. */
+@import "./appearance.css";
+@import "./details.css";
+@import "./contest.css";
+@import "./problem-tools.css";
+@import "./account.css";
+@import "./forms.css";
+@import "./dark.css";
+@import "./code-editor.css";
+@import "./chat.css";
+@import "./login.css";

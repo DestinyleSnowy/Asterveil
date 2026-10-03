@@ -1,84 +1,77 @@
-html[data-asterveil-page="contest"] .ui.main.container > .padding > .ui.label {
-  background: var(--av-paper);
-  color: var(--av-muted);
-  border: 1px solid var(--av-border);
-  border-radius: 6px;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-}
-/* Contest overview: keep schedule, progress and problem status semantics. */
-html[data-asterveil-page="contest"] .ui.main.container > .padding > h1 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  color: var(--av-heading);
-  font-size: 27px;
-  line-height: 1.5;
-}
-html[data-asterveil-page="contest"] .ui.main.container > .padding > h1 > .ui.header {
-  margin: 0;
-  line-height: 1;
-}
-html[data-asterveil-page="contest"] .ui.main.container > .padding > h1 .ui.label {
-  border-radius: 6px;
-  font-weight: 500;
-  line-height: 1.4;
-}
-html[data-asterveil-page="contest"] .ui.main.container > .padding > h1 .ui.blue.label {
-  /* biome-ignore lint/complexity/noImportantStyles: Semantic UI marks blue label backgrounds as important. */
-  background-color: var(--av-tint) !important;
-  /* biome-ignore lint/complexity/noImportantStyles: Match the important text color of Semantic UI's blue labels. */
-  color: var(--av-accent) !important;
-}
-html[data-asterveil-page="contest"] #timer-progress {
-  background: var(--av-tint);
-  border-radius: 6px;
-  margin-top: 12px;
-  margin-bottom: 28px;
-}
-/* Keep the site's adjoining action buttons and native group corner shapes. */
-html[data-asterveil-page="contest"] .ui.buttons > .ui.button[data-asterveil="contest-review"] {
-  background-color: var(--av-solid, var(--av-accent, #3b82c4));
-  color: var(--av-on-accent);
-}
-html[data-asterveil-page="contest"]
-  .ui.buttons
-  > .ui.button[data-asterveil="contest-review"]:hover {
-  background-color: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
-}
-html[data-asterveil-page="contest"] .ui.main.container .column > .ui.selectable.celled.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--av-shadow);
-}
-html[data-asterveil-page="contest"]
-  .ui.main.container
-  .column
-  > .ui.selectable.celled.table
-  > thead
-  > tr
-  > th {
-  background: var(--av-surface);
-  color: var(--av-heading);
-  padding: 15px 16px;
-  border-color: var(--av-border);
-  border-left: 0;
-}
-html[data-asterveil-page="contest"]
-  .ui.main.container
-  .column
-  > .ui.selectable.celled.table
-  > tbody
-  > tr
-  > td {
-  padding: 16px;
-  border-color: var(--av-tint);
-  border-left: 0;
-  line-height: 1.6;
+html[data-asterveil-page="contest"] {
+  & .ui.main.container {
+    & > .padding > .ui.label {
+      background: var(--av-paper);
+      color: var(--av-muted);
+      border: 1px solid var(--av-border);
+      border-radius: 6px;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    /* Contest overview: keep schedule, progress and problem status semantics. */
+    & > .padding > h1 {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--av-heading);
+      font-size: 27px;
+      line-height: 1.5;
+    }
+    & > .padding > h1 > .ui.header {
+      margin: 0;
+      line-height: 1;
+    }
+    /* biome-ignore lint/style/noDescendingSpecificity: The inherited container is shared; h1 labels are more specific than direct labels. */
+    & > .padding > h1 .ui.label {
+      border-radius: 6px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    & > .padding > h1 .ui.blue.label {
+      /* biome-ignore lint/complexity/noImportantStyles: Semantic UI marks blue label backgrounds as important. */
+      background-color: var(--av-tint) !important;
+      /* biome-ignore lint/complexity/noImportantStyles: Match the important text color of Semantic UI's blue labels. */
+      color: var(--av-accent) !important;
+    }
+  }
+  & #timer-progress {
+    background: var(--av-tint);
+    border-radius: 6px;
+    margin-top: 12px;
+    margin-bottom: 28px;
+  }
+  /* Keep the site's adjoining action buttons and native group corner shapes. */
+  & .ui.buttons > .ui.button[data-asterveil="contest-review"] {
+    background-color: var(--av-solid, var(--av-accent, #3b82c4));
+    color: var(--av-on-accent);
+  }
+  & .ui.buttons > .ui.button[data-asterveil="contest-review"]:hover {
+    background-color: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
+  }
+  & .ui.main.container {
+    & .column > .ui.selectable.celled.table {
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--av-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--av-shadow);
+    }
+    & .column > .ui.selectable.celled.table > thead > tr > th {
+      background: var(--av-surface);
+      color: var(--av-heading);
+      padding: 15px 16px;
+      border-color: var(--av-border);
+      border-left: 0;
+    }
+    & .column > .ui.selectable.celled.table > tbody > tr > td {
+      padding: 16px;
+      border-color: var(--av-tint);
+      border-left: 0;
+      line-height: 1.6;
+    }
+  }
 }
 @media (hover: hover) {
   html[data-asterveil-page="contest"]

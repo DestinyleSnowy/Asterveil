@@ -1,158 +1,147 @@
 /* Answer review: preserve grading controls and their existing state colors. */
-html[data-asterveil-page="answers"] .ui.main.container h1.ui.header > a {
-  color: var(--av-heading);
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.three.item.menu {
-  border-color: var(--av-border);
-  border-radius: 9px;
-  box-shadow: var(--av-shadow);
-  overflow: hidden;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.three.item.menu > .active.item {
-  background: var(--av-tint);
-  color: var(--av-accent);
-  box-shadow: inset 0 -2px var(--av-accent);
-}
-html[data-asterveil-page="answers"] .ui.main.container > .ui.grid > .row.ui.segment {
-  border-color: var(--av-border);
-  border-radius: 12px;
-  box-shadow: var(--av-shadow);
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-html[data-asterveil-page="answers"] .ui.main.container .row.ui.segment .column > .row.ui.segment {
-  border-color: var(--av-border);
-  border-radius: 9px;
-  box-shadow: none;
-  background: var(--av-surface);
-  line-height: 1.7;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ten.wide.column > img {
-  border-radius: 8px;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.labeled.button > .ui.button {
-  border-radius: 7px 0 0 7px;
-  min-height: 38px;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.labeled.button > .ui.label {
-  border-color: var(--av-border);
-  border-radius: 0 7px 7px 0;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.form textarea {
-  padding: 12px;
-  min-height: 92px;
-  resize: vertical;
-}
-html[data-asterveil-page="answers"] .ui.main.container .ui.button.set-comment {
-  background: var(--av-solid, var(--av-accent, #3b82c4));
-  color: var(--av-on-accent);
-}
-html[data-asterveil-page="answers"] #teacher_mode {
-  padding: 10px 12px;
-  background: var(--av-paper);
-  border: 1px solid var(--av-border);
-  border-radius: 9px;
-  box-shadow: var(--av-shadow);
-}
+html[data-asterveil-page="answers"] {
+  & .ui.main.container {
+    & h1.ui.header > a {
+      color: var(--av-heading);
+    }
+    & .ui.three.item.menu {
+      border-color: var(--av-border);
+      border-radius: 9px;
+      box-shadow: var(--av-shadow);
+      overflow: hidden;
+    }
+    & .ui.three.item.menu > .active.item {
+      background: var(--av-tint);
+      color: var(--av-accent);
+      box-shadow: inset 0 -2px var(--av-accent);
+    }
+    & > .ui.grid > .row.ui.segment {
+      border-color: var(--av-border);
+      border-radius: 12px;
+      box-shadow: var(--av-shadow);
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+    & .row.ui.segment .column > .row.ui.segment {
+      border-color: var(--av-border);
+      border-radius: 9px;
+      box-shadow: none;
+      background: var(--av-surface);
+      line-height: 1.7;
+    }
+    & .ten.wide.column > img {
+      border-radius: 8px;
+    }
+    & .ui.labeled.button > .ui.button {
+      border-radius: 7px 0 0 7px;
+      min-height: 38px;
+    }
+    & .ui.labeled.button > .ui.label {
+      border-color: var(--av-border);
+      border-radius: 0 7px 7px 0;
+    }
+    & .ui.form textarea {
+      padding: 12px;
+      min-height: 92px;
+      resize: vertical;
+    }
+    & .ui.button.set-comment {
+      background: var(--av-solid, var(--av-accent, #3b82c4));
+      color: var(--av-on-accent);
+    }
+  }
+  & #teacher_mode {
+    padding: 10px 12px;
+    background: var(--av-paper);
+    border: 1px solid var(--av-border);
+    border-radius: 9px;
+    box-shadow: var(--av-shadow);
+  }
 
-/* Suggestions: retain dynamic fields and native submission behavior. */
-html[data-asterveil-page="suggestion"] .ui.main.container .padding > form {
-  background: var(--av-paper);
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  padding: 22px;
-  margin-bottom: 24px;
-  box-shadow: var(--av-shadow);
+  /* Suggestions: retain dynamic fields and native submission behavior. */
 }
-html[data-asterveil-page="suggestion"] .ui.main.container .ui.form .fields:last-child {
-  margin-bottom: 0;
-}
-html[data-asterveil-page="suggestion"] .ui.main.container .ui.form label {
-  color: var(--av-heading);
-  margin-bottom: 9px;
-}
-html[data-asterveil-page="suggestion"] .ui.main.container .ui.form select {
-  border-color: var(--av-border);
-  border-radius: 7px;
-  min-height: 40px;
-}
-html[data-asterveil-page="suggestion"] .ui.main.container .ui.form textarea {
-  padding: 14px;
-}
-html[data-asterveil-page="suggestion"] .ui.main.container .ui.form button[type="submit"] {
-  background: var(--av-solid, var(--av-accent, #3b82c4));
-  color: var(--av-on-accent);
-  border-radius: 7px;
-  min-height: 40px;
-}
-html[data-asterveil-page="suggestion"]
-  .ui.main.container
-  .padding
-  > .ui.data.table
-  > tbody
-  > tr:first-child {
-  /* biome-ignore lint/complexity/noImportantStyles: Offset the site's inline sticky header below its fixed navigation. */
-  top: 49px !important;
-}
-html[data-asterveil-page="suggestion"]
-  .ui.main.container
-  .padding
-  > .ui.data.table
-  > tbody
-  > tr:first-child
-  > td {
-  background: var(--av-surface);
-  color: var(--av-heading);
-  border-bottom: 1px solid var(--av-border);
-}
-html[data-asterveil-page="suggestion"]
-  .ui.main.container
-  .padding
-  > .ui.data.table
-  > tbody
-  > tr:first-child
-  > td:first-child {
-  border-top-left-radius: 10px;
-}
-html[data-asterveil-page="suggestion"]
-  .ui.main.container
-  .padding
-  > .ui.data.table
-  > tbody
-  > tr:first-child
-  > td:last-child {
-  border-top-right-radius: 10px;
-}
+html[data-asterveil-page="suggestion"] {
+  & .ui.main.container {
+    & .padding > form {
+      background: var(--av-paper);
+      border: 1px solid var(--av-border);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 24px;
+      box-shadow: var(--av-shadow);
+    }
+    & .ui.form .fields:last-child {
+      margin-bottom: 0;
+    }
+    & .ui.form label {
+      color: var(--av-heading);
+      margin-bottom: 9px;
+    }
+    & .ui.form select {
+      border-color: var(--av-border);
+      border-radius: 7px;
+      min-height: 40px;
+    }
+    & .ui.form textarea {
+      padding: 14px;
+    }
+    & .ui.form button[type="submit"] {
+      background: var(--av-solid, var(--av-accent, #3b82c4));
+      color: var(--av-on-accent);
+      border-radius: 7px;
+      min-height: 40px;
+    }
+    & .padding > .ui.data.table > tbody > tr:first-child {
+      /* biome-ignore lint/complexity/noImportantStyles: Offset the site's inline sticky header below its fixed navigation. */
+      top: 49px !important;
+    }
+    & .padding > .ui.data.table > tbody > tr:first-child > td {
+      background: var(--av-surface);
+      color: var(--av-heading);
+      border-bottom: 1px solid var(--av-border);
+    }
+    & .padding > .ui.data.table > tbody > tr:first-child > td:first-child {
+      border-top-left-radius: 10px;
+    }
+    & .padding > .ui.data.table > tbody > tr:first-child > td:last-child {
+      border-top-right-radius: 10px;
+    }
 
-/* Statistics: retain score/status colors and the chart geometry. */
-html[data-asterveil-page="statistics"] .ui.main.container .padding > h1 {
-  color: var(--av-heading);
-  font-size: 26px;
-  line-height: 1.6;
+    /* Statistics: retain score/status colors and the chart geometry. */
+  }
 }
-html[data-asterveil-page="statistics"] .ui.main.container h1 .ui.compact.menu {
-  border-color: var(--av-border);
-  border-radius: 8px;
-  box-shadow: var(--av-shadow);
-  font-size: 14px;
-  vertical-align: middle;
-}
-html[data-asterveil-page="statistics"] .ui.main.container h1 .ui.dropdown > .menu {
-  border-color: var(--av-border);
-  border-radius: 8px;
-  box-shadow: var(--av-shadow);
-}
-html[data-asterveil-page="statistics"] .ui.main.container h1 .ui.dropdown > .menu > .item:hover {
-  background: var(--av-tint);
-  color: var(--av-accent);
-}
-html[data-asterveil-page="statistics"]
-  .ui.main.container
-  .padding
-  > :is(#score-distribution-chart, #score-distribution-chart-pre, #score-distribution-chart-suf) {
-  background: var(--av-paper);
-  border-radius: 12px;
-  box-shadow:
-    var(--av-shadow),
-    0 0 0 1px var(--av-border);
+html[data-asterveil-page="statistics"] {
+  & .ui.main.container {
+    & .padding > h1 {
+      color: var(--av-heading);
+      font-size: 26px;
+      line-height: 1.6;
+    }
+    & h1 .ui.compact.menu {
+      border-color: var(--av-border);
+      border-radius: 8px;
+      box-shadow: var(--av-shadow);
+      font-size: 14px;
+      vertical-align: middle;
+    }
+    & h1 .ui.dropdown > .menu {
+      border-color: var(--av-border);
+      border-radius: 8px;
+      box-shadow: var(--av-shadow);
+    }
+    & h1 .ui.dropdown > .menu > .item:hover {
+      background: var(--av-tint);
+      color: var(--av-accent);
+    }
+  }
+  &
+    .ui.main.container
+    .padding
+    > :is(#score-distribution-chart, #score-distribution-chart-pre, #score-distribution-chart-suf) {
+    background: var(--av-paper);
+    border-radius: 12px;
+    box-shadow:
+      var(--av-shadow),
+      0 0 0 1px var(--av-border);
+  }
 }

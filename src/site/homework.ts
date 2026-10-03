@@ -1,5 +1,7 @@
+import { appearancePage } from './appearance';
+
 export function matchesHomeworkPage(url: URL): boolean {
-  return /^\/(?:contest\/\d+\/)?problem\/\d+\/?$/.test(url.pathname);
+  return appearancePage(url) === 'problem';
 }
 
 export function findHomework(document: Document, url: URL) {

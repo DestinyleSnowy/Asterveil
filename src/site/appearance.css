@@ -14,368 +14,262 @@ html[data-asterveil-appearance="polished"] {
   --av-shadow: 0 3px 14px rgb(35 55 80 / 4%);
 }
 
-html[data-asterveil-appearance="polished"] body,
-html[data-asterveil-appearance="polished"] body > .pusher {
-  background-color: var(--av-canvas);
-}
+html[data-asterveil-appearance="polished"] {
+  & body,
+  & body > .pusher {
+    background-color: var(--av-canvas);
+  }
 
-html[data-asterveil-appearance="polished"] .ui.fixed.borderless.menu {
-  border-color: var(--av-border);
-  box-shadow: 0 2px 10px rgb(35 55 80 / 5%);
-}
+  & .ui.fixed.borderless.menu {
+    border-color: var(--av-border);
+    box-shadow: 0 2px 10px rgb(35 55 80 / 5%);
+  }
 
-html[data-asterveil-appearance="polished"] .ui.fixed.borderless.menu > .container > .header.item {
-  color: var(--av-accent);
-}
-
-html[data-asterveil-appearance="polished"] .ui.fixed.borderless.menu > .container > .item.active {
-  background-color: var(--av-tint);
-  color: var(--av-accent);
-  box-shadow: inset 0 -2px var(--av-accent);
-}
-
-html[data-asterveil-appearance="polished"] .ui.main.container .ui.top.attached.block.header {
-  background: var(--av-surface);
-  color: var(--av-heading);
-  border-color: var(--av-border);
-  border-radius: 8px 8px 0 0;
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .ui.top.attached.block.header
-  > .icon {
-  color: var(--av-icon);
-}
-
-html[data-asterveil-appearance="polished"] .ui.main.container .ui.bottom.attached.segment {
-  border-color: var(--av-border);
-  border-radius: 0 0 8px 8px;
-  box-shadow: var(--av-shadow);
-}
-
-html[data-asterveil-appearance="polished"] .ui.main.container .ui.secondary.pointing.menu {
-  border-color: var(--av-border);
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .ui.secondary.pointing.menu
-  .active.item {
-  color: var(--av-accent);
-  border-color: var(--av-accent);
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .ui.very.basic.table
-  > thead
-  > tr
-  > th {
-  background-color: var(--av-surface);
-  border-color: var(--av-border);
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .ui.very.basic.table
-  > tbody
-  > tr
-  > td {
-  border-color: var(--av-tint);
-}
-
-/* The exercise table sits directly inside .padding; dashboard tables stay flat. */
-html[data-asterveil-appearance="polished"] .ui.main.container .padding > .ui.table {
-  background: var(--av-paper);
-  border: 1px solid var(--av-border);
-  border-radius: 8px;
-  box-shadow: var(--av-shadow);
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > thead
-  > tr
-  > th:first-child {
-  border-top-left-radius: 10px;
-}
-
-html[data-asterveil-appearance="polished"]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > thead
-  > tr
-  > th:last-child {
-  border-top-right-radius: 10px;
-}
-
-html[data-asterveil-appearance="polished"] .ui.main.container .ui.input > input {
-  border-color: var(--av-border);
-  box-shadow: 0 1px 3px rgb(35 55 80 / 3%);
-}
-
-html[data-asterveil-appearance="polished"] .ui.main.container .ui.input > input:focus {
-  border-color: var(--av-focus);
-  box-shadow: 0 0 0 3px var(--av-ring);
-}
-
-html[data-asterveil-appearance="polished"] .ui.sidebar.vertical.menu {
-  border-color: var(--av-border);
-}
-
-@media (hover: hover) {
-  html[data-asterveil-appearance="polished"] .ui.fixed.borderless.menu > .container > a.item:hover {
-    background-color: var(--av-tint);
+  & .ui.fixed.borderless.menu > .container > .header.item {
     color: var(--av-accent);
   }
 
-  html[data-asterveil-appearance="polished"]
-    .ui.main.container
-    .ui.very.basic.table
-    > tbody
-    > tr:not(.positive, .negative, .warning, .error, .active, .disabled):hover {
-    background-color: var(--av-hover);
+  & .ui.fixed.borderless.menu > .container > .item.active {
+    background-color: var(--av-tint);
+    color: var(--av-accent);
+    box-shadow: inset 0 -2px var(--av-accent);
+  }
+
+  & .ui.main.container {
+    & .ui.top.attached.block.header {
+      background: var(--av-surface);
+      color: var(--av-heading);
+      border-color: var(--av-border);
+      border-radius: 8px 8px 0 0;
+    }
+
+    & .ui.top.attached.block.header > .icon {
+      color: var(--av-icon);
+    }
+
+    & .ui.bottom.attached.segment {
+      border-color: var(--av-border);
+      border-radius: 0 0 8px 8px;
+      box-shadow: var(--av-shadow);
+    }
+
+    & .ui.secondary.pointing.menu {
+      border-color: var(--av-border);
+    }
+
+    & .ui.secondary.pointing.menu .active.item {
+      color: var(--av-accent);
+      border-color: var(--av-accent);
+    }
+
+    & .ui.very.basic.table > thead > tr > th {
+      background-color: var(--av-surface);
+      border-color: var(--av-border);
+    }
+
+    & .ui.very.basic.table > tbody > tr > td {
+      border-color: var(--av-tint);
+    }
+
+    /* The exercise table sits directly inside .padding; dashboard tables stay flat. */
+    & .padding > .ui.table {
+      background: var(--av-paper);
+      border: 1px solid var(--av-border);
+      border-radius: 8px;
+      box-shadow: var(--av-shadow);
+    }
+
+    & .padding > .ui.table > thead > tr > th:first-child {
+      border-top-left-radius: 10px;
+    }
+
+    & .padding > .ui.table > thead > tr > th:last-child {
+      border-top-right-radius: 10px;
+    }
+
+    & .ui.input > input {
+      border-color: var(--av-border);
+      box-shadow: 0 1px 3px rgb(35 55 80 / 3%);
+    }
+
+    & .ui.input > input:focus {
+      border-color: var(--av-focus);
+      box-shadow: 0 0 0 3px var(--av-ring);
+    }
+  }
+
+  & .ui.sidebar.vertical.menu {
+    border-color: var(--av-border);
+  }
+}
+
+@media (hover: hover) {
+  html[data-asterveil-appearance="polished"] {
+    & .ui.fixed.borderless.menu > .container > a.item:hover {
+      background-color: var(--av-tint);
+      color: var(--av-accent);
+    }
+
+    &
+      .ui.main.container
+      .ui.very.basic.table
+      > tbody
+      > tr:not(.positive, .negative, .warning, .error, .active, .disabled):hover {
+      background-color: var(--av-hover);
+    }
   }
 }
 
 /* Shared list surfaces, preserving cells, links and status-specific colors. */
-html[data-asterveil-page] .ui.main.container .padding > .ui.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 10px;
-}
+html[data-asterveil-page] {
+  & .ui.main.container {
+    & .padding > .ui.table {
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+    }
 
-html[data-asterveil-page] .ui.main.container .padding > .ui.table > thead > tr > th,
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.very.basic.table
-  > thead
-  > tr
-  > th:first-child,
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.very.basic.table
-  > thead
-  > tr
-  > th:last-child {
-  padding: 14px 12px;
-  background: var(--av-surface);
-  color: var(--av-heading);
-  border-bottom: 1px solid var(--av-border);
-  line-height: 1.5;
-}
+    & .padding > .ui.table > thead > tr > th,
+    & .padding > .ui.very.basic.table > thead > tr > th:first-child,
+    & .padding > .ui.very.basic.table > thead > tr > th:last-child {
+      padding: 14px 12px;
+      background: var(--av-surface);
+      color: var(--av-heading);
+      border-bottom: 1px solid var(--av-border);
+      line-height: 1.5;
+    }
 
-html[data-asterveil-page] .ui.main.container .padding > .ui.table > tbody > tr > td {
-  padding: 12px;
-  border-color: var(--av-tint);
-  line-height: 1.6;
-}
+    & .padding > .ui.table > tbody > tr > td {
+      padding: 12px;
+      border-color: var(--av-tint);
+      line-height: 1.6;
+    }
 
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.very.basic.table
-  > tbody
-  > tr
-  > td:first-child,
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.very.basic.table
-  > tbody
-  > tr
-  > td:last-child {
-  padding-left: 12px;
-  padding-right: 12px;
-}
+    & .padding > .ui.very.basic.table > tbody > tr > td:first-child,
+    & .padding > .ui.very.basic.table > tbody > tr > td:last-child {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
 
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:last-child
-  > td:first-child {
-  border-bottom-left-radius: 10px;
-}
-html[data-asterveil-page]
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:last-child
-  > td:last-child {
-  border-bottom-right-radius: 10px;
-}
+    & .padding > .ui.table > tbody > tr:last-child > td:first-child {
+      border-bottom-left-radius: 10px;
+    }
+    & .padding > .ui.table > tbody > tr:last-child > td:last-child {
+      border-bottom-right-radius: 10px;
+    }
 
-html[data-asterveil-page] .ui.main.container .ui.pagination.menu {
-  border-color: var(--av-border);
-  border-radius: 8px;
-  box-shadow: var(--av-shadow);
-  max-width: 100%;
-  overflow-x: auto;
-}
-html[data-asterveil-page] .ui.main.container .ui.pagination.menu .active.item {
-  background: var(--av-tint);
-  color: var(--av-accent);
-  font-weight: 600;
-}
-html[data-asterveil-page]
-  .ui.main.container
-  .ui.form
-  input:not([type="checkbox"], [type="radio"], [type="submit"]),
-html[data-asterveil-page] .ui.main.container .ui.form textarea,
-html[data-asterveil-page] .ui.main.container .ui.selection.dropdown {
-  border-color: var(--av-border);
-  border-radius: 6px;
-}
-html[data-asterveil-page] .ui.main.container .ui.form textarea:focus,
-html[data-asterveil-page] .ui.main.container .ui.form input:focus {
-  border-color: var(--av-focus);
-}
-html[data-asterveil-page] .ui.main.container .ui.form textarea {
-  background: var(--av-paper);
-  line-height: 1.7;
-}
-html[data-asterveil-page] .ui.main.container .ui.mini.form {
-  padding: 12px;
-  border: 1px solid var(--av-border);
-  border-radius: 10px;
-  background: var(--av-paper);
-  margin-bottom: 18px;
-}
-html[data-asterveil-page] .ui.main.container .ui.mini.form > .inline.fields {
-  margin-bottom: 0;
-  flex-wrap: wrap;
-  row-gap: 8px;
-}
-/* The nine-column submission list needs a slightly denser row rhythm. */
-html:is(
-    [data-asterveil-page="submissions"],
-    [data-asterveil-page="submission"],
-    [data-asterveil-page="statistics"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table {
-  font-size: 13px;
+    & .ui.pagination.menu {
+      border-color: var(--av-border);
+      border-radius: 8px;
+      box-shadow: var(--av-shadow);
+      max-width: 100%;
+      overflow-x: auto;
+    }
+    & .ui.pagination.menu .active.item {
+      background: var(--av-tint);
+      color: var(--av-accent);
+      font-weight: 600;
+    }
+    & .ui.form input:not([type="checkbox"], [type="radio"], [type="submit"]),
+    & .ui.form textarea,
+    & .ui.selection.dropdown {
+      border-color: var(--av-border);
+      border-radius: 6px;
+    }
+    & .ui.form textarea:focus,
+    & .ui.form input:focus {
+      border-color: var(--av-focus);
+    }
+    & .ui.form textarea {
+      background: var(--av-paper);
+      line-height: 1.7;
+    }
+    & .ui.mini.form {
+      padding: 12px;
+      border: 1px solid var(--av-border);
+      border-radius: 10px;
+      background: var(--av-paper);
+      margin-bottom: 18px;
+    }
+    & .ui.mini.form > .inline.fields {
+      margin-bottom: 0;
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+    /* The nine-column submission list needs a slightly denser row rhythm. */
+  }
 }
 html:is(
-    [data-asterveil-page="submissions"],
-    [data-asterveil-page="submission"],
-    [data-asterveil-page="statistics"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.very.basic.table
-  > :is(thead, tbody)
-  > tr
-  > :is(th, td) {
-  padding-left: 8px;
-  padding-right: 8px;
+  [data-asterveil-page="submissions"],
+  [data-asterveil-page="submission"],
+  [data-asterveil-page="statistics"]
+) {
+  & .ui.main.container {
+    & .padding > .ui.table {
+      font-size: 13px;
+    }
+    & .padding > .ui.very.basic.table > :is(thead, tbody) > tr > :is(th, td) {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    & .padding > .ui.table > tbody > tr > td:nth-child(2) > a {
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
-html:is(
-    [data-asterveil-page="submissions"],
-    [data-asterveil-page="submission"],
-    [data-asterveil-page="statistics"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr
-  > td:nth-child(2)
-  > a {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-html[data-asterveil-page] .ui.main.container .ui.form .ui.blue.button {
-  background-color: var(--av-solid, var(--av-accent, #3b82c4));
-  color: var(--av-on-accent);
-}
-html[data-asterveil-page] .ui.sidebar.vertical.menu {
-  box-shadow: 2px 0 14px rgb(35 55 80 / 5%);
-}
-html[data-asterveil-page] .ui.sidebar .ui.styled.accordion {
-  box-shadow: none;
-  border-radius: 0;
-}
-html[data-asterveil-page] .ui.sidebar .ui.buttons > .ui.button.active {
-  background: var(--av-tint);
-  color: var(--av-accent);
-  box-shadow: inset 3px 0 var(--av-accent);
-}
-html[data-asterveil-page] .ui.fixed.menu .dropdown > .menu {
-  border-color: var(--av-border);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 8px 28px rgb(35 55 80 / 10%);
-}
+html[data-asterveil-page] {
+  & .ui.main.container .ui.form .ui.blue.button {
+    background-color: var(--av-solid, var(--av-accent, #3b82c4));
+    color: var(--av-on-accent);
+  }
+  & .ui.sidebar.vertical.menu {
+    box-shadow: 2px 0 14px rgb(35 55 80 / 5%);
+  }
+  & .ui.sidebar .ui.styled.accordion {
+    box-shadow: none;
+    border-radius: 0;
+  }
+  & .ui.sidebar .ui.buttons > .ui.button.active {
+    background: var(--av-tint);
+    color: var(--av-accent);
+    box-shadow: inset 3px 0 var(--av-accent);
+  }
+  & .ui.fixed.menu .dropdown > .menu {
+    border-color: var(--av-border);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 8px 28px rgb(35 55 80 / 10%);
+  }
 
-/* These legacy tables use a sticky first tbody row in place of a thead. */
-html:is(
-    [data-asterveil-page="plans"],
-    [data-asterveil-page="foreign"],
-    [data-asterveil-page="rewards"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:first-child {
-  /* The site's body already begins below the fixed navigation. */
-  /* biome-ignore lint/complexity/noImportantStyles: Keep the sticky row at the scrollport edge, overriding the prior offset. */
-  top: 0 !important;
-  /* biome-ignore lint/complexity/noImportantStyles: Keep header paint above scrolling rows. */
-  z-index: 2 !important;
+  /* These legacy tables use a sticky first tbody row in place of a thead. */
 }
 html:is(
-    [data-asterveil-page="plans"],
-    [data-asterveil-page="foreign"],
-    [data-asterveil-page="rewards"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:first-child
-  > td {
-  padding: 13px 12px;
-  background: var(--av-surface);
-  color: var(--av-heading);
-  border-bottom: 1px solid var(--av-border);
-}
-html:is(
-    [data-asterveil-page="plans"],
-    [data-asterveil-page="foreign"],
-    [data-asterveil-page="rewards"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:first-child
-  > td:first-child {
-  border-top-left-radius: 10px;
-}
-html:is(
-    [data-asterveil-page="plans"],
-    [data-asterveil-page="foreign"],
-    [data-asterveil-page="rewards"]
-  )
-  .ui.main.container
-  .padding
-  > .ui.table
-  > tbody
-  > tr:first-child
-  > td:last-child {
-  border-top-right-radius: 10px;
+  [data-asterveil-page="plans"],
+  [data-asterveil-page="foreign"],
+  [data-asterveil-page="rewards"]
+) {
+  & .ui.main.container {
+    & .padding > .ui.table > tbody > tr:first-child {
+      /* The site's body already begins below the fixed navigation. */
+      /* biome-ignore lint/complexity/noImportantStyles: Keep the sticky row at the scrollport edge, overriding the prior offset. */
+      top: 0 !important;
+      /* biome-ignore lint/complexity/noImportantStyles: Keep header paint above scrolling rows. */
+      z-index: 2 !important;
+    }
+    & .padding > .ui.table > tbody > tr:first-child > td {
+      padding: 13px 12px;
+      background: var(--av-surface);
+      color: var(--av-heading);
+      border-bottom: 1px solid var(--av-border);
+    }
+    & .padding > .ui.table > tbody > tr:first-child > td:first-child {
+      border-top-left-radius: 10px;
+    }
+    & .padding > .ui.table > tbody > tr:first-child > td:last-child {
+      border-top-right-radius: 10px;
+    }
+  }
 }
 html:is([data-asterveil-page="foreign"], [data-asterveil-page="rewards"])
   .ui.main.container
@@ -393,195 +287,199 @@ html[data-asterveil-page="rewards"] .ui.main.container h2 {
 }
 
 /* Plans: floating date navigation leaves the site's table layout intact. */
-html[data-asterveil-page="plans"] .asterveil-plan-index {
-  position: fixed;
-  z-index: 100;
-  display: flex;
-  flex-direction: column;
-  width: 148px;
-  box-sizing: border-box;
-  max-width: calc(100vw - 24px);
-  max-height: calc(100dvh - 24px);
-  padding: 10px;
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  background: var(--av-paper);
-  box-shadow: var(--av-shadow);
-}
-html[data-asterveil-page="plans"] .asterveil-plan-index[hidden] {
-  display: none;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-handle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-shrink: 0;
-  width: 100%;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--av-heading);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 4px 10px 12px;
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-resize {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  height: 8px;
-  cursor: ns-resize;
-  touch-action: none;
-  outline: none;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-resize.top {
-  top: 0;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-resize.bottom {
-  bottom: 0;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-resize:focus-visible {
-  box-shadow: inset 0 -2px var(--av-focus);
-}
-html[data-asterveil-page="plans"] .asterveil-plan-index.is-dragging .asterveil-plan-handle {
-  cursor: grabbing;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-handle:focus-visible {
-  outline: 2px solid var(--av-focus);
-  outline-offset: -2px;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-dates {
-  display: grid;
-  gap: 4px;
-  min-height: 0;
-  overflow: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-dates button {
-  border: 1px solid transparent;
-  border-radius: 7px;
-  padding: 8px;
-  background: transparent;
-  color: var(--av-muted);
-  font: inherit;
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  cursor: pointer;
-}
-html[data-asterveil-page="plans"] .asterveil-plan-dates button:is(:hover, [aria-current]) {
-  color: var(--av-accent);
-  background: var(--av-tint);
-}
-html[data-asterveil-page="plans"] .asterveil-plan-dates button.is-today {
-  color: var(--av-accent);
-  font-weight: 700;
-  border-color: var(--av-border);
-}
-html[data-asterveil-page="plans"] .asterveil-plan-dates button:focus-visible {
-  outline: 2px solid var(--av-focus);
-  outline-offset: -2px;
-}
-html[data-asterveil-page="plans"] tr[data-type="day"] {
-  scroll-margin-top: 112px;
-}
-html[data-asterveil-page="plans"] tr.asterveil-plan-target > td {
-  background: var(--av-tint);
-}
-html[data-asterveil-page="plans"] .ui.main.container .padding > .ui.table {
-  font-size: 13px;
-}
-html[data-asterveil-page="plans"] .ui.main.container .ui.table > tbody > tr > td {
-  border-left-color: transparent;
-  font-size: 13px;
-}
-html[data-asterveil-page="plans"] .ui.main.container .ui.table tr[data-type="week"] > td {
-  background: var(--av-tint);
-  border-top: 1px solid var(--av-border);
-  color: var(--av-heading);
-  font-weight: 600;
-  padding-top: 14px;
-  padding-bottom: 14px;
-}
-html[data-asterveil-page="plans"]
-  .ui.main.container
-  .ui.table
-  tr[data-type="day"]
-  > td:first-child {
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-  color: var(--av-muted);
-}
-html[data-asterveil-page="plans"] .ui.main.container .ui.table tr.asterveil-today > td {
-  background: var(--av-surface);
-}
-html[data-asterveil-page="plans"] .ui.main.container .ui.table tr.asterveil-today > td:first-child {
-  box-shadow: inset 3px 0 var(--av-accent);
-  color: var(--av-accent);
-  font-weight: 700;
-}
-html[data-asterveil-page="plans"] .ui.main.container pre.plan {
-  font: inherit;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-html[data-asterveil-page="plans"] .ui.main.container pre.plan:empty::before {
-  content: "—";
-  color: #b0bac7;
-}
-html[data-asterveil-page="plans"] .ui.main.container :is(#start-line, #end-line) > td {
-  text-align: center;
-  color: var(--av-accent);
-  background: var(--av-surface);
-  font-size: 12px;
-}
+html[data-asterveil-page="plans"] {
+  & .asterveil-plan-index {
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: 148px;
+    box-sizing: border-box;
+    max-width: calc(100vw - 24px);
+    max-height: calc(100dvh - 24px);
+    padding: 10px;
+    border: 1px solid var(--av-border);
+    border-radius: 12px;
+    background: var(--av-paper);
+    box-shadow: var(--av-shadow);
+  }
+  & .asterveil-plan-index[hidden] {
+    display: none;
+  }
+  & .asterveil-plan-handle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 100%;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--av-heading);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 10px 12px;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+  & .asterveil-plan-resize {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 8px;
+    cursor: ns-resize;
+    touch-action: none;
+    outline: none;
+  }
+  & .asterveil-plan-resize.top {
+    top: 0;
+  }
+  & .asterveil-plan-resize.bottom {
+    bottom: 0;
+  }
+  & .asterveil-plan-resize:focus-visible {
+    box-shadow: inset 0 -2px var(--av-focus);
+  }
+  & .asterveil-plan-index.is-dragging .asterveil-plan-handle {
+    cursor: grabbing;
+  }
+  & .asterveil-plan-handle:focus-visible {
+    outline: 2px solid var(--av-focus);
+    outline-offset: -2px;
+  }
+  & .asterveil-plan-dates {
+    display: grid;
+    gap: 4px;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  & .asterveil-plan-dates button {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 8px;
+    background: transparent;
+    color: var(--av-muted);
+    font: inherit;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  & .asterveil-plan-dates button:is(:hover, [aria-current]) {
+    color: var(--av-accent);
+    background: var(--av-tint);
+  }
+  & .asterveil-plan-dates button.is-today {
+    color: var(--av-accent);
+    font-weight: 700;
+    border-color: var(--av-border);
+  }
+  & .asterveil-plan-dates button:focus-visible {
+    outline: 2px solid var(--av-focus);
+    outline-offset: -2px;
+  }
+  & tr[data-type="day"] {
+    scroll-margin-top: 112px;
+  }
+  & tr.asterveil-plan-target > td {
+    background: var(--av-tint);
+  }
+  & .ui.main.container {
+    & .padding > .ui.table {
+      font-size: 13px;
+    }
+    & .ui.table > tbody > tr > td {
+      border-left-color: transparent;
+      font-size: 13px;
+    }
+    & .ui.table tr[data-type="week"] > td {
+      background: var(--av-tint);
+      border-top: 1px solid var(--av-border);
+      color: var(--av-heading);
+      font-weight: 600;
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+    & .ui.table tr[data-type="day"] > td:first-child {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      color: var(--av-muted);
+    }
+    & .ui.table tr.asterveil-today > td {
+      background: var(--av-surface);
+    }
+    & .ui.table tr.asterveil-today > td:first-child {
+      box-shadow: inset 3px 0 var(--av-accent);
+      color: var(--av-accent);
+      font-weight: 700;
+    }
+    & pre.plan {
+      font: inherit;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    & pre.plan:empty::before {
+      content: "—";
+      color: #b0bac7;
+    }
+    & :is(#start-line, #end-line) > td {
+      text-align: center;
+      color: var(--av-accent);
+      background: var(--av-surface);
+      font-size: 12px;
+    }
 
-/* Profile: retain the existing column hierarchy and chart/status semantics. */
-html[data-asterveil-page="profile"] .ui.main.container .ui.card {
-  border: 1px solid var(--av-border);
-  border-radius: 12px;
-  box-shadow: var(--av-shadow);
-  overflow: hidden;
+    /* Profile: retain the existing column hierarchy and chart/status semantics. */
+  }
 }
-html[data-asterveil-page="profile"] .ui.main.container .ui.card > .content {
-  padding: 18px;
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.card > .image {
-  background: var(--av-surface);
-}
-html[data-asterveil-page="profile"] .ui.main.container #avatar_container::before {
-  padding-top: 65%;
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.card > .image > img.photo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  /* biome-ignore lint/complexity/noImportantStyles: Replace the site's inline negative margin when reducing the avatar's square placeholder. */
-  margin-top: 0 !important;
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.card > .extra {
-  background: var(--av-surface);
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.definition.table {
-  border-color: var(--av-border);
-  border-radius: 7px;
-  line-height: 1.6;
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.definition.table > thead > tr > th {
-  background: var(--av-surface);
-  border-color: var(--av-border);
-}
-html[data-asterveil-page="profile"] .ui.main.container .ui.bottom.attached.segment {
-  line-height: 1.75;
-  overflow-wrap: anywhere;
+html[data-asterveil-page="profile"] {
+  & .ui.main.container {
+    & .ui.card {
+      border: 1px solid var(--av-border);
+      border-radius: 12px;
+      box-shadow: var(--av-shadow);
+      overflow: hidden;
+    }
+    & .ui.card > .content {
+      padding: 18px;
+    }
+    & .ui.card > .image {
+      background: var(--av-surface);
+    }
+    & #avatar_container::before {
+      padding-top: 65%;
+    }
+    & .ui.card > .image > img.photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* biome-ignore lint/complexity/noImportantStyles: Replace the site's inline negative margin when reducing the avatar's square placeholder. */
+      margin-top: 0 !important;
+    }
+    & .ui.card > .extra {
+      background: var(--av-surface);
+    }
+    & .ui.definition.table {
+      border-color: var(--av-border);
+      border-radius: 7px;
+      line-height: 1.6;
+    }
+    & .ui.definition.table > thead > tr > th {
+      background: var(--av-surface);
+      border-color: var(--av-border);
+    }
+    & .ui.bottom.attached.segment {
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+  }
 }
 html:is([data-asterveil-page="profile"], [data-asterveil-page="ranklist"])
   .ui.main.container

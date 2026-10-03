@@ -10,169 +10,171 @@
   html[data-asterveil-scheme="dark"][data-asterveil-page] body {
     color: var(--av-text);
   }
-  html[data-asterveil-scheme="dark"]
-    :is(
-      .ui.menu,
-      .ui.segment,
-      .ui.card,
-      .ui.cards > .card,
-      .ui.table,
-      .ui.styled.accordion,
-      .ui.modal,
-      .ui.popup,
-      .ui.dropdown .menu
-    ) {
-    background-color: var(--av-paper);
-    color: var(--av-text);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"]
-    :is(
-      .ui.header,
-      .ui.form .field > label,
-      .ui.checkbox label,
-      .ui.progress > .label,
-      .ui.accordion .title,
-      .ui.card > .content > .header
-    ) {
-    color: var(--av-heading);
-  }
-  html[data-asterveil-scheme="dark"] :is(.ui.menu .item, .ui.dropdown .menu > .item) {
-    color: var(--av-text) !important;
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.menu .active.item,
-  html[data-asterveil-scheme="dark"] .ui.dropdown .menu > .item:is(:hover, .selected, .active) {
-    color: var(--av-accent) !important;
-    background: var(--av-tint) !important;
-  }
-  /* Nested accordions and navigation dropdowns have stronger Semantic UI rules. */
-  html[data-asterveil-scheme="dark"] .ui.sidebar .ui.styled.accordion .accordion {
-    background: var(--av-paper);
-    box-shadow: none;
-  }
-  html[data-asterveil-scheme="dark"] .ui.sidebar .ui.styled.accordion .title {
-    color: var(--av-text);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.sidebar .ui.styled.accordion .title:is(:hover, .active) {
-    color: var(--av-accent);
-    background: var(--av-tint);
-  }
-  html[data-asterveil-scheme="dark"] .ui.sidebar .ui.buttons > .ui.button:hover {
-    color: var(--av-accent);
-    background: var(--av-hover);
-  }
-  html[data-asterveil-scheme="dark"] .ui.sidebar .ui.buttons > .ui.button.active {
-    color: var(--av-accent) !important;
-    background: var(--av-tint) !important;
-    box-shadow: inset 3px 0 var(--av-accent);
-  }
-  html[data-asterveil-scheme="dark"] .ui.menu .ui.dropdown .menu {
-    background: var(--av-paper);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.menu .ui.dropdown .menu > .item {
-    color: var(--av-text) !important;
-  }
-  html[data-asterveil-scheme="dark"]
-    .ui.menu
-    .ui.dropdown
-    .menu
-    > .item:is(:hover, .active, .selected) {
-    color: var(--av-accent) !important;
-    background: var(--av-tint) !important;
-  }
-  html[data-asterveil-scheme="dark"] :is(.ui.table thead th, .ui.table tfoot th) {
-    background: var(--av-surface);
-    color: var(--av-heading);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.table :is(td, th) {
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"]
-    :is(
-      .ui.input > input,
-      .ui.form input:not([type="checkbox"], [type="radio"], [type="submit"]),
-      .ui.form textarea,
-      .ui.selection.dropdown,
-      select
-    ) {
-    background-color: var(--av-paper);
-    color: var(--av-text);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] :is(input, textarea)::placeholder {
-    color: var(--av-muted);
-  }
-  html[data-asterveil-scheme="dark"]
-    :is(.ui.card .meta, .ui.card .description, .ui.card > .extra, .ui.form .inline.fields > label) {
-    color: var(--av-muted);
-  }
-  html[data-asterveil-scheme="dark"]
-    :is(.ui.button, .ui.label):not(
-      .primary,
-      .secondary,
-      .positive,
-      .negative,
-      .red,
-      .orange,
-      .yellow,
-      .olive,
-      .green,
-      .teal,
-      .blue,
-      .violet,
-      .purple,
-      .pink,
-      .brown,
-      .grey,
-      .black,
-      .inverted
-    ) {
-    background-color: var(--av-tint);
-    color: var(--av-text);
-  }
-  html[data-asterveil-scheme="dark"] :is(.ui.basic.button, .ui.basic.label) {
-    background: var(--av-paper) !important;
-    color: var(--av-text) !important;
-    box-shadow: inset 0 0 0 1px var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.main.container a:not(.ui.button, [style*="color"]) {
-    color: var(--av-accent);
-  }
-  html[data-asterveil-scheme="dark"]
-    :is(.ui.segment pre, .ui.segment > code, .ui.segment pre > code, .ui.main.container .hljs) {
-    background-color: var(--av-surface);
-    color: var(--av-text);
-    border-color: var(--av-border);
-  }
-  html[data-asterveil-scheme="dark"] .ui.main.container canvas {
-    /* Chart.js paints text into pixels; keep its existing light chart readable. */
-    background: #fff;
-    border-radius: 6px;
-  }
-  html[data-asterveil-scheme="dark"] .hljs {
-    background-color: var(--av-surface) !important;
-    color: var(--av-text);
-  }
-  html[data-asterveil-scheme="dark"] .hljs :is(.hljs-comment, .hljs-quote) {
-    color: #a3afbf;
-  }
-  html[data-asterveil-scheme="dark"] .hljs :is(.hljs-keyword, .hljs-selector-tag, .hljs-type) {
-    color: #c5adf5;
-  }
-  html[data-asterveil-scheme="dark"] .hljs :is(.hljs-string, .hljs-regexp, .hljs-addition) {
-    color: #b4cf9b;
-  }
-  html[data-asterveil-scheme="dark"] .hljs :is(.hljs-number, .hljs-literal, .hljs-meta) {
-    color: #e4b388;
-  }
-  html[data-asterveil-scheme="dark"] .hljs :is(.hljs-title, .hljs-built_in, .hljs-attr) {
-    color: #8acdd4;
-  }
-  html[data-asterveil-scheme="dark"] :is(.status.accepted, .score.score_10) {
-    color: #8da9ff;
+  html[data-asterveil-scheme="dark"] {
+    &
+      :is(
+        .ui.menu,
+        .ui.segment,
+        .ui.card,
+        .ui.cards > .card,
+        .ui.table,
+        .ui.styled.accordion,
+        .ui.modal,
+        .ui.popup,
+        .ui.dropdown .menu
+      ) {
+      background-color: var(--av-paper);
+      color: var(--av-text);
+      border-color: var(--av-border);
+    }
+    &
+      :is(
+        .ui.header,
+        .ui.form .field > label,
+        .ui.checkbox label,
+        .ui.progress > .label,
+        .ui.accordion .title,
+        .ui.card > .content > .header
+      ) {
+      color: var(--av-heading);
+    }
+    & :is(.ui.menu .item, .ui.dropdown .menu > .item) {
+      color: var(--av-text) !important;
+      border-color: var(--av-border);
+    }
+    & .ui.menu .active.item,
+    & .ui.dropdown .menu > .item:is(:hover, .selected, .active) {
+      color: var(--av-accent) !important;
+      background: var(--av-tint) !important;
+    }
+    /* Nested accordions and navigation dropdowns have stronger Semantic UI rules. */
+    & .ui.sidebar .ui.styled.accordion .accordion {
+      background: var(--av-paper);
+      box-shadow: none;
+    }
+    & .ui.sidebar .ui.styled.accordion .title {
+      color: var(--av-text);
+      border-color: var(--av-border);
+    }
+    & .ui.sidebar .ui.styled.accordion .title:is(:hover, .active) {
+      color: var(--av-accent);
+      background: var(--av-tint);
+    }
+    & .ui.sidebar .ui.buttons > .ui.button:hover {
+      color: var(--av-accent);
+      background: var(--av-hover);
+    }
+    & .ui.sidebar .ui.buttons > .ui.button.active {
+      color: var(--av-accent) !important;
+      background: var(--av-tint) !important;
+      box-shadow: inset 3px 0 var(--av-accent);
+    }
+    & .ui.menu .ui.dropdown .menu {
+      background: var(--av-paper);
+      border-color: var(--av-border);
+    }
+    & .ui.menu .ui.dropdown .menu > .item {
+      color: var(--av-text) !important;
+    }
+    & .ui.menu .ui.dropdown .menu > .item:is(:hover, .active, .selected) {
+      color: var(--av-accent) !important;
+      background: var(--av-tint) !important;
+    }
+    & :is(.ui.table thead th, .ui.table tfoot th) {
+      background: var(--av-surface);
+      color: var(--av-heading);
+      border-color: var(--av-border);
+    }
+    & .ui.table :is(td, th) {
+      border-color: var(--av-border);
+    }
+    &
+      :is(
+        .ui.input > input,
+        .ui.form input:not([type="checkbox"], [type="radio"], [type="submit"]),
+        .ui.form textarea,
+        .ui.selection.dropdown,
+        select
+      ) {
+      background-color: var(--av-paper);
+      color: var(--av-text);
+      border-color: var(--av-border);
+    }
+    & :is(input, textarea)::placeholder {
+      color: var(--av-muted);
+    }
+    &
+      :is(
+        .ui.card .meta,
+        .ui.card .description,
+        .ui.card > .extra,
+        .ui.form .inline.fields > label
+      ) {
+      color: var(--av-muted);
+    }
+    &
+      :is(.ui.button, .ui.label):not(
+        .primary,
+        .secondary,
+        .positive,
+        .negative,
+        .red,
+        .orange,
+        .yellow,
+        .olive,
+        .green,
+        .teal,
+        .blue,
+        .violet,
+        .purple,
+        .pink,
+        .brown,
+        .grey,
+        .black,
+        .inverted
+      ) {
+      background-color: var(--av-tint);
+      color: var(--av-text);
+    }
+    & :is(.ui.basic.button, .ui.basic.label) {
+      background: var(--av-paper) !important;
+      color: var(--av-text) !important;
+      box-shadow: inset 0 0 0 1px var(--av-border);
+    }
+    & .ui.main.container a:not(.ui.button, [style*="color"]) {
+      color: var(--av-accent);
+    }
+    & :is(.ui.segment pre, .ui.segment > code, .ui.segment pre > code, .ui.main.container .hljs) {
+      background-color: var(--av-surface);
+      color: var(--av-text);
+      border-color: var(--av-border);
+    }
+    & .ui.main.container canvas {
+      /* Chart.js paints text into pixels; keep its existing light chart readable. */
+      background: #fff;
+      border-radius: 6px;
+    }
+    & .hljs {
+      background-color: var(--av-surface) !important;
+      color: var(--av-text);
+    }
+    & .hljs :is(.hljs-comment, .hljs-quote) {
+      color: #a3afbf;
+    }
+    & .hljs :is(.hljs-keyword, .hljs-selector-tag, .hljs-type) {
+      color: #c5adf5;
+    }
+    & .hljs :is(.hljs-string, .hljs-regexp, .hljs-addition) {
+      color: #b4cf9b;
+    }
+    & .hljs :is(.hljs-number, .hljs-literal, .hljs-meta) {
+      color: #e4b388;
+    }
+    & .hljs :is(.hljs-title, .hljs-built_in, .hljs-attr) {
+      color: #8acdd4;
+    }
+    & :is(.status.accepted, .score.score_10) {
+      color: #8da9ff;
+    }
   }
 }

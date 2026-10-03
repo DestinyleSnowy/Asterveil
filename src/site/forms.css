@@ -1,0 +1,36 @@
+/* Shared account and sign-in form surfaces. */
+html:is([data-asterveil-page^="account"], [data-asterveil-page="login"]) {
+  & .ui.main.container .ui.form {
+    padding: 22px;
+    border: 1px solid var(--av-border);
+    border-radius: 12px;
+    background: var(--av-paper);
+    box-shadow: var(--av-shadow);
+  }
+  & .ui.main.container .ui.form .field > label {
+    color: var(--av-heading);
+    margin-bottom: 8px;
+  }
+  &
+    .ui.main.container
+    .ui.form
+    :is(input:not([type="checkbox"], [type="radio"], [type="file"]), textarea, select),
+  & .ui.main.container .ui.selection.dropdown {
+    border-color: var(--av-border);
+    border-radius: 7px;
+    background: var(--av-surface);
+    color: var(--av-text);
+  }
+  & .ui.main.container .ui.form :is(input, textarea, select):focus {
+    border-color: var(--av-focus);
+    box-shadow: 0 0 0 3px var(--av-ring);
+    background: var(--av-paper);
+  }
+}
+@media (max-width: 767px) {
+  html:is([data-asterveil-page^="account"], [data-asterveil-page="login"]) {
+    & .ui.main.container .ui.form {
+      padding: 14px;
+    }
+  }
+}

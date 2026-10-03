@@ -1,0 +1,11 @@
+{
+  "name": "asterveil-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/preview.mjs",
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/preview.mjs"
+  }
+}

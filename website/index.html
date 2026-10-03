@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07080b" />
+    <meta name="description" content="Asterveil，为 7FA4 而作的开源浏览器扩展。界面焕新、Markdown 作答与外站提交，让专注自然发生。" />
+    <meta property="og:title" content="Asterveil — 让专注，自然发生。" />
+    <meta property="og:description" content="为 7FA4 而作的开源浏览器扩展。" />
+    <meta property="og:type" content="website" />
+    <title>Asterveil — 让专注，自然发生。</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <svg class="symbols" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <path id="asterveil-mark" d="M62 15C62.6 12.5 65.4 12.5 66 15C69.6 29 74.6 39.8 82 48.4L53 81C63 68 75 58 88.2 54.2C95.2 58.1 103.2 60.6 112.6 62.5C115.1 63 115.1 65 112.6 65.6C85.2 72.4 73.2 84.9 66 112.3C65.4 114.8 62.6 114.8 62 112.3C55.1 85 42.5 72.5 15.1 65.6C12.6 65 12.6 63 15.1 62.5C42.7 55.6 55.1 42.9 62 15Z" />
+      </defs>
+    </svg>
+    <div class="page">
+      <header class="header">
+        <a class="brand" href="./" aria-label="Asterveil 首页">
+          <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#asterveil-mark" /></svg>
+          <span>Asterveil</span>
+        </a>
+        <a class="quiet-link github" href="https://github.com/DestinyleSnowy/Asterveil" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main id="main">
+        <div class="light-scene" aria-hidden="true">
+          <div class="ambient"></div>
+          <svg class="light-art" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbit-light" x1="0" y1="0" x2="1" y2="0">
+                <stop stop-color="#a99adc" stop-opacity="0" />
+                <stop offset=".25" stop-color="#9b96b7" stop-opacity=".25" />
+                <stop offset=".49" stop-color="#c6b3ff" stop-opacity=".65" />
+                <stop offset=".62" stop-color="#f6f1ff" />
+                <stop offset=".8" stop-color="#bca6ec" stop-opacity=".4" />
+                <stop offset="1" stop-color="#a99adc" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="star-light" x1=".15" y1="0" x2=".8" y2="1">
+                <stop stop-color="#aa95da" stop-opacity=".12" />
+                <stop offset=".34" stop-color="#d0bfff" stop-opacity=".5" />
+                <stop offset=".51" stop-color="#fffaff" />
+                <stop offset=".69" stop-color="#a995d7" stop-opacity=".45" />
+                <stop offset="1" stop-color="#8f80bc" stop-opacity=".08" />
+              </linearGradient>
+              <radialGradient id="star-fill">
+                <stop stop-color="#c4a4ff" stop-opacity=".10" />
+                <stop offset="1" stop-color="#c4a4ff" stop-opacity="0" />
+              </radialGradient>
+              <filter id="soft-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5" /></filter>
+              <filter id="wide-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="18" /></filter>
+            </defs>
+            <g class="orbit" transform="translate(240 -150)" opacity=".6" fill="none" stroke="url(#orbit-light)">
+              <path class="orbit-path orbit-haze" d="M-100 690C260 830 480 740 800 715S1300 700 1700 780" stroke-width="14" filter="url(#wide-glow)" />
+              <path class="orbit-path" d="M-100 690C260 830 480 740 800 715S1300 700 1700 780" stroke-width="3" opacity=".35" filter="url(#soft-glow)" />
+              <path class="orbit-path" d="M-100 690C260 830 480 740 800 715S1300 700 1700 780" stroke-width=".8" />
+              <path class="secondary-orbit" d="M-100 708C270 865 535 779 810 728S1320 655 1700 743" stroke-width=".5" opacity=".24" />
+            </g>
+            <g class="star-position">
+              <g class="star-motion">
+                <g class="star-scale">
+                  <use href="#asterveil-mark" fill="none" stroke="url(#star-light)" stroke-width="1.2" opacity=".28" filter="url(#soft-glow)" />
+                  <use href="#asterveil-mark" fill="url(#star-fill)" stroke="url(#star-light)" stroke-width=".12" />
+                  <use class="star-trace" href="#asterveil-mark" fill="none" stroke="#f0e7ff" stroke-width=".16" stroke-dasharray="20 412" pathLength="432" />
+                </g>
+              </g>
+            </g>
+            <ellipse class="flare" cx="1112" cy="563" rx="44" ry="2" fill="#e2cfff" opacity=".5" filter="url(#soft-glow)" />
+          </svg>
+          <div class="pulse"></div>
+        </div>
+        <section class="hero" aria-labelledby="headline">
+          <p class="eyebrow">ASTER VEIL / FOR 7FA4</p>
+          <h1 id="headline">让专注，<br />自然发生<span>。</span></h1>
+          <p class="subtitle">为 7FA4 而作</p>
+          <a class="download" href="https://github.com/DestinyleSnowy/Asterveil/releases/latest" target="_blank" rel="noopener noreferrer">下载扩展 <span aria-hidden="true">↗</span></a>
+          <p class="compatibility">Chrome / Edge</p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>界面焕新<span>·</span>Markdown 作答<span>·</span>外站提交</p>
+        <a class="quiet-link" href="https://github.com/DestinyleSnowy/Asterveil#开发与加载" target="_blank" rel="noopener noreferrer">安装指南 <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </body>
+</html>

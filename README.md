@@ -35,7 +35,7 @@ npm run zip
 
 两版均保留完整的 Markdown/公式预览、Markdown 源文件保存、草稿、作业折叠和其他网站增强功能。light 构建完全排除 PDF 库、字体/CMap 与解码资源；Markdown 和公式使用与 full 相同的渲染器及 KaTeX 字体。
 
-`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.0-chrome.zip` 和 `.output/Asterveil-Pro-0.1.0-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
+`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.1-chrome.zip` 和 `.output/Asterveil-Pro-0.1.1-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
 
 同一浏览器配置中两版同时启用时，普通版 Asterveil 会自动停用自身，优先使用 Asterveil Pro；启动时及 Pro 后续安装、启用时都会检测。普通版通过 `management` 权限识别已启用、名称为 `Asterveil Pro` 的扩展，并在停用前通知已打开的页面清理普通版功能。Pro 不申请此权限。仅安装但未启用的 Pro 不影响普通版；Pro 的页面总开关不改变版本优先级。切回普通版时，先在浏览器扩展管理页停用 Pro，再启用 Asterveil，并刷新网站页面；设置和已保存的草稿保留。
 

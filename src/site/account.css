@@ -138,20 +138,15 @@ html:is(
     [data-asterveil-page="account-data"],
     [data-asterveil-page="account"]
   )
-  .ui.main.container:not([data-asterveil-table-size="compact"]):has(.ui.table tr > :nth-child(8)) {
+  .ui.main.container:not([data-asterveil-table-size="compact"]).asterveil-has-wide-table {
   width: calc(100% - 48px);
   max-width: none;
 }
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .padding:has(> .ui.table tr > :nth-child(8)) {
+html[data-asterveil-page^="account"] .ui.main.container .padding.asterveil-wide-padding {
   overflow-x: auto;
   overscroll-behavior-x: contain;
 }
-html[data-asterveil-page^="account"]
-  .ui.main.container
-  .padding
-  > .ui.table:has(tr > :nth-child(8)) {
+html[data-asterveil-page^="account"] .ui.main.container .padding > .ui.table.asterveil-wide-table {
   /* biome-ignore lint/complexity/noImportantStyles: Ranking tables fix their layout inline. */
   table-layout: auto !important;
   width: max-content;
@@ -160,7 +155,7 @@ html[data-asterveil-page^="account"]
 html[data-asterveil-page^="account"]
   .ui.main.container
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :is(th, td) {
@@ -175,7 +170,7 @@ html[data-asterveil-page^="account"]
 html[data-asterveil-page="account-rankings"]
   .ui.main.container
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :nth-child(2) {
@@ -187,7 +182,7 @@ html[data-asterveil-page="account-rankings"]
 html[data-asterveil-page="account-schedule"]
   .ui.main.container
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :last-child {
@@ -230,14 +225,14 @@ html[data-asterveil-page^="account"] .ui.button.asterveil-table-size-inline {
 html[data-asterveil-page^="account"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8)) {
+  > .ui.table.asterveil-wide-table {
   width: 100%;
   font-size: 12px;
 }
 html[data-asterveil-page^="account"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :is(th, td) {
@@ -247,7 +242,7 @@ html[data-asterveil-page^="account"]
 html[data-asterveil-page="account-rankings"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8)) {
+  > .ui.table.asterveil-wide-table {
   /* biome-ignore lint/complexity/noImportantStyles: Compact rankings must fit the container instead of inheriting automatic column sizing. */
   table-layout: fixed !important;
   min-width: 0;
@@ -255,7 +250,7 @@ html[data-asterveil-page="account-rankings"]
 html[data-asterveil-page="account-rankings"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :is(th, td) {
@@ -268,7 +263,7 @@ html[data-asterveil-page="account-rankings"]
 html[data-asterveil-page="account-rankings"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :nth-child(2) {
@@ -279,7 +274,7 @@ html[data-asterveil-page="account-rankings"]
 html[data-asterveil-page="account-schedule"]
   .ui.main.container[data-asterveil-table-size="compact"]
   .padding
-  > .ui.table:has(tr > :nth-child(8))
+  > .ui.table.asterveil-wide-table
   > :is(thead, tbody)
   > tr
   > :last-child {
@@ -359,9 +354,7 @@ html[data-asterveil-page="account-rpgain"]
 }
 @media (max-width: 767px) {
   html[data-asterveil-page^="account"]
-    .ui.main.container:not([data-asterveil-table-size="compact"]):has(
-      .ui.table tr > :nth-child(8)
-    ) {
+    .ui.main.container:not([data-asterveil-table-size="compact"]).asterveil-has-wide-table {
     width: auto;
   }
   html[data-asterveil-page^="account"] .ui.main.container .ui.form {

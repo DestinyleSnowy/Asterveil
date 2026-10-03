@@ -1,0 +1,200 @@
+/* biome-ignore-all lint/complexity/noImportantStyles: Rows must stay hidden against the site's inline/table styles. */
+.asterveil-ranking-filters {
+  box-sizing: border-box;
+  padding: 16px 18px;
+  margin: 16px 0;
+  border: 1px solid var(--av-border, #ddd);
+  border-radius: 10px;
+  background: var(--av-paper, #fff);
+  color: var(--av-text, #333);
+  max-width: calc(100vw - 64px);
+}
+.asterveil-ranking-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+.asterveil-ranking-summary,
+.asterveil-ranking-filters [role="status"] {
+  margin-top: 6px;
+  color: var(--av-muted, #767676);
+  font-size: 13px;
+}
+.asterveil-ranking-filters fieldset {
+  margin: 16px 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.asterveil-ranking-filters legend {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.asterveil-ranking-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+.asterveil-ranking-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.asterveil-ranking-options input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--av-accent, #2185d0);
+}
+.asterveil-ranking-filters button {
+  font: inherit;
+  border: 1px solid var(--av-border, #ddd);
+  border-radius: 6px;
+  padding: 5px 10px;
+  background: var(--av-surface, #f9fafb);
+  color: var(--av-text, #333);
+}
+.asterveil-ranking-filters button:enabled {
+  cursor: pointer;
+}
+.asterveil-ranking-filters button:disabled {
+  opacity: 0.45;
+}
+.asterveil-ranking-filters :is(button, input):focus-visible {
+  outline: 2px solid var(--av-accent, #2185d0);
+  outline-offset: 3px;
+}
+tr.asterveil-ranking-filtered {
+  display: none !important;
+}
+html[data-asterveil-page="account-rankings"]
+  .ui.main.container:not([data-asterveil-table-size="compact"])
+  .ui.table.asterveil-ranking-table {
+  table-layout: fixed !important;
+  width: max(100%, var(--av-ranking-width)) !important;
+}
+html[data-asterveil-page="account-rankings"]
+  .ui.main.container
+  .ui.table.asterveil-ranking-table
+  tr[id^="title-"]
+  > td {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+html[data-asterveil-page="account-rankings"]
+  .ui.main.container[data-asterveil-table-size="compact"]
+  .asterveil-ranking-table
+  col {
+  width: auto !important;
+}
+@media print {
+  .asterveil-ranking-filters {
+    display: none;
+  }
+}
+
+/* Internal table rows cannot use layout containment. Independent grid rows
+   share explicit column tracks, allowing Chrome to skip offscreen cell layout.
+   Every original row stays in the document, browser find, and native export. */
+@supports (content-visibility: auto) {
+  @media screen {
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table,
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody {
+      display: block;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > colgroup {
+      display: none;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr {
+      display: grid;
+      grid-template-columns: 64px 200px repeat(var(--av-ranking-other-columns), minmax(0, 1fr));
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr[id^="line-"] {
+      content-visibility: auto;
+      contain-intrinsic-block-size: auto 52px;
+      min-height: 52px;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr
+      > td:nth-child(n) {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: auto !important;
+      min-width: 0;
+      max-width: none;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr
+      > td.selectable
+      > a {
+      padding: 0 !important;
+      width: 100%;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container[data-asterveil-table-size="compact"]
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2.5fr) repeat(
+          var(--av-ranking-other-columns),
+          minmax(0, 1fr)
+        );
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container[data-asterveil-table-size="compact"]
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr[id^="line-"] {
+      contain-intrinsic-block-size: auto 36px;
+      min-height: 36px;
+    }
+    html[data-asterveil-page="account-rankings"]
+      .ui.main.container[data-asterveil-table-size="compact"]
+      .padding
+      > .ui.table.asterveil-ranking-table
+      > tbody
+      > tr
+      > td:nth-child(2) {
+      /* Column proportions belong to the grid; the old 14% cell width would
+         otherwise apply a second time inside the nickname's grid track. */
+      width: auto !important;
+    }
+  }
+}

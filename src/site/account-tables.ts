@@ -10,6 +10,7 @@ export function enhanceAccountTables(scope: Scope) {
   toggle.type = 'button';
   toggle.className = 'ui button asterveil-table-size';
   const previous = main.getAttribute('data-asterveil-table-size');
+  const marked = new Set<Element>();
   let compact = false;
   const render = () => {
     main.setAttribute('data-asterveil-table-size', compact ? 'compact' : 'wide');
@@ -36,7 +37,32 @@ export function enhanceAccountTables(scope: Scope) {
     toolbar.insertBefore(element, before);
   };
   const sync = () => {
-    const padding = main.querySelector<HTMLElement>('.padding:has(> .ui.table tr > :nth-child(8))');
+    // Mark the table once from its header. Relational selectors on every cell
+    // otherwise re-walk a large tbody during the site's clear/append refresh.
+    const current = new Set<Element>();
+    let hasWideTable = false;
+    for (const table of main.querySelectorAll<HTMLTableElement>('.padding > .ui.table')) {
+      const wide = (table.rows[0]?.cells.length ?? 0) >= 8;
+      table.classList.toggle('asterveil-wide-table', wide);
+      if (wide) {
+        hasWideTable = true;
+        current.add(table);
+        const parent = table.parentElement;
+        if (parent) {
+          parent.classList.add('asterveil-wide-padding');
+          current.add(parent);
+        }
+      }
+    }
+    for (const element of marked) {
+      if (!current.has(element)) {
+        element.classList.remove('asterveil-wide-table', 'asterveil-wide-padding');
+        marked.delete(element);
+      }
+    }
+    for (const element of current) marked.add(element);
+    main.classList.toggle('asterveil-has-wide-table', hasWideTable);
+    const padding = main.querySelector<HTMLElement>('.asterveil-wide-padding');
     if (!padding) return;
     const options = padding.querySelector(':scope > .ui.button.dropdown');
     const actions = main.querySelectorAll(':scope > a.ui.button');
@@ -68,16 +94,37 @@ export function enhanceAccountTables(scope: Scope) {
       render();
     }
   };
-  const observer = new MutationObserver(sync);
+  let frame = 0;
+  const observer = new MutationObserver((records) => {
+    // Score refreshes and filter labels cannot add or replace a toolbar.
+    if (
+      !records.some(
+        (record) =>
+          record.target instanceof Element &&
+          !record.target.closest('table, .asterveil-ranking-filters, .asterveil-table-toolbar'),
+      )
+    )
+      return;
+    if (!frame)
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        sync();
+      });
+  });
   observer.observe(main, { childList: true, subtree: true });
   sync();
   scope.defer(() => {
     observer.disconnect();
+    cancelAnimationFrame(frame);
     for (const [button, marker] of moved) {
       if (marker.parentNode) marker.replaceWith(button);
     }
     toolbar.remove();
     toggle.remove();
+    main.classList.remove('asterveil-has-wide-table');
+    for (const element of marked)
+      element.classList.remove('asterveil-wide-table', 'asterveil-wide-padding');
+    marked.clear();
     if (previous === null) main.removeAttribute('data-asterveil-table-size');
     else main.setAttribute('data-asterveil-table-size', previous);
   });

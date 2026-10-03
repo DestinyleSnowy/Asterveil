@@ -91,12 +91,6 @@ a:focus-visible {
 .hero a {
   pointer-events: auto;
 }
-.eyebrow {
-  font-size: 9px;
-  letter-spacing: 3.6px;
-  color: #767080;
-  margin: 0 0 27px;
-}
 .hero h1 {
   font-size: clamp(32px, 3.35vw, 58px);
   font-weight: 300;
@@ -107,13 +101,6 @@ a:focus-visible {
 }
 .hero h1 span {
   margin-left: -0.25em;
-}
-.subtitle {
-  margin: 20px 0 35px;
-  color: #9a95a5;
-  letter-spacing: 3px;
-  font-size: 14px;
-  font-weight: 300;
 }
 .download {
   display: inline-flex;
@@ -140,12 +127,6 @@ a:focus-visible {
 }
 .download span {
   font-size: 17px;
-}
-.compatibility {
-  font-size: 10px;
-  letter-spacing: 0.9px;
-  color: #777280;
-  margin: 15px 0 0;
 }
 .light-scene {
   position: absolute;
@@ -199,16 +180,6 @@ a:focus-visible {
 .footer {
   bottom: 31px;
   gap: 24px;
-}
-.footer p {
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: #85808e;
-  margin: 0;
-}
-.footer p span {
-  margin: 0 13px;
-  color: #494351;
 }
 .footer .quiet-link {
   font-size: 11px;
@@ -272,16 +243,6 @@ a:focus-visible {
     font-size: clamp(27px, 6.9vw, 42px);
     letter-spacing: 1px;
   }
-  .eyebrow {
-    font-size: 8px;
-    letter-spacing: 2.4px;
-    margin-bottom: 25px;
-  }
-  .subtitle {
-    font-size: 12px;
-    margin-top: 18px;
-    margin-bottom: 29px;
-  }
   .light-art {
     width: 170%;
     left: -35%;
@@ -297,15 +258,6 @@ a:focus-visible {
     bottom: 25px;
     align-items: flex-start;
   }
-  .footer p {
-    font-size: 9px;
-    letter-spacing: 0;
-    line-height: 1.8;
-    max-width: 210px;
-  }
-  .footer p span {
-    margin: 0 7px;
-  }
   .footer .quiet-link {
     font-size: 10px;
     white-space: nowrap;
@@ -315,9 +267,6 @@ a:focus-visible {
     height: 44px;
     padding: 0 25px;
     font-size: 12px;
-  }
-  .compatibility {
-    font-size: 9px;
   }
 }
 @media (max-height: 700px) and (min-width: 701px) {
@@ -329,12 +278,6 @@ a:focus-visible {
   }
   .hero h1 {
     font-size: 38px;
-  }
-  .eyebrow {
-    margin-bottom: 15px;
-  }
-  .subtitle {
-    margin: 10px 0 22px;
   }
   .light-art {
     transform: translateY(25px);
@@ -362,18 +305,6 @@ a:focus-visible {
   line-height: 1.24;
   letter-spacing: -2px;
   font-weight: 300;
-}
-.eyebrow {
-  letter-spacing: 3px;
-  margin-bottom: 30px;
-  color: #95909f;
-}
-.subtitle {
-  margin: 27px 0 31px;
-  letter-spacing: 3px;
-}
-.compatibility {
-  margin-left: 19px;
 }
 .star-position {
   transform: translate(1120px, 540px);
@@ -422,18 +353,6 @@ a:focus-visible {
     line-height: 1.22;
     letter-spacing: -1px;
   }
-  .eyebrow {
-    font-size: 8px;
-    letter-spacing: 2.5px;
-    margin-bottom: 23px;
-  }
-  .subtitle {
-    margin: 22px 0 26px;
-    font-size: 12px;
-  }
-  .compatibility {
-    margin-left: 18px;
-  }
   .star-position {
     transform: translate(865px, 795px);
   }
@@ -467,13 +386,62 @@ a:focus-visible {
   .hero h1 {
     font-size: 60px;
   }
-  .eyebrow {
-    margin-bottom: 20px;
-  }
-  .subtitle {
-    margin: 18px 0 24px;
-  }
   .light-art {
     transform: none;
+  }
+}
+
+/* A single editorial wordmark replaces the supporting copy. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.hero {
+  padding-top: 34svh;
+}
+.hero .wordmark {
+  display: block;
+  width: fit-content;
+  font-family: "Bodoni MT", Didot, "Times New Roman", serif;
+  font-size: clamp(100px, 12vw, 210px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.065em;
+  padding: 0 0.09em 0.09em 0;
+  background: linear-gradient(125deg, #ffffff 8%, #e3dcee 55%, #a596b9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.hero .wordmark span {
+  margin-left: 0;
+  font-style: italic;
+  font-weight: 400;
+}
+.hero .download {
+  margin-top: 35px;
+}
+.footer {
+  justify-content: flex-end;
+}
+@media (max-width: 700px) {
+  .hero {
+    padding-top: 27svh;
+  }
+  .hero .wordmark {
+    font-size: clamp(66px, 20vw, 130px);
+  }
+  .hero .download {
+    margin-top: 27px;
+  }
+}
+@media (max-height: 700px) and (min-width: 701px) {
+  .hero {
+    padding-top: 29svh;
   }
 }

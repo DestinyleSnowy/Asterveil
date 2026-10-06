@@ -23,6 +23,41 @@ permissions:
   contents: read
 
 jobs:
+  updater-unix:
+    name: Build ${{ matrix.platform }} (not runtime tested)
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-arm64
+            runner: macos-15
+          - platform: macos-x64
+            runner: macos-15-intel
+          - platform: linux-x64
+            runner: ubuntu-22.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '22'
+      - name: Set up Rust
+        run: rustup toolchain install 1.96.0 --profile minimal
+      - name: Compile only (no platform runtime tests)
+        run: cargo +1.96.0 build --release --locked --manifest-path updater/Cargo.toml
+      - name: Package untested platform
+        run: python3 updater/scripts/package-unix.py "${{ matrix.platform }}"
+      - name: Upload platform build
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: asterveil-updater-${{ matrix.platform }}-${{ github.sha }}-${{ github.run_attempt }}
+          path: .output/Asterveil-Updater-${{ matrix.platform }}.zip
+          include-hidden-files: true
+          if-no-files-found: error
+          compression-level: 0
   updater:
     name: Windows updater
     runs-on: windows-2025

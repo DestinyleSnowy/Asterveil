@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asterveil · 安装更新器</title>
+    <style>
+    :root {
+      color-scheme: light dark;
+      font:
+        15px / 1.5 "Segoe UI",
+        "Microsoft YaHei",
+        sans-serif;
+      --bg: #f5f6f9;
+      --paper: #fff;
+      --text: #202632;
+      --muted: #737d8e;
+      --line: #e5e8ef;
+      --accent: #6653a1;
+      --tint: #f2edf9;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 32px 18px;
+    }
+    main {
+      width: min(520px, 100%);
+      padding: 36px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 18px 70px #1722380a;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      color: var(--accent);
+      background: var(--tint);
+      font-size: 28px;
+    }
+    header span:last-child {
+      font-size: 20px;
+      font-weight: 650;
+      letter-spacing: 0.3px;
+    }
+    h1 {
+      font-size: 24px;
+      margin: 0 0 24px;
+      font-weight: 600;
+    }
+    button,
+    input {
+      font: inherit;
+    }
+    button {
+      cursor: pointer;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--text);
+      padding: 11px 16px;
+    }
+    button:hover {
+      background: var(--tint);
+    }
+    button:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+    button:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+    .choices {
+      display: grid;
+      gap: 10px;
+    }
+    .choice {
+      text-align: left;
+      width: 100%;
+      overflow-wrap: anywhere;
+    }
+    .choice[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: var(--tint);
+    }
+    small {
+      color: var(--muted);
+      margin-top: 4px;
+      font-size: 12px;
+    }
+    .choice strong,
+    .choice small {
+      display: block;
+    }
+    .actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    #install {
+      flex: 1;
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    #status {
+      margin: 18px 0 0;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+    #status.error {
+      color: #bd4158;
+    }
+    details {
+      margin-top: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+    summary {
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      width: fit-content;
+    }
+    fieldset {
+      border: 0;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+    legend,
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+    .segments {
+      display: flex;
+      gap: 6px;
+    }
+    .segments button {
+      flex: 1;
+    }
+    .segments [aria-pressed="true"] {
+      background: var(--tint);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .field {
+      margin-top: 16px;
+    }
+    input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text);
+      min-width: 0;
+    }
+    #experimental {
+      font-size: 12px;
+      color: #a67123;
+      margin: -12px 0 20px;
+    }
+    [hidden] {
+      display: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14161c;
+        --paper: #1e2129;
+        --text: #e5e7ef;
+        --muted: #9ba3b3;
+        --line: #343844;
+        --accent: #9a85d1;
+        --tint: #302a40;
+      }
+    }
+    @media (max-width: 400px) {
+      main {
+        padding: 24px 20px;
+        border-radius: 18px;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header><span class="mark" aria-hidden="true">✦</span><span>Asterveil</span></header>
+      <h1>安装更新器</h1>
+      <p id="experimental" hidden>此平台尚未实机验证</p>
+      <fieldset id="choices" class="choices" aria-label="已识别的插件"></fieldset>
+      <details id="manual">
+        <summary>手动填写</summary>
+        <fieldset>
+          <legend>浏览器</legend>
+          <div class="segments">
+            <button type="button" data-browser="chrome" aria-pressed="true">Chrome</button
+            ><button type="button" data-browser="edge" aria-pressed="false">Edge</button>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="extension-id">扩展 ID</label>
+          <input id="extension-id" autocomplete="off" spellcheck="false" maxlength="32">
+        </div>
+        <div class="field">
+          <label for="directory">插件目录</label>
+          <input id="directory" autocomplete="off" spellcheck="false">
+        </div>
+      </details>
+      <div class="actions">
+        <button id="install" type="button" disabled>安装</button
+        ><button id="scan" type="button">重新扫描</button
+        ><button id="close" type="button" hidden>完成</button>
+      </div>
+      <p id="status" role="status" aria-live="polite">正在识别插件…</p>
+    </main>
+    <script>
+    const token = location.hash.slice(1);
+    const $ = (id) => document.getElementById(id);
+    let selected = null,
+      browser = 'chrome',
+      busy = false,
+      installed = false;
+    const message = (text, error = false) => {
+      $('status').textContent = text;
+      $('status').classList.toggle('error', error);
+    };
+    const refresh = () => {
+      $('install').disabled =
+        busy ||
+        installed ||
+        ($('manual').open
+          ? !/^[a-p]{32}$/.test($('extension-id').value.trim()) || !$('directory').value.trim()
+          : !selected);
+      $('scan').disabled = busy;
+    };
+    async function api(path, value) {
+      const result = await fetch(`/api/${path}`, {
+        method: value === undefined ? 'GET' : 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: value === undefined ? undefined : JSON.stringify(value),
+      });
+      const data = await result.json();
+      if (!result.ok) throw Error(data.error || '安装失败');
+      return data;
+    }
+    async function scan() {
+      busy = true;
+      refresh();
+      message('正在识别插件…');
+      try {
+        const data = await api('scan');
+        selected = null;
+        $('choices').replaceChildren();
+        $('experimental').hidden = !data.experimental;
+        if (!$('directory').value) $('directory').value = data.directory || '';
+        for (const item of data.candidates) {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'choice';
+          button.setAttribute('aria-pressed', 'false');
+          const title = document.createElement('strong');
+          title.textContent = `${item.product} · ${item.browser === 'edge' ? 'Edge' : 'Chrome'}`;
+          const profile = document.createElement('small');
+          profile.textContent = item.profile;
+          const path = document.createElement('small');
+          path.textContent = item.directory;
+          button.append(title, profile, path);
+          button.onclick = () => {
+            selected = item;
+            $('manual').open = false;
+            for (const child of $('choices').children)
+              child.setAttribute('aria-pressed', String(child === button));
+            refresh();
+          };
+          $('choices').append(button);
+          if (data.candidates.length === 1) button.click();
+        }
+        message(
+          data.candidates.length
+            ? ''
+            : '未找到插件。请先在扩展管理页加载 extension 文件夹，再重新扫描。',
+        );
+      } catch (error) {
+        message(error.message || '无法连接安装程序，请重新打开。', true);
+      } finally {
+        busy = false;
+        refresh();
+      }
+    }
+    for (const button of document.querySelectorAll('[data-browser]'))
+      button.onclick = () => {
+        browser = button.dataset.browser;
+        for (const other of document.querySelectorAll('[data-browser]'))
+          other.setAttribute('aria-pressed', String(other === button));
+      };
+    $('manual').ontoggle = refresh;
+    $('extension-id').oninput = refresh;
+    $('directory').oninput = refresh;
+    $('scan').onclick = scan;
+    $('install').onclick = async () => {
+      const value = $('manual').open
+        ? { browser, id: $('extension-id').value.trim(), directory: $('directory').value.trim() }
+        : { browser: selected.browser, id: selected.id, directory: selected.directory };
+      busy = true;
+      refresh();
+      message('正在安装…');
+      try {
+        await api('install', value);
+        installed = true;
+        $('install').hidden = true;
+        $('scan').hidden = true;
+        $('manual').hidden = true;
+        $('choices').hidden = true;
+        $('close').hidden = false;
+        $('close').focus();
+        message('安装完成。请在插件“关于”中开启自动更新。');
+      } catch (error) {
+        message(error.message || '安装失败，请重新打开安装程序。', true);
+      } finally {
+        busy = false;
+        refresh();
+      }
+    };
+    $('close').onclick = async () => {
+      try {
+        await api('close', {});
+      } catch {}
+      $('close').disabled = true;
+      message('已完成，可以关闭此页面。');
+    };
+    scan();
+    </script>
+  </body>
+</html>

@@ -1,6 +1,7 @@
 mod install;
 mod model;
 mod network;
+mod setup;
 mod transaction;
 
 use anyhow::{Context, Result, bail, ensure};
@@ -122,6 +123,7 @@ fn write_frame(output: &mut impl Write, value: &serde_json::Value) -> Result<()>
 fn main_inner() -> Result<()> {
     let args = std::env::args().skip(1).collect::<Vec<_>>();
     match args.first().map(String::as_str) {
+        Some("--setup") => setup::run(args.get(1).map(Path::new)),
         Some("--verify") => {
             ensure!(args.len() == 3, "用法: --verify 清单 签名");
             let release = model::verify_release(
@@ -180,7 +182,7 @@ fn main_inner() -> Result<()> {
             }
             Ok(())
         }
-        None => bail!("请通过 install.ps1 安装本地更新器"),
+        None => setup::run(None),
     }
 }
 fn main() {

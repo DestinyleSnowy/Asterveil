@@ -49,6 +49,13 @@ jobs:
           name: ${{ needs.build.outputs.updater-artifact-name }}
           path: packages
 
+      - name: Download untested macOS and Linux builds
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          pattern: asterveil-updater-*-${{ github.sha }}-${{ github.run_attempt }}
+          merge-multiple: true
+          path: packages
+
       - name: Verify downloaded checksums
         working-directory: packages
         run: sha256sum --check SHA256SUMS.txt
@@ -68,7 +75,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          assets=(./Asterveil-*-chrome.zip ./Asterveil-*-chrome-with-updater-windows-x64.zip
+          assets=(./Asterveil-*-chrome.zip ./Asterveil-*-chrome-with-updater.zip
                   ./update-manifest.json ./update-manifest.sig ./SHA256SUMS.txt)
           if gh release view "$RELEASE_TAG" --json isDraft > release-state.json; then
             node -e 'if (!JSON.parse(require("fs").readFileSync("release-state.json")).isDraft) throw new Error("Refusing to replace a published release")'
@@ -76,6 +83,12 @@ jobs:
             if gh release view "$RELEASE_TAG" --json assets --jq '.assets[].name' | grep -Fxq 'Asterveil-Updater-windows-x64.zip'; then
               gh release delete-asset "$RELEASE_TAG" 'Asterveil-Updater-windows-x64.zip' --yes
             fi
+            for prefix in Asterveil Asterveil-Pro; do
+              old="$prefix-${RELEASE_TAG#v}-chrome-with-updater-windows-x64.zip"
+              if gh release view "$RELEASE_TAG" --json assets --jq '.assets[].name' | grep -Fxq "$old"; then
+                gh release delete-asset "$RELEASE_TAG" "$old" --yes
+              fi
+            done
           else
             gh release create "$RELEASE_TAG" \
               --verify-tag --draft --generate-notes \

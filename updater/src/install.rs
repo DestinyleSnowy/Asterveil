@@ -65,16 +65,68 @@ fn register(browser: &str, manifest: &Path) -> Result<()> {
     key.set_value("", &browser_path(manifest))?;
     Ok(())
 }
-#[cfg(not(windows))]
-fn register(_: &str, _: &Path) -> Result<()> {
-    anyhow::bail!("首版安装器仅支持 Windows")
+pub fn browser_root(browser: &str) -> Result<PathBuf> {
+    ensure!(matches!(browser, "chrome" | "edge"), "浏览器无效");
+    #[cfg(windows)]
+    let path = PathBuf::from(std::env::var_os("LOCALAPPDATA").context("找不到本地应用目录")?).join(
+        if browser == "chrome" {
+            "Google/Chrome/User Data"
+        } else {
+            "Microsoft/Edge/User Data"
+        },
+    );
+    #[cfg(target_os = "macos")]
+    let path = home()?
+        .join("Library/Application Support")
+        .join(if browser == "chrome" {
+            "Google/Chrome"
+        } else {
+            "Microsoft Edge"
+        });
+    #[cfg(target_os = "linux")]
+    let path = std::env::var_os("XDG_CONFIG_HOME")
+        .map(PathBuf::from)
+        .filter(|path| path.is_absolute())
+        .unwrap_or(home()?.join(".config"))
+        .join(if browser == "chrome" {
+            "google-chrome"
+        } else {
+            "microsoft-edge"
+        });
+    Ok(path)
+}
+
+#[cfg(unix)]
+fn home() -> Result<PathBuf> {
+    let path = PathBuf::from(std::env::var_os("HOME").context("找不到用户目录")?);
+    ensure!(path.is_absolute(), "用户目录必须为绝对路径");
+    Ok(path)
+}
+
+#[cfg(unix)]
+fn register(browser: &str, manifest: &Path) -> Result<()> {
+    let directory = browser_root(browser)?.join("NativeMessagingHosts");
+    fs::create_dir_all(&directory)?;
+    let value: serde_json::Value = serde_json::from_slice(&fs::read(manifest)?)?;
+    atomic_json(&directory.join(format!("{HOST}.json")), &value)
+}
+
+pub fn install_root() -> Result<PathBuf> {
+    #[cfg(windows)]
+    let root = PathBuf::from(std::env::var_os("LOCALAPPDATA").context("找不到本地应用目录")?)
+        .join("Asterveil/Updater");
+    #[cfg(target_os = "macos")]
+    let root = home()?.join("Library/Application Support/Asterveil/Updater");
+    #[cfg(target_os = "linux")]
+    let root = std::env::var_os("XDG_DATA_HOME")
+        .map(PathBuf::from)
+        .filter(|path| path.is_absolute())
+        .unwrap_or(home()?.join(".local/share"))
+        .join("Asterveil/Updater");
+    Ok(root)
 }
 
 pub fn install(browser: &str, id: &str, directory: &Path) -> Result<()> {
-    ensure!(
-        cfg!(all(windows, target_arch = "x86_64")),
-        "首版仅支持 Windows x64"
-    );
     ensure!(
         matches!(browser, "chrome" | "edge") && valid_id(id),
         "浏览器或扩展 ID 无效"
@@ -99,9 +151,7 @@ pub fn install(browser: &str, id: &str, directory: &Path) -> Result<()> {
     let probe = tempfile::NamedTempFile::new_in(directory.parent().context("安装路径无效")?)
         .context("扩展所在目录不可写")?;
     drop(probe);
-    let root = PathBuf::from(std::env::var_os("LOCALAPPDATA").context("找不到本地应用目录")?)
-        .join("Asterveil")
-        .join("Updater");
+    let root = install_root()?;
     fs::create_dir_all(&root)?;
     plain_tree(&root)?;
     let root = root.canonicalize()?;
@@ -125,8 +175,9 @@ pub fn install(browser: &str, id: &str, directory: &Path) -> Result<()> {
         );
     }
     let executable = root.join(format!(
-        "asterveil-updater-{}.exe",
-        env!("CARGO_PKG_VERSION")
+        "asterveil-updater-{}{}",
+        env!("CARGO_PKG_VERSION"),
+        if cfg!(windows) { ".exe" } else { "" }
     ));
     let source = std::env::current_exe()?;
     if source != executable
@@ -134,6 +185,12 @@ pub fn install(browser: &str, id: &str, directory: &Path) -> Result<()> {
     {
         let mut tmp = tempfile::NamedTempFile::new_in(&root)?;
         std::io::copy(&mut fs::File::open(source)?, &mut tmp)?;
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            tmp.as_file()
+                .set_permissions(fs::Permissions::from_mode(0o700))?;
+        }
         tmp.as_file().sync_all()?;
         tmp.persist(&executable).map_err(|e| e.error)?;
     }
@@ -151,7 +208,15 @@ pub fn install(browser: &str, id: &str, directory: &Path) -> Result<()> {
         &manifest,
         &serde_json::json!({"name": HOST, "description":"Asterveil updater", "path": browser_path(&executable), "type":"stdio", "allowed_origins":config.bindings.keys().map(|id| format!("chrome-extension://{id}/")).collect::<Vec<_>>()}),
     )?;
-    register(browser, &manifest)?;
+    // Unix browsers each read their own manifest copy; refresh every registered browser.
+    for browser in config
+        .bindings
+        .values()
+        .map(|binding| &binding.browser)
+        .collect::<std::collections::BTreeSet<_>>()
+    {
+        register(browser, &manifest)?;
+    }
     Ok(())
 }
 
@@ -179,6 +244,16 @@ pub fn unbind(id: &str) -> Result<()> {
             .collect::<Vec<_>>()
     );
     atomic_json(&path, &manifest)?;
+    #[cfg(unix)]
+    for browser in ["chrome", "edge"] {
+        if browser_root(browser)?
+            .join("NativeMessagingHosts")
+            .join(format!("{HOST}.json"))
+            .exists()
+        {
+            register(browser, &path)?;
+        }
+    }
     Ok(())
 }
 

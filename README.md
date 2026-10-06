@@ -4,7 +4,7 @@
 
 公开仓库：[DestinyleSnowy/Asterveil](https://github.com/DestinyleSnowy/Asterveil)。
 
-安装包下载：[GitHub Releases](https://github.com/DestinyleSnowy/Asterveil/releases/latest)。普通版与 Pro 各提供 Without updater（仅插件，`*-chrome.zip`）和 With updater（含 Windows 更新器，`*-chrome-with-updater-windows-x64.zip`），共四个下载包。含更新器的包解压后加载其中的 `extension` 文件夹；两版差异见版本表。
+安装包下载：[GitHub Releases](https://github.com/DestinyleSnowy/Asterveil/releases/latest)。普通版与 Pro 各提供 Without updater（仅插件，`*-chrome.zip`）和 With updater（含跨平台更新器，`*-chrome-with-updater.zip`），共四个下载包。含更新器的包解压后加载其中的 `extension` 文件夹；两版差异见版本表。
 
 配置支持 `https://jx.7fa4.cn:8888/` 与 `https://in.7fa4.cn:8888/`，两个入口共用本地设置。外网入口已成功访问；内网入口当前返回 `ERR_CONNECTION_CLOSED`，实际内网运行仍待验证。浏览器以 Chrome / Edge 120+ 的 Manifest V3 为当前目标；尚未验证 Firefox。
 
@@ -41,13 +41,13 @@ npm run zip
 
 ## 自动检查与版本发布
 
-### Windows 自动更新
+### 本地自动更新
 
-Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README.md)从 GitHub Releases 静默更新普通版和 Pro。首次手动加载带更新功能的插件，下载安装更新器并绑定扩展 ID 和当前目录，再在“关于”开启“自动更新”；也可手动“检查更新”。自动更新默认关闭，不安装更新器时仍可正常使用扩展。
+Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README.md)从 GitHub Releases 静默更新普通版和 Pro。macOS Intel/Apple Silicon 与 Linux x64 提供实验构建，尚未实机验证。首次手动加载带更新功能的插件，打开 With updater 包中的安装入口，由简洁安装页自动识别浏览器、扩展 ID 和目录，确认安装，再在“关于”开启“自动更新”；也可手动“检查更新”。自动更新默认关闭，不安装更新器时仍可正常使用扩展。
 
 更新器按需启动，先验证 GitHub 接口和实际下载链路；只接收经过 Ed25519 签名、大小及 SHA-256 校验的正式新版，等待编辑、导出、提交及草稿保存完成后替换并重载插件。失败保留或恢复旧版，不强制刷新网页。首版更新器自身需手动升级。安装、恢复、代理说明和发布密钥配置见更新器文档。
 
-发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 同时编译、测试和打包更新器；Release 将更新器分别与普通版、Pro 组成 With updater 包，同时保留两个仅插件包，并附带签名清单及签名文件。
+发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 编译、测试和打包更新器；macOS/Linux Actions 仅编译打包，不运行平台测试；Release 将更新器分别与普通版、Pro 组成 With updater 包，同时保留两个仅插件包，并附带签名清单及签名文件。
 
 推送 `main` 后，[CI](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/ci.yml) 会在 Ubuntu 24.04 / Node.js 22 上依次执行 `npm ci`、`npm run check`、`npm test` 和 `npm run zip:all`，也可在 Actions 页面手动运行。打包命令已包含两版构建。成功后可下载包含两版 ZIP 和 `SHA256SUMS.txt` 的 artifact，保存 30 天；解开 artifact 后，再将所需版本的扩展 ZIP 解压加载。
 

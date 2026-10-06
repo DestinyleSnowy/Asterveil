@@ -4,12 +4,12 @@
 
 ## 安装
 
-1. 从项目正式 Release 下载 `Asterveil-Updater-windows-x64.zip`，完整解压。
+1. 从项目正式 Release 下载所需版本的 `*-chrome-with-updater-windows-x64.zip`，完整解压。新安装用户在浏览器中加载其中的 `extension` 文件夹。
 2. 在 `chrome://extensions` 或 `edge://extensions` 开启开发者模式，记录 Asterveil 的扩展 ID 与实际加载目录。
-3. 双击 `install.cmd`，输入 ID、浏览器（`chrome` / `edge`）和扩展目录。不要选择源码根目录、压缩包或浏览器商店安装目录。
+3. 新安装用户双击包根目录的 `install-updater.cmd`，输入 ID 和浏览器（`chrome` / `edge`），安装器自动使用包内的 `extension` 目录。已有用户保留原插件目录，运行 `updater/install.cmd` 并输入实际加载路径。不要选择源码根目录、压缩包或浏览器商店安装目录。
 4. 在网站的 Asterveil 设置 → 关于中开启“自动更新”。“检查更新”会检查并安装可用新版，不依赖自动更新开关。
 
-也可在 PowerShell 中运行：
+也可在包内的 `updater` 目录打开 PowerShell 运行：
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\install.ps1 -Browser edge -ExtensionId <32位ID> -Directory 'D:\Extensions\Asterveil Pro'
@@ -62,13 +62,14 @@ node updater/scripts/release.mjs keygen C:\SecureKeys\Asterveil.private.pem
 
 仅首次发布前创建。不要在已有更新器分发后重新生成公钥，否则旧更新器无法验证新版本。私钥不放进仓库、安装包或日志，安全备份；将 PEM 全文保存到仓库 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`。发布工作流缺少此 secret 时直接失败，不生成未签名的更新。
 
-本地签名：
+本地签名并生成四个发行包：
 
 ```powershell
 $env:ASTERVEIL_UPDATE_PRIVATE_KEY_FILE = 'C:\SecureKeys\Asterveil.private.pem'
 node updater/scripts/release.mjs sign .output
+python .github/scripts/bundle-updater.py .output
 ```
 
-每次 Release 包含两版扩展 ZIP、Windows 更新器 ZIP、`update-manifest.json`、二进制 `update-manifest.sig` 与 `SHA256SUMS.txt`。签名清单包含版本、最低更新器版本、版本类型、文件名、大小与哈希。先创建草稿，审核后发布；更新器忽略草稿和预发布版本。
+每次 Release 提供四个下载包：普通版和 Pro 各有仅插件（without updater，沿用 `*-chrome.zip` 文件名）与含 Windows 更新器（`*-chrome-with-updater-windows-x64.zip`）两种；另外包含 `update-manifest.json`、二进制 `update-manifest.sig` 与 `SHA256SUMS.txt`。含更新器的包内提供 `extension/`、`updater/` 和根目录安装入口。自动更新仍下载仅插件的 ZIP，不重复替换本地更新器。签名清单包含版本、最低更新器版本、版本类型、文件名、大小与哈希。先创建草稿，审核后发布；更新器忽略草稿和预发布版本。
 
 私钥轮换和更新器自身自动更新不属于首版；前者需先通过可信渠道升级更新器内置公钥。

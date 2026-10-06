@@ -4,7 +4,7 @@
 
 公开仓库：[DestinyleSnowy/Asterveil](https://github.com/DestinyleSnowy/Asterveil)。
 
-安装包下载：[GitHub Releases](https://github.com/DestinyleSnowy/Asterveil/releases/latest)。选择普通版或 Pro 版 ZIP，解压后按下方说明加载；两版差异见版本表。
+安装包下载：[GitHub Releases](https://github.com/DestinyleSnowy/Asterveil/releases/latest)。普通版与 Pro 各提供 Without updater（仅插件，`*-chrome.zip`）和 With updater（含 Windows 更新器，`*-chrome-with-updater-windows-x64.zip`），共四个下载包。含更新器的包解压后加载其中的 `extension` 文件夹；两版差异见版本表。
 
 配置支持 `https://jx.7fa4.cn:8888/` 与 `https://in.7fa4.cn:8888/`，两个入口共用本地设置。外网入口已成功访问；内网入口当前返回 `ERR_CONNECTION_CLOSED`，实际内网运行仍待验证。浏览器以 Chrome / Edge 120+ 的 Manifest V3 为当前目标；尚未验证 Firefox。
 
@@ -47,7 +47,7 @@ Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README
 
 更新器按需启动，先验证 GitHub 接口和实际下载链路；只接收经过 Ed25519 签名、大小及 SHA-256 校验的正式新版，等待编辑、导出、提交及草稿保存完成后替换并重载插件。失败保留或恢复旧版，不强制刷新网页。首版更新器自身需手动升级。安装、恢复、代理说明和发布密钥配置见更新器文档。
 
-发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 同时编译、测试和打包更新器；Release 附带更新器 ZIP、签名清单及签名文件。
+发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 同时编译、测试和打包更新器；Release 将更新器分别与普通版、Pro 组成 With updater 包，同时保留两个仅插件包，并附带签名清单及签名文件。
 
 推送 `main` 后，[CI](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/ci.yml) 会在 Ubuntu 24.04 / Node.js 22 上依次执行 `npm ci`、`npm run check`、`npm test` 和 `npm run zip:all`，也可在 Actions 页面手动运行。打包命令已包含两版构建。成功后可下载包含两版 ZIP 和 `SHA256SUMS.txt` 的 artifact，保存 30 天；解开 artifact 后，再将所需版本的扩展 ZIP 解压加载。
 
@@ -57,8 +57,8 @@ Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README
 
 1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.2 --no-git-tag-version`），提交并推送到 `main`。
 2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.2`、`git push origin v0.1.2`。
-3. [Release](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/release.yml) 工作流确认标签为 `v主版本.次版本.修订号` 且与项目版本一致，复用 CI 检查和打包，再创建附带两版 ZIP、校验文件和自动更新说明的 **Release 草稿**。
-4. 到 Releases 检查草稿和附件，确认后手动发布。已有同名 Release 不会被覆盖；如需补传附件，可从对应成功运行的 artifact 获取。
+3. [Release](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/release.yml) 工作流确认标签为 `v主版本.次版本.修订号` 且与项目版本一致，复用 CI 检查和打包，再创建附带普通版/Pro × With/Without updater 四个 ZIP、校验文件和更新元数据的 **Release 草稿**。
+4. 到 Releases 检查草稿和附件，确认后手动发布。同名 Release 尚为草稿时，重新构建会刷新附件并保留文案与预发布状态；已公开发布的版本拒绝覆盖。
 
 日常 CI 只读取仓库，只有创建草稿的任务拥有内容写入权限。连续推送会取消同一分支的过期构建，版本发布不会被新版本取消。流程不需要个人 Token，也不上传到浏览器商店。
 

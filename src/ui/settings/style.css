@@ -5,6 +5,7 @@
   display: none;
 }
 button,
+select,
 input {
   font: inherit;
 }
@@ -55,13 +56,6 @@ h2 {
   color: var(--av-heading);
   font-size: 15px;
   font-weight: 600;
-}
-.row small {
-  display: block;
-  margin-top: 6px;
-  color: var(--av-muted);
-  font-size: 12px;
-  line-height: 1.7;
 }
 .module,
 .master {
@@ -173,11 +167,157 @@ h2 {
 .avatar-options:disabled .avatar-option {
   cursor: default;
 }
-.avatar-note {
-  margin: 18px 0 0;
+.background-crop-size {
+  margin: 12px 0;
   color: var(--av-muted);
   font-size: 12px;
   line-height: 1.7;
+}
+.background-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+}
+.background-actions button {
+  padding: 8px 14px;
+  border: 1px solid var(--av-border);
+  border-radius: 8px;
+  background: var(--av-surface);
+  color: var(--av-accent);
+  cursor: pointer;
+}
+.background-image-actions {
+  display: flex;
+  gap: 8px;
+}
+.background-actions button:enabled:hover {
+  background: var(--av-tint);
+}
+.background-actions button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.background-overlay-label {
+  display: flex;
+  justify-content: space-between;
+  color: var(--av-text);
+  font-size: 13px;
+}
+#background-overlay {
+  width: 100%;
+  margin: 12px 0 0;
+  accent-color: var(--av-accent);
+}
+#background-status {
+  color: var(--av-danger);
+  font-size: 12px;
+}
+.background-segments {
+  display: inline-flex;
+  padding: 3px;
+  gap: 3px;
+  border-radius: 10px;
+  background: var(--av-surface);
+  border: 1px solid var(--av-border);
+}
+.background-segments label {
+  position: relative;
+  cursor: pointer;
+}
+.background-segments input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+/* biome-ignore lint/style/noDescendingSpecificity: Segmented controls and display mode cards are separate groups. */
+.background-segments span {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--av-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.background-segments label:hover span {
+  color: var(--av-accent);
+}
+.background-segments input:checked + span {
+  color: var(--av-accent);
+  background: var(--av-paper);
+  box-shadow: 0 1px 4px #18202e16;
+}
+.background-segments input:focus-visible + span {
+  outline: 2px solid var(--av-accent);
+  outline-offset: 2px;
+}
+.background-segments input:disabled + span {
+  opacity: 0.45;
+  cursor: default;
+}
+.background-crop-dialog button {
+  padding: 8px 12px;
+  border: 1px solid var(--av-border);
+  border-radius: 8px;
+  color: var(--av-text);
+  background: var(--av-surface);
+  font: inherit;
+  cursor: pointer;
+}
+.background-crop-dialog {
+  width: min(940px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 24px;
+  border: 1px solid var(--av-border);
+  border-radius: 16px;
+  background: var(--av-paper);
+  color: var(--av-text);
+  overflow: auto;
+  box-shadow: 0 18px 65px #172b4955;
+}
+.background-crop-dialog::backdrop {
+  background: #10182788;
+}
+.background-crop-toolbar,
+.background-crop-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+}
+.background-crop-actions {
+  justify-content: flex-end;
+  margin-bottom: 0;
+}
+.background-crop-dialog [data-crop="apply"] {
+  background: var(--av-solid);
+  color: var(--av-on-accent);
+}
+.background-crop-dialog button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.background-crop-stage {
+  display: grid;
+  place-items: center;
+  background: #101827;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.background-crop-stage canvas {
+  display: block;
+  max-width: 100%;
+  max-height: 48vh;
+  width: auto;
+  height: auto;
+  touch-action: none;
+  cursor: crosshair;
 }
 .swatch {
   position: relative;
@@ -389,9 +529,9 @@ input:disabled {
   cursor: pointer;
 }
 .settings-view[data-section="appearance"] .module:not([data-module-id="ui-polish"]),
-.settings-view[data-section="appearance"] .module small,
 .settings-view:not([data-section="appearance"]) .palette,
 .settings-view:not([data-section="appearance"]) .color-mode,
+.settings-view:not([data-section="appearance"]) .background-settings,
 .settings-view:not([data-section="about"]) .about,
 .settings-view:not([data-section="home"]) .home-layout-settings,
 .settings-view[data-section="about"] #modules,
@@ -406,18 +546,9 @@ input:disabled {
 }
 .home-layout-heading {
   display: flex;
+  justify-content: flex-end;
   align-items: start;
   gap: 16px;
-}
-.home-layout-heading p,
-.home-layout-note {
-  margin: 0;
-  color: var(--av-muted);
-  font-size: 12px;
-  line-height: 1.7;
-}
-.home-layout-note {
-  margin-top: -8px;
 }
 #home-layout-reset,
 .home-order-button,

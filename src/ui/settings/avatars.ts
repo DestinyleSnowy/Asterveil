@@ -59,10 +59,8 @@ export function mountAvatarSettings(
     controls.append(label);
     inputs.push(input);
   }
-  const note = document.createElement('p');
-  note.className = 'avatar-note';
-  note.textContent = '每种样式都包含多种配色；统一应用所选样式，每位用户的配色与图案保持固定。';
-  card.append(controls, note);
+  controls.title = '每位用户的配色与图案保持固定';
+  card.append(controls);
   return {
     render(settings: Settings | undefined) {
       controls.disabled = !settings?.enabled || !settings.modules['local-avatars'];

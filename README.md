@@ -35,7 +35,7 @@ npm run zip
 
 两版均保留完整的 Markdown/公式预览、Markdown 源文件保存、草稿、作业折叠和其他网站增强功能。light 构建完全排除 PDF 库、字体/CMap 与解码资源；Markdown 和公式使用与 full 相同的渲染器及 KaTeX 字体。
 
-`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.1-chrome.zip` 和 `.output/Asterveil-Pro-0.1.1-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
+`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.2-chrome.zip` 和 `.output/Asterveil-Pro-0.1.2-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
 
 同一浏览器配置中两版同时启用时，普通版 Asterveil 会自动停用自身，优先使用 Asterveil Pro；启动时及 Pro 后续安装、启用时都会检测。普通版通过 `management` 权限识别已启用、名称为 `Asterveil Pro` 的扩展，并在停用前通知已打开的页面清理普通版功能。Pro 不申请此权限。仅安装但未启用的 Pro 不影响普通版；Pro 的页面总开关不改变版本优先级。切回普通版时，先在浏览器扩展管理页停用 Pro，再启用 Asterveil，并刷新网站页面；设置和已保存的草稿保留。
 
@@ -47,8 +47,8 @@ npm run zip
 
 发布新版本时：
 
-1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.1 --no-git-tag-version`），提交并推送到 `main`。
-2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.1`、`git push origin v0.1.1`。
+1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.2 --no-git-tag-version`），提交并推送到 `main`。
+2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.2`、`git push origin v0.1.2`。
 3. [Release](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/release.yml) 工作流确认标签为 `v主版本.次版本.修订号` 且与项目版本一致，复用 CI 检查和打包，再创建附带两版 ZIP、校验文件和自动更新说明的 **Release 草稿**。
 4. 到 Releases 检查草稿和附件，确认后手动发布。已有同名 Release 不会被覆盖；如需补传附件，可从对应成功运行的 artifact 获取。
 
@@ -61,6 +61,10 @@ npm run zip
 “首页布局”支持选择显示哪些板块、通过左侧手柄拖动或上下箭头排序，并在左右栏之间移动。涵盖今日计划、近期表现、最好表现、通知信息、学习进度、生日快乐、计时器、可批阅习题、我的日报、已批阅习题、公告和友情链接；当前账号没有的板块不会新增，未知板块保留。设置自动保存并同步到已打开的两个站点入口；窄屏先显示左栏，再显示右栏。默认沿用原站布局，“恢复默认”重置显示和顺序，关闭“自定义首页”或总开关会立即还原原站布局并保留偏好。仅移动原始节点，保留板块内的交互；隐藏通知板块不会清除任何通知。
 
 设置静默保存，不显示保存提示或界面预览。面板开合、分类切换、配色与开关提供短时过渡；系统开启“减少动态效果”时取消动画。深浅色和窄屏布局均适配。
+
+“外观配色 → 自定义背景”支持导入本地 JPG、PNG、WebP 图片（最大 20 MB）。导入后先框选裁剪，支持移动选区、拖动四边或四角缩放、方向键微调（Shift 调整大小）、屏幕比例、16:9、正方形和自由框选；确认后仅保存选中区域，取消或按 Esc 保留原背景。图片自动缩放压缩后保存在当前浏览器，两个站点入口共用，刷新后保留，不会上传。
+
+背景居中铺满窗口；遮罩条拖动时即时预览，松手后保存，遮罩随深浅色切换。导航、表格和卡片保留原有底色。修正原站侧栏页面强制灰底对背景的遮挡。可暂时关闭背景或移除图片；关闭界面微调、暂停扩展或离开适配页面时恢复原背景，打印不显示自定义图片。
 
 ## 外站提交器
 

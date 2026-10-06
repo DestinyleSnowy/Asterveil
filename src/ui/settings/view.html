@@ -9,11 +9,9 @@
           <input id="home-layout-enabled" type="checkbox" role="switch" aria-checked="false" />
         </label>
         <fieldset id="home-layout-controls">
-          <div class="home-layout-heading">
-            <p>勾选要显示的板块，拖动或用箭头排序，也可调整所在栏。更改自动保存；窄屏按左栏、右栏依次显示。</p>
+          <div class="home-layout-heading" title="勾选板块，拖动或用箭头排序；更改自动保存。">
             <button id="home-layout-reset" type="button">恢复默认</button>
           </div>
-          <p class="home-layout-note">仅调整首页已有板块；当前账号没有的板块不会新增。</p>
           <section class="settings-card home-column" aria-labelledby="home-main-title">
             <h2 id="home-main-title">左栏</h2>
             <ol data-home-column="main" aria-label="左栏板块"></ol>
@@ -41,6 +39,22 @@
             <span>自定义</span>
           </label>
         </div>
+      </fieldset>
+      <fieldset id="background" class="background-settings settings-card" aria-labelledby="background-title">
+        <label class="row">
+          <strong id="background-title">自定义背景</strong>
+          <input id="background-enabled" type="checkbox" role="switch" aria-checked="false" />
+        </label>
+        <input id="background-file" type="file" accept="image/jpeg,image/png,image/webp" hidden />
+        <div class="background-actions">
+          <div class="background-image-actions">
+            <button id="background-import" type="button" title="选择 JPG、PNG 或 WebP 图片，最大 20 MB">导入图片</button>
+            <button id="background-remove" type="button">移除图片</button>
+          </div>
+        </div>
+        <label class="background-overlay-label" for="background-overlay">遮罩强度 <output id="background-overlay-value" for="background-overlay">35%</output></label>
+        <input id="background-overlay" type="range" min="0" max="100" step="1" value="35" title="向右拖动可淡化背景" />
+        <p id="background-status" role="status" aria-live="polite" hidden></p>
       </fieldset>
       <section class="about" aria-label="关于 {{productName}}">
         <div class="settings-card about-info">

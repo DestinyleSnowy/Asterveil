@@ -1,4 +1,5 @@
 import { type AvatarStyle, isAvatarStyle } from './avatar';
+import { isBackgroundImage, isBackgroundOverlay } from './background';
 import { isModuleId, type ModuleId } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { type HomeColumn, type HomeSectionId, isHomeColumn, isHomeSectionId } from './home-layout';
@@ -11,6 +12,9 @@ export type SettingsCommand =
   | { type: 'settings.accent'; color: string }
   | { type: 'settings.color-mode'; mode: ColorMode }
   | { type: 'settings.avatar-style'; style: AvatarStyle }
+  | { type: 'settings.background.image'; image: string | null }
+  | { type: 'settings.background.enabled'; enabled: boolean }
+  | { type: 'settings.background.overlay'; overlay: number }
   | { type: 'settings.home.visible'; id: HomeSectionId; visible: boolean }
   | {
       type: 'settings.home.move';
@@ -37,6 +41,12 @@ export function isSettingsRequest(value: unknown): value is SettingsRequest {
       return isColorMode(value.mode);
     case 'settings.avatar-style':
       return isAvatarStyle(value.style);
+    case 'settings.background.image':
+      return isBackgroundImage(value.image);
+    case 'settings.background.enabled':
+      return typeof value.enabled === 'boolean';
+    case 'settings.background.overlay':
+      return isBackgroundOverlay(value.overlay);
     case 'settings.module':
       return typeof value.enabled === 'boolean' && isModuleId(value.moduleId);
     case 'settings.home.visible':

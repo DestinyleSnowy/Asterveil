@@ -1,4 +1,5 @@
 import { type AvatarStyle, defaultAvatarStyle, isAvatarStyle } from './avatar';
+import { type BackgroundSettings, decodeBackground, defaultBackground } from './background';
 import { type ModuleId, moduleCatalog } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { decodeHomeLayout, defaultHomeLayout, type HomeLayout } from './home-layout';
@@ -13,6 +14,7 @@ export interface Settings {
   readonly accentColor: string;
   readonly colorMode: ColorMode;
   readonly avatarStyle: AvatarStyle;
+  readonly background: BackgroundSettings;
   readonly homeLayout: HomeLayout;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
@@ -29,6 +31,7 @@ export function defaultSettings(): Settings {
     accentColor: defaultAccentColor,
     colorMode: 'light',
     avatarStyle: defaultAvatarStyle,
+    background: defaultBackground(),
     homeLayout: defaultHomeLayout(),
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
@@ -76,6 +79,7 @@ export function decodeSettings(value: unknown): Settings {
     accentColor: preset?.color ?? normalizedAccent,
     colorMode,
     avatarStyle,
+    background: decodeBackground(value.background),
     homeLayout: decodeHomeLayout(value.homeLayout),
     modules,
   };

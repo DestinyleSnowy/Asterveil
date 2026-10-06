@@ -19,6 +19,14 @@ export function createSettingsService(repository: SettingsRepository) {
           command.type === 'settings.accent' ? command.color.toLowerCase() : current.accentColor,
         colorMode: command.type === 'settings.color-mode' ? command.mode : current.colorMode,
         avatarStyle: command.type === 'settings.avatar-style' ? command.style : current.avatarStyle,
+        background:
+          command.type === 'settings.background.image'
+            ? { ...current.background, image: command.image, enabled: command.image !== null }
+            : command.type === 'settings.background.enabled'
+              ? { ...current.background, enabled: command.enabled }
+              : command.type === 'settings.background.overlay'
+                ? { ...current.background, overlay: command.overlay }
+                : current.background,
         homeLayout:
           command.type === 'settings.home.reset'
             ? defaultHomeLayout()

@@ -8,6 +8,7 @@ import { accentPresets, defaultAccentColor } from '../../shared/palette';
 import type { SettingsCommand } from '../../shared/protocol';
 import type { Settings } from '../../shared/settings';
 import { mountAvatarSettings } from './avatars';
+import { mountBackgroundSettings } from './background';
 import { mountHomeLayoutSettings } from './home-layout';
 
 export function mountSettings(root: ParentNode, scope: Scope): void {
@@ -34,6 +35,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   let errorMessage = '';
   let storageChanges = 0;
   const homeLayout = mountHomeLayoutSettings(root, scope, save);
+  const background = mountBackgroundSettings(root, scope, save);
   let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
 
   element('version').textContent = `v${browser.runtime.getManifest().version}`;
@@ -63,9 +65,8 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
     );
     text.append(title);
     if (module.description) {
-      const description = document.createElement('small');
-      description.textContent = module.description;
-      text.append(description);
+      label.title = module.description;
+      input.setAttribute('aria-description', module.description);
     }
     label.append(text, input);
     if (module.id === 'local-avatars') {
@@ -77,7 +78,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
       avatarControls = mountAvatarSettings(card, scope, save);
       list.append(card);
     } else list.append(label);
-    if (module.id === 'ui-polish') list.append(colorMode, palette);
+    if (module.id === 'ui-polish') list.append(colorMode, palette, element('background'));
     inputs.set(module.id, input);
   }
 
@@ -138,6 +139,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   function render(): void {
     if (scope.signal.aborted) return;
     homeLayout.render(current);
+    background.render(current);
     avatarControls?.render(current);
     controls.disabled = pending || !current;
     enabled.checked = current?.enabled ?? false;

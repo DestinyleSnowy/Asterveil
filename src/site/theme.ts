@@ -1,8 +1,10 @@
 import type { Scope } from '../core/scope';
+import { watchBackgroundPreview } from '../shared/background-preview';
 import { watchColorMode } from '../shared/color-mode';
 import { paletteVariables } from '../shared/palette';
 import type { Settings } from '../shared/settings';
 import { appearancePage } from './appearance';
+import { backgroundCss } from './background';
 import css from './theme.css?inline';
 
 // Pure CSS is installed at document_start; DOM enhancements wait until DOMContentLoaded.
@@ -19,7 +21,18 @@ export function createPageTheme(scope: Scope, initialUrl: URL) {
   style.textContent = css;
   const palette = document.createElement('style');
   palette.dataset.asterveil = 'palette';
-  root.append(style, palette);
+  const background = document.createElement('style');
+  background.dataset.asterveil = 'background';
+  const preview = document.createElement('style');
+  preview.dataset.asterveil = 'background-preview';
+  root.append(style, palette, background, preview);
+  watchBackgroundPreview(scope, (value) => {
+    preview.textContent =
+      value === undefined
+        ? ''
+        : `@media screen { html[data-asterveil-appearance="polished"] { --av-background-strength: ${value}%; } }`;
+  });
+  let lastBackground: Settings['background'] | undefined;
   let active = false;
   let lastColor = '';
   let current: Settings | undefined;
@@ -33,6 +46,8 @@ export function createPageTheme(scope: Scope, initialUrl: URL) {
     root.setAttribute('data-asterveil-scheme', scheme);
   });
   const restore = () => {
+    background.textContent = '';
+    lastBackground = undefined;
     if (!active) return;
     attributes.forEach((name, index) => {
       const value = previous[index];
@@ -67,6 +82,8 @@ export function createPageTheme(scope: Scope, initialUrl: URL) {
     restore();
     style.remove();
     palette.remove();
+    background.remove();
+    preview.remove();
   });
   return {
     update(url: URL, settings: Settings | undefined) {
@@ -78,6 +95,14 @@ export function createPageTheme(scope: Scope, initialUrl: URL) {
         root.setAttribute('data-asterveil-page', page);
         active = true;
         setMode(settings.colorMode);
+        if (
+          lastBackground?.image !== settings.background.image ||
+          lastBackground?.enabled !== settings.background.enabled ||
+          lastBackground?.overlay !== settings.background.overlay
+        ) {
+          background.textContent = backgroundCss(settings.background);
+          lastBackground = settings.background;
+        }
       } else restore();
       clearTimeout(fallback);
       reveal();

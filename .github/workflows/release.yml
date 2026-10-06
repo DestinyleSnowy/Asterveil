@@ -27,15 +27,40 @@ jobs:
       actions: read
       contents: write
     steps:
+      - name: Check out signing script
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '22'
+
       - name: Download verified packages from this run
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: ${{ needs.build.outputs.artifact-name }}
           path: packages
 
+      - name: Download Windows updater
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: ${{ needs.build.outputs.updater-artifact-name }}
+          path: packages
+
       - name: Verify downloaded checksums
         working-directory: packages
         run: sha256sum --check SHA256SUMS.txt
+
+      - name: Sign update manifest
+        env:
+          ASTERVEIL_UPDATE_PRIVATE_KEY: ${{ secrets.ASTERVEIL_UPDATE_PRIVATE_KEY }}
+        run: node updater/scripts/release.mjs sign packages
+
+      - name: Include updater and signed metadata in checksums
+        working-directory: packages
+        run: sha256sum Asterveil-Updater-windows-x64.zip update-manifest.json update-manifest.sig >> SHA256SUMS.txt
 
       - name: Create draft with generated release notes
         working-directory: packages
@@ -47,4 +72,5 @@ jobs:
           gh release create "$RELEASE_TAG" \
             --verify-tag --draft --generate-notes \
             --title "Asterveil $RELEASE_TAG" \
-            ./Asterveil-*-chrome.zip ./SHA256SUMS.txt
+            ./Asterveil-*-chrome.zip ./Asterveil-Updater-windows-x64.zip \
+            ./update-manifest.json ./update-manifest.sig ./SHA256SUMS.txt

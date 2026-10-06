@@ -5,10 +5,12 @@ import { createEditionPriority } from '../background/edition-priority';
 import { isSettingsSender } from '../background/settings-sender';
 import { createSettingsService } from '../background/settings-service';
 import { createSubmitterService } from '../background/submitter-service';
+import { createUpdaterService } from '../background/updater-service';
 import { localSettings, watchSettings } from '../platform/settings-repository';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage } from '../shared/edition-coordination';
 import { isSettingsRequest, type SettingsResponse } from '../shared/protocol';
+import { isUpdateRequest } from '../shared/updater';
 import { isSubmitterRequest } from '../submitter/model';
 
 export default defineBackground(() => {
@@ -47,9 +49,19 @@ export default defineBackground(() => {
     },
   });
   const submitter = createSubmitterService();
+  let activeSubmissions = 0;
+  const updater = createUpdaterService(() => activeSubmissions > 0);
   const popupUrl = browser.runtime.getURL('/popup.html');
 
   browser.runtime.onMessage.addListener((message: unknown, sender, sendResponse) => {
+    if (isUpdateRequest(message)) {
+      if (!isSettingsSender(sender, browser.runtime.id)) return false;
+      void updater(message).then(
+        (state) => sendResponse({ ok: true, state }),
+        () => sendResponse({ ok: false, error: '无法读取更新状态' }),
+      );
+      return true;
+    }
     if (message === editionCheckMessage) {
       if (!isSettingsSender(sender, browser.runtime.id)) return false;
       void (checkEdition ? checkEdition() : ready).then(sendResponse, () => sendResponse(false));
@@ -57,7 +69,12 @@ export default defineBackground(() => {
     }
     if (isSubmitterRequest(message)) {
       if (sender.id !== browser.runtime.id || sender.url !== popupUrl || sender.tab) return false;
-      void submitter(message).then(sendResponse);
+      activeSubmissions++;
+      void submitter(message)
+        .then(sendResponse)
+        .finally(() => {
+          activeSubmissions--;
+        });
       return true;
     }
     if (!isSettingsRequest(message)) return false;

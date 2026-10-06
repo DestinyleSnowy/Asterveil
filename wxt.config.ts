@@ -98,6 +98,8 @@ export default defineConfig({
       'activeTab',
       'scripting',
       'declarativeNetRequest',
+      'alarms',
+      'nativeMessaging',
       ...(mode === 'light' ? ['management' as const] : []),
     ],
     ...(mode !== 'light' && {

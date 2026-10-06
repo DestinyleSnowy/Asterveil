@@ -10,6 +10,7 @@ import type { Settings } from '../../shared/settings';
 import { mountAvatarSettings } from './avatars';
 import { mountBackgroundSettings } from './background';
 import { mountHomeLayoutSettings } from './home-layout';
+import { mountUpdaterSettings } from './updater';
 
 export function mountSettings(root: ParentNode, scope: Scope): void {
   function element<T extends HTMLElement>(id: string): T {
@@ -35,6 +36,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   let errorMessage = '';
   let storageChanges = 0;
   const homeLayout = mountHomeLayoutSettings(root, scope, save);
+  mountUpdaterSettings(root, scope);
   const background = mountBackgroundSettings(root, scope, save);
   let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
 

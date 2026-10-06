@@ -4,6 +4,7 @@ import { ModuleRuntime } from '../core/runtime';
 import { Scope } from '../core/scope';
 import { modules } from '../features/registry';
 import { localSettings, watchSettings } from '../platform/settings-repository';
+import { mountUpdateGuard } from '../platform/update-guard';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage, editionStopMessage } from '../shared/edition-coordination';
 import type { Settings } from '../shared/settings';
@@ -24,6 +25,7 @@ export default defineContentScript({
     }
     const runtime = new ModuleRuntime(modules);
     const uiScope = new Scope();
+    mountUpdateGuard(uiScope);
     let floatingSettings: ReturnType<typeof mountFloatingSettings> | undefined;
     let theme: ReturnType<typeof createPageTheme> | undefined;
     let homeLayout: ReturnType<typeof createHomeLayout> | undefined;

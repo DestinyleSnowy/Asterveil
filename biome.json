@@ -8,6 +8,7 @@
       "!!**/.wxt",
       "!!**/.tmp",
       "!!website/dist",
+      "!!updater/target",
       "!!package-lock.json"
     ]
   },

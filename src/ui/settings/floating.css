@@ -53,8 +53,8 @@
   box-shadow: 0 0 0 3px var(--av-ring);
 }
 .settings-dialog {
-  width: min(820px, calc(100vw - 32px));
-  height: min(540px, calc(100dvh - 48px));
+  width: min(1040px, calc(100vw - 32px));
+  height: min(720px, calc(100dvh - 48px));
   max-width: none;
   max-height: none;
   padding: 0;
@@ -211,7 +211,7 @@
 @media (max-width: 640px) {
   .settings-dialog {
     width: calc(100vw - 16px);
-    height: min(640px, calc(100dvh - 24px));
+    height: min(720px, calc(100dvh - 24px));
     border-radius: 14px;
   }
   .dialog-heading {

@@ -1,6 +1,7 @@
 import { fontCss, layoutCss } from 'virtual:homework-katex';
 import { browser } from 'wxt/browser';
 import type { FeatureModule } from '../../core/module';
+import { preventUpdateWhile } from '../../platform/update-guard';
 import { editorName, pdfEnabled } from '../../shared/edition';
 import { isRecord } from '../../shared/settings';
 import { findHomework, submitHomework } from '../../site/homework';
@@ -95,6 +96,8 @@ export default {
     let previewUrl: string | undefined;
     let saveQueue = Promise.resolve();
     let dirty = false;
+    let saving = 0;
+    preventUpdateWhile(scope, () => busy || submitted || dirty || saving > 0 || dialog.open);
     const originalStyles = homework.submittedBlocks
       .flatMap(({ heading, body }) => [heading, body])
       .map((element) => ({
@@ -111,11 +114,15 @@ export default {
       if (!dirty) return;
       dirty = false;
       const value = { markdown: editor.value, hidden };
+      saving++;
       saveQueue = saveQueue
         .then(() => browser.storage.local.set({ [key]: value }))
         .catch(() => {
           dirty = true;
           if (!scope.signal.aborted) report('草稿保存失败，请先保存 Markdown 文件。', true);
+        })
+        .finally(() => {
+          saving--;
         });
     };
     const render = () => {

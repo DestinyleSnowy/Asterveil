@@ -41,6 +41,14 @@ npm run zip
 
 ## 自动检查与版本发布
 
+### Windows 自动更新
+
+Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README.md)从 GitHub Releases 静默更新普通版和 Pro。首次手动加载带更新功能的插件，下载安装更新器并绑定扩展 ID 和当前目录，再在“关于”开启“自动更新”；也可手动“检查更新”。自动更新默认关闭，不安装更新器时仍可正常使用扩展。
+
+更新器按需启动，先验证 GitHub 接口和实际下载链路；只接收经过 Ed25519 签名、大小及 SHA-256 校验的正式新版，等待编辑、导出、提交及草稿保存完成后替换并重载插件。失败保留或恢复旧版，不强制刷新网页。首版更新器自身需手动升级。安装、恢复、代理说明和发布密钥配置见更新器文档。
+
+发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 同时编译、测试和打包更新器；Release 附带更新器 ZIP、签名清单及签名文件。
+
 推送 `main` 后，[CI](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/ci.yml) 会在 Ubuntu 24.04 / Node.js 22 上依次执行 `npm ci`、`npm run check`、`npm test` 和 `npm run zip:all`，也可在 Actions 页面手动运行。打包命令已包含两版构建。成功后可下载包含两版 ZIP 和 `SHA256SUMS.txt` 的 artifact，保存 30 天；解开 artifact 后，再将所需版本的扩展 ZIP 解压加载。
 
 `.github/scripts/verify-packages.py` 使用 Python 3 标准库核对 ZIP 完整性、与构建目录逐文件一致、清单名称和版本、两版权限、清单引用资源、许可证及 PDF 资源差异，并生成 SHA-256 校验文件。本地完成打包后，也可运行 `python .github/scripts/verify-packages.py`。
@@ -175,7 +183,7 @@ export default {
 
 ## 权限与数据
 
-正式构建声明 `storage`、`activeTab`、`scripting`、`declarativeNetRequest` 权限，并申请提交目标的精确主机权限。`declarativeNetRequest` 用于限定站点来源的 Gravatar 头像拦截。美化内容脚本仍只匹配两个精确主机名，在运行时检查 HTTPS 和 8888 端口。提交器仅在点击发送时读取当前支持页面的 HTML，在弹窗中解析；只把代码、题号、结果等提交字段发往选中的 7FA4 `/foreign_oj`。后台通过 `/user_api/json` 检查登录，网络请求携带浏览器现有会话，不读取或保存 Cookie，也不记录源代码日志。
+正式构建声明 `storage`、`activeTab`、`scripting`、`declarativeNetRequest`、`alarms`、`nativeMessaging` 权限，并申请提交目标的精确主机权限。`declarativeNetRequest` 用于限定站点来源的 Gravatar 头像拦截。美化内容脚本仍只匹配两个精确主机名，在运行时检查 HTTPS 和 8888 端口。提交器仅在点击发送时读取当前支持页面的 HTML，在弹窗中解析；只把代码、题号、结果等提交字段发往选中的 7FA4 `/foreign_oj`。后台通过 `/user_api/json` 检查登录，网络请求携带浏览器现有会话，不读取或保存 Cookie，也不记录源代码日志。
 
 没有 `<all_urls>` 内容脚本、跨框架注入、全站 jQuery 注入或远程代码加载。设置与提交目标在 `browser.storage.local` 中使用独立键保存；卸载扩展会删除这些设置。会话请求依赖 Chrome 的[扩展主机权限与 Cookie 行为](https://developer.chrome.com/docs/extensions/develop/concepts/storage-and-cookies)，浏览器阻止第三方 Cookie 时可能需要调整对应站点的浏览器设置。
 

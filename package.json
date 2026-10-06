@@ -20,6 +20,7 @@
     "zip:all": "npm run zip:light && npm run zip:full",
     "typecheck": "tsc --noEmit",
     "test": "node --test",
+    "test:updater:browser": "node updater/scripts/browser-smoke.mjs light && node updater/scripts/browser-smoke.mjs full",
     "check": "biome check . && tsc --noEmit",
     "format": "biome check --write .",
     "postinstall": "wxt prepare"
@@ -29,6 +30,7 @@
     "@types/katex": "^0.16.8",
     "@types/node": "^22.20.4",
     "linkedom": "0.18.13",
+    "playwright": "1.61.0",
     "typescript": "6.0.3",
     "wxt": "0.21.4"
   },

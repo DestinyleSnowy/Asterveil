@@ -8,7 +8,7 @@ import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[2]
-BASE_PERMISSIONS = {"storage", "activeTab", "scripting", "declarativeNetRequest"}
+BASE_PERMISSIONS = {"storage", "activeTab", "scripting", "declarativeNetRequest", "alarms", "nativeMessaging"}
 
 
 def require(condition, message):
@@ -24,11 +24,17 @@ def verify_package(output, name, version):
         entries = [item.filename for item in package.infolist() if not item.is_dir()]
         require(len(entries) == len(set(entries)), f"Duplicate ZIP entries: {archive.name}")
         files = set(entries)
+        require(
+            not any(file.split("/", 1)[0].lower() == "_metadata" for file in files),
+            f"Browser-generated cache must not be packaged: {archive.name}",
+        )
         directory = output / name
         built_files = {
             path.relative_to(directory).as_posix()
             for path in directory.rglob("*")
             if path.is_file()
+            # Chromium creates this cache after loading an unpacked extension.
+            and path.relative_to(directory).parts[0].lower() != "_metadata"
         }
         require(files == built_files, f"ZIP does not match built files: {archive.name}")
         for file in files:

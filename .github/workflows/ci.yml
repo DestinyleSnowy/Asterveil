@@ -40,15 +40,25 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Restore reusable updater package
+        id: updater-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .output/Asterveil-Updater-${{ matrix.platform }}.zip
+          key: updater-package-v1-${{ matrix.platform }}-${{ hashFiles('updater/**', '.cargo/**', 'LICENSE', '.github/workflows/ci.yml') }}
       - name: Set up Node.js
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: '22'
       - name: Set up Rust
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: rustup toolchain install 1.96.0 --profile minimal
       - name: Compile only (no platform runtime tests)
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: cargo +1.96.0 build --release --locked --manifest-path updater/Cargo.toml
       - name: Package untested platform
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: python3 updater/scripts/package-unix.py "${{ matrix.platform }}"
       - name: Upload platform build
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -72,19 +82,33 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+      - name: Restore reusable updater package
+        id: updater-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
+        with:
+          path: .output/Asterveil-Updater-windows-x64.zip
+          key: updater-package-v1-windows-x64-${{ hashFiles('updater/**', '.cargo/**', 'LICENSE', '.github/workflows/ci.yml') }}
+      - name: Extract reused updater for extension integration
+        if: steps.updater-cache.outputs.cache-hit == 'true'
+        run: Expand-Archive -LiteralPath .output/Asterveil-Updater-windows-x64.zip -DestinationPath updater/target/release -Force
       - name: Set up Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
         with:
           node-version: '22'
       - name: Set up Rust
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: rustup toolchain install 1.96.0 --profile minimal --component clippy --component rustfmt
       - name: Check Rust formatting
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: cargo +1.96.0 fmt --manifest-path updater/Cargo.toml --check
       - name: Check Rust code
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: cargo +1.96.0 clippy --locked --manifest-path updater/Cargo.toml --all-targets -- -D warnings
       - name: Test updater
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: cargo +1.96.0 test --locked --manifest-path updater/Cargo.toml
       - name: Build updater
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: cargo +1.96.0 build --release --locked --manifest-path updater/Cargo.toml
       - name: Install extension dependencies
         run: npm ci
@@ -95,6 +119,7 @@ jobs:
       - name: Verify native messaging, reload, storage and recovery
         run: npm run test:updater:browser
       - name: Package updater
+        if: steps.updater-cache.outputs.cache-hit != 'true'
         run: ./updater/scripts/package.ps1
       - name: Set artifact name
         id: metadata

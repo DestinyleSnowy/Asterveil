@@ -49,6 +49,8 @@ Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README
 
 发布前必须配置 Actions secret `ASTERVEIL_UPDATE_PRIVATE_KEY`，与仓库内更新器公钥匹配；未配置时签名步骤失败，不创建未签名更新。Windows CI 编译、测试和打包更新器；macOS/Linux Actions 仅编译打包，不运行平台测试；Release 将更新器分别与普通版、Pro 组成 With updater 包，同时保留两个仅插件包，并附带签名清单及签名文件。
 
+各平台更新器 ZIP 按 `updater/`、`.cargo/`、根目录 `LICENSE` 和 CI 工作流内容缓存。输入未变且缓存可用时，后续 CI / Release 直接复用，跳过 Rust 工具链安装、原生检查、编译和打包；Windows 仍检查新插件与已有更新器的浏览器集成。输入变化或缓存失效时自动重新构建。先等待 `main` 的 CI 成功，再推送版本标签，即可复用该次产物。
+
 推送 `main` 后，[CI](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/ci.yml) 会在 Ubuntu 24.04 / Node.js 22 上依次执行 `npm ci`、`npm run check`、`npm test` 和 `npm run zip:all`，也可在 Actions 页面手动运行。打包命令已包含两版构建。成功后可下载包含两版 ZIP 和 `SHA256SUMS.txt` 的 artifact，保存 30 天；解开 artifact 后，再将所需版本的扩展 ZIP 解压加载。
 
 `.github/scripts/verify-packages.py` 使用 Python 3 标准库核对 ZIP 完整性、与构建目录逐文件一致、清单名称和版本、两版权限、清单引用资源、许可证及 PDF 资源差异，并生成 SHA-256 校验文件。本地完成打包后，也可运行 `python .github/scripts/verify-packages.py`。

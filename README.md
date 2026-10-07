@@ -4,6 +4,8 @@
 
 公开仓库：[DestinyleSnowy/Asterveil](https://github.com/DestinyleSnowy/Asterveil)。
 
+网站：[asterveil.yxyx.space](https://asterveil.yxyx.space/) · [备用入口](https://asterveil-beta.vercel.app/)。
+
 安装包下载：[GitHub Releases](https://github.com/DestinyleSnowy/Asterveil/releases/latest)。普通版与 Pro 各提供 Without updater（仅插件，`*-chrome.zip`）和 With updater（含跨平台更新器，`*-chrome-with-updater.zip`），共四个下载包。含更新器的包解压后加载其中的 `extension` 文件夹；两版差异见版本表。
 
 配置支持 `https://jx.7fa4.cn:8888/` 与 `https://in.7fa4.cn:8888/`，两个入口共用本地设置。外网入口已成功访问；内网入口当前返回 `ERR_CONNECTION_CLOSED`，实际内网运行仍待验证。浏览器以 Chrome / Edge 120+ 的 Manifest V3 为当前目标；尚未验证 Firefox。

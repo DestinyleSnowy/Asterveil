@@ -1,6 +1,8 @@
 # Asterveil website
 
-Live: https://asterveil-beta.vercel.app/
+Live: https://asterveil.yxyx.space/
+
+Alternate: https://asterveil-beta.vercel.app/
 
 Vercel project: https://vercel.com/destinylesnowyx-5741s-projects/asterveil
 

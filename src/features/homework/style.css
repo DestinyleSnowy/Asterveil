@@ -152,6 +152,19 @@ footer,
   height: 14px;
   opacity: 0.7;
 }
+.scroll-sync {
+  margin-left: auto;
+  padding: 2px 6px;
+  border-color: transparent;
+  color: inherit;
+  background: transparent;
+  white-space: nowrap;
+}
+.scroll-sync[aria-pressed="true"] {
+  border-color: var(--av-accent, #3b82c4);
+  color: var(--av-accent, #3b82c4);
+  background: var(--av-tint, #edf3fa);
+}
 textarea {
   display: block;
   width: 100%;

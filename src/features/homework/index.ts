@@ -50,7 +50,7 @@ export default {
         </div>
         <div class="panes">
           <div class="pane"><textarea aria-label="Markdown" spellcheck="false" maxlength="200000" placeholder="在此输入 Markdown…"></textarea></div>
-          <div class="pane preview-pane"><div class="pane-title">${icon('eye')}<span>实时预览</span></div><div class="preview-scroll"><article class="paper" aria-label="答案预览"></article></div></div>
+          <div class="pane preview-pane"><div class="pane-title">${icon('eye')}<span>实时预览</span><button type="button" class="scroll-sync" data-action="scroll-sync" aria-pressed="false">同步滚动</button></div><div class="preview-scroll"><article class="paper" aria-label="答案预览"></article></div></div>
         </div>
         <footer>
           <span class="character-count">0 字符</span>
@@ -72,6 +72,23 @@ export default {
     const get = <T extends Element>(selector: string) => root.querySelector<T>(selector) as T;
     const editor = get<HTMLTextAreaElement>('textarea');
     const preview = get<HTMLElement>('.paper');
+    const previewScroll = get<HTMLElement>('.preview-scroll');
+    const scrollSyncButton = get<HTMLButtonElement>('[data-action="scroll-sync"]');
+    let scrollSync = false;
+    const syncPreviewScroll = () => {
+      if (!scrollSync) return;
+      const editorRange = editor.scrollHeight - editor.clientHeight;
+      const progress =
+        editorRange > 0 ? Math.min(1, Math.max(0, editor.scrollTop / editorRange)) : 0;
+      previewScroll.scrollTop =
+        progress * (previewScroll.scrollHeight - previewScroll.clientHeight);
+    };
+    editor.addEventListener('scroll', syncPreviewScroll, { passive: true, signal: scope.signal });
+    const scrollResizeObserver = new ResizeObserver(syncPreviewScroll);
+    scrollResizeObserver.observe(editor);
+    scrollResizeObserver.observe(preview);
+    scrollResizeObserver.observe(previewScroll);
+    scope.defer(() => scrollResizeObserver.disconnect());
     const status = get<HTMLElement>('.status');
     const visibilityHost = document.createElement('span');
     visibilityHost.dataset.asterveilAnswerToggle = '';
@@ -129,6 +146,7 @@ export default {
       clearTimeout(renderTimer);
       try {
         renderMarkdown(editor.value, preview);
+        syncPreviewScroll();
       } catch {
         report('预览失败，请检查 Markdown 内容。', true);
       }
@@ -246,7 +264,11 @@ export default {
         const button = (event.target as Element).closest<HTMLButtonElement>('button');
         if (!button) return;
         const action = button.dataset.action;
-        if (action === 'cancel') closePreview();
+        if (action === 'scroll-sync') {
+          scrollSync = !scrollSync;
+          scrollSyncButton.setAttribute('aria-pressed', String(scrollSync));
+          syncPreviewScroll();
+        } else if (action === 'cancel') closePreview();
         else if (action === 'confirm' && prepared && !submitted) {
           submitted = true;
           confirm.disabled = true;

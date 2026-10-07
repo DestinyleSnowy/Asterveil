@@ -215,7 +215,8 @@ try {
     () => {
       const root = document.querySelector('[data-asterveil="settings"]').shadowRoot;
       const status = root.querySelector('#update-status');
-      return status.textContent && !status.textContent.includes('正在检测');
+      const check = root.querySelector('#update-check');
+      return status.textContent && !check.disabled;
     },
     {},
     { timeout: 90000 },

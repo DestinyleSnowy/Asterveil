@@ -45,17 +45,47 @@ h2 {
     border-color calc(180ms * var(--av-motion, 1)) ease,
     background-color calc(180ms * var(--av-motion, 1)) ease;
 }
-.update-actions {
+.update-settings {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 14px 20px;
+}
+.update-toggle {
+  flex: 0 0 auto;
+}
+.update-actions {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 12px;
 }
 #update-status {
-  margin: 12px 0 0;
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: var(--av-tint);
+  color: var(--av-accent);
+  font-size: 12px;
   overflow-wrap: anywhere;
+}
+#update-status::before {
+  content: "";
+  flex: 0 0 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+#update-status[hidden] {
+  display: none;
+}
+#update-status.error {
+  background: color-mix(in srgb, var(--av-danger) 8%, var(--av-paper));
 }
 .row {
   display: flex;

@@ -127,15 +127,32 @@ fn asset_url(release: &GithubRelease, name: &str) -> Result<String> {
     Ok(expected)
 }
 
-pub fn latest(client: &Client, edition: &Edition) -> Result<(Release, Package, String)> {
-    // This is the network preflight: API -> signed metadata -> real ZIP redirect/CDN.
+pub fn latest(
+    client: &Client,
+    edition: &Edition,
+    current: &str,
+) -> Result<Option<(Release, Package, String)>> {
     let github: GithubRelease = serde_json::from_slice(&small(
         client,
         &format!("https://api.github.com/repos/{REPOSITORY}/releases/latest"),
         2 * 1024 * 1024,
     )?)?;
+    resolve_release(client, edition, current, github)
+}
+
+fn resolve_release(
+    client: &Client,
+    edition: &Edition,
+    current: &str,
+    github: GithubRelease,
+) -> Result<Option<(Release, Package, String)>> {
     ensure!(!github.draft && !github.prerelease, "忽略非正式版本");
-    model::version(github.tag_name.strip_prefix('v').context("发布标签无效")?)?;
+    let available = model::version(github.tag_name.strip_prefix('v').context("发布标签无效")?)?;
+    // Old releases may predate signed updates. Only inspect attachments when an
+    // upgrade exists; every upgrade still requires a signature and a CDN probe.
+    if available <= model::version(current)? {
+        return Ok(None);
+    }
     let bytes = small(
         client,
         &asset_url(&github, "update-manifest.json")?,
@@ -166,7 +183,7 @@ pub fn latest(client: &Client, edition: &Edition) -> Result<(Release, Package, S
     probe
         .read_exact(&mut first)
         .context("无法访问 GitHub 附件下载服务器")?;
-    Ok((release, package, url))
+    Ok(Some((release, package, url)))
 }
 
 pub fn download(client: &Client, url: &str, package: &Package, file: &mut File) -> Result<()> {
@@ -203,13 +220,15 @@ fn save_download(mut response: Response, package: &Package, file: &mut File) -> 
 
 pub fn prepare(tx: &Transaction) -> Result<serde_json::Value> {
     let http = client()?;
-    let (release, package, url) = latest(&http, &tx.edition)?;
     let current = model::extension_manifest(&tx.target, &tx.edition)?;
-    if model::version(&release.version)?
-        <= model::version(current["version"].as_str().context("当前版本无效")?)?
-    {
+    let Some((release, package, url)) = latest(
+        &http,
+        &tx.edition,
+        current["version"].as_str().context("当前版本无效")?,
+    )?
+    else {
         return Ok(serde_json::json!({"state":"current", "version": current["version"]}));
-    }
+    };
     if let Some(j) = tx.read()? {
         ensure!(j.phase != "pending", "等待新版插件启动");
         ensure!(
@@ -240,6 +259,32 @@ pub fn prepare(tx: &Transaction) -> Result<serde_json::Value> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn old_or_equal_releases_need_no_update_assets_but_newer_ones_do() {
+        let http = client().unwrap();
+        for tag in ["v0.1.1", "v0.1.2"] {
+            let github = GithubRelease {
+                tag_name: tag.into(),
+                draft: false,
+                prerelease: false,
+                assets: vec![],
+            };
+            assert!(
+                resolve_release(&http, &Edition::Full, "0.1.2", github)
+                    .unwrap()
+                    .is_none()
+            );
+        }
+        for tag in ["v0.1.3", "v0.1.10", "invalid"] {
+            let github = GithubRelease {
+                tag_name: tag.into(),
+                draft: false,
+                prerelease: false,
+                assets: vec![],
+            };
+            assert!(resolve_release(&http, &Edition::Full, "0.1.2", github).is_err());
+        }
+    }
     #[test]
     fn limits_release_hosts_and_credentials() {
         for s in [

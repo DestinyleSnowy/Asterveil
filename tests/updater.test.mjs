@@ -21,6 +21,16 @@ runInNewContext(
   },
 );
 const tick = () => new Promise((resolve) => setImmediate(resolve));
+test('update status uses plain language without presenting a failed check as current', () => {
+  const text = (status, message = '') =>
+    shared.updateStatusText({ ...shared.initialUpdateState, status, message });
+  assert.equal(text('current'), '当前已是最新版本');
+  assert.equal(text('error', '发布缺少有效的更新附件'), '暂时无法获取更新');
+  assert.equal(text('error', 'GitHub 请求超时，请稍后重试'), '连接失败，请稍后重试');
+  assert.equal(text('error', '未知内部路径和错误'), '更新失败，请重试');
+  assert.equal(text('unavailable'), '请先安装更新器');
+  assert.equal(text('idle'), '');
+});
 async function settle() {
   for (let i = 0; i < 12; i++) await tick();
 }

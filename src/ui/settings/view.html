@@ -71,15 +71,15 @@
           <input type="checkbox" id="enabled" role="switch" aria-checked="false" />
         </label>
         <section class="settings-card update-settings" aria-label="版本更新">
-          <label class="row">
+          <label class="row update-toggle">
             <strong>自动更新</strong>
             <input id="update-enabled" type="checkbox" role="switch" aria-checked="false" />
           </label>
           <div class="update-actions">
-            <button id="update-check" type="button">检查更新</button>
+            <p id="update-status" role="status" aria-live="polite" hidden></p>
             <a id="update-install" href="https://github.com/DestinyleSnowy/Asterveil/releases/latest" target="_blank" rel="noopener noreferrer">安装更新器</a>
+            <button id="update-check" type="button">检查更新</button>
           </div>
-          <p id="update-status" role="status" aria-live="polite" hidden></p>
         </section>
         <p class="copyright">Copyright &copy; 2026 鱼oe不缺氧. All rights reserved.</p>
       </section>

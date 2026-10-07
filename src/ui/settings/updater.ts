@@ -7,6 +7,7 @@ import {
   type UpdateRequest,
   type UpdateState,
   updateChannel,
+  updateStatusText,
   updateStorageKey,
 } from '../../shared/updater';
 
@@ -25,8 +26,8 @@ export function mountUpdaterSettings(root: ParentNode, scope: Scope): void {
     enabled.setAttribute('aria-checked', String(state.enabled));
     enabled.disabled = pending || state.status === 'installing';
     check.disabled = pending || state.status === 'checking' || state.status === 'installing';
-    status.textContent = state.message;
-    status.hidden = !state.message;
+    status.textContent = updateStatusText(state);
+    status.hidden = !status.textContent;
     status.classList.toggle('error', state.status === 'error' || state.status === 'unavailable');
     install.hidden = state.status !== 'unavailable' && state.status !== 'idle';
   }

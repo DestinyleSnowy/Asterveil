@@ -145,7 +145,7 @@ export function createUpdaterService(isBusy: () => boolean = () => false) {
       await save({ version: String(result.version) });
       await applyPrepared();
     } else if (result.state === 'current') {
-      await save({ status: 'current', message: '已是最新版本', version: runningVersion });
+      await save({ status: 'current', message: '当前已是最新版本', version: runningVersion });
     } else throw new Error('更新器响应无效');
   }
   async function startup() {

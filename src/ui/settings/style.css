@@ -96,6 +96,10 @@ h2 {
 #update-status.error {
   background: color-mix(in srgb, var(--av-danger) 8%, var(--av-paper));
 }
+#update-status.success {
+  color: var(--av-success);
+  background: color-mix(in srgb, var(--av-success) 10%, var(--av-paper));
+}
 .row {
   display: flex;
   align-items: center;

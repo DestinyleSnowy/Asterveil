@@ -23,7 +23,7 @@ pub struct Config {
 
 // Chromium can start hosts through cmd.exe, which cannot launch verbatim paths.
 // Canonical paths stay in bindings; only browser-facing paths use DOS/UNC syntax.
-fn browser_path(path: &Path) -> String {
+pub(super) fn browser_path(path: &Path) -> String {
     let value = path.to_string_lossy();
     if let Some(unc) = value.strip_prefix(r"\\?\UNC\") {
         format!(r"\\{unc}")

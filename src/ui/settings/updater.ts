@@ -28,6 +28,7 @@ export function mountUpdaterSettings(root: ParentNode, scope: Scope): void {
     check.disabled = pending || state.status === 'checking' || state.status === 'installing';
     status.textContent = updateStatusText(state);
     status.hidden = !status.textContent;
+    status.classList.toggle('success', state.status === 'current');
     status.classList.toggle('error', state.status === 'error' || state.status === 'unavailable');
     install.hidden = state.status !== 'unavailable' && state.status !== 'idle';
   }

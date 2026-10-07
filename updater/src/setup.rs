@@ -71,7 +71,7 @@ fn candidates(directory: Option<&Path>) -> Vec<Candidate> {
                     if wanted.as_ref().is_some_and(|wanted| wanted != &name) {
                         continue;
                     }
-                    let directory = path.to_string_lossy().into_owned();
+                    let directory = install::browser_path(&path);
                     if result.iter().any(|c: &Candidate| {
                         c.id == *id && c.browser == browser && c.directory == directory
                     }) {
@@ -156,7 +156,7 @@ fn request(
     );
     ensure!(field("transfer-encoding").is_none(), "请求无效");
     if first == "GET /api/scan HTTP/1.1" {
-        let value = serde_json::json!({"candidates":candidates(directory),"directory":directory.map(|p|p.to_string_lossy()),"experimental":!cfg!(windows)});
+        let value = serde_json::json!({"candidates":candidates(directory),"directory":directory.map(install::browser_path),"experimental":!cfg!(windows)});
         respond(
             stream,
             "200 OK",

@@ -7,7 +7,8 @@ import { isRecord } from '../../shared/settings';
 import { findHomework, submitHomework } from '../../site/homework';
 import { canvasBlob, captureAnswer, downloadBlob } from './export';
 import { formatToolbar, icon } from './icons';
-import { renderMarkdown } from './markdown';
+import { type MarkdownAnchor, renderMarkdown } from './markdown';
+import { createScrollSync } from './scroll-sync';
 import style from './style.css?inline';
 
 export default {
@@ -75,20 +76,7 @@ export default {
     const previewScroll = get<HTMLElement>('.preview-scroll');
     const scrollSyncButton = get<HTMLButtonElement>('[data-action="scroll-sync"]');
     let scrollSync = false;
-    const syncPreviewScroll = () => {
-      if (!scrollSync) return;
-      const editorRange = editor.scrollHeight - editor.clientHeight;
-      const progress =
-        editorRange > 0 ? Math.min(1, Math.max(0, editor.scrollTop / editorRange)) : 0;
-      previewScroll.scrollTop =
-        progress * (previewScroll.scrollHeight - previewScroll.clientHeight);
-    };
-    editor.addEventListener('scroll', syncPreviewScroll, { passive: true, signal: scope.signal });
-    const scrollResizeObserver = new ResizeObserver(syncPreviewScroll);
-    scrollResizeObserver.observe(editor);
-    scrollResizeObserver.observe(preview);
-    scrollResizeObserver.observe(previewScroll);
-    scope.defer(() => scrollResizeObserver.disconnect());
+    const previewSync = createScrollSync(editor, previewScroll, preview, scope);
     const status = get<HTMLElement>('.status');
     const visibilityHost = document.createElement('span');
     visibilityHost.dataset.asterveilAnswerToggle = '';
@@ -145,8 +133,9 @@ export default {
     const render = () => {
       clearTimeout(renderTimer);
       try {
-        renderMarkdown(editor.value, preview);
-        syncPreviewScroll();
+        const anchors: MarkdownAnchor[] = [];
+        renderMarkdown(editor.value, preview, { anchors });
+        previewSync.update(editor.value, anchors);
       } catch {
         report('预览失败，请检查 Markdown 内容。', true);
       }
@@ -267,7 +256,7 @@ export default {
         if (action === 'scroll-sync') {
           scrollSync = !scrollSync;
           scrollSyncButton.setAttribute('aria-pressed', String(scrollSync));
-          syncPreviewScroll();
+          previewSync.setEnabled(scrollSync);
         } else if (action === 'cancel') closePreview();
         else if (action === 'confirm' && prepared && !submitted) {
           submitted = true;

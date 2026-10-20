@@ -40,6 +40,11 @@ export function renderMarkdown(
     ['inlineDisplayLatex', 'inline', /^\\\[([\s\S]+?)\\\]/, true, '\\['],
     ['inlineMath', 'inline', /^\$([^$\n]+?)\$/, false, '$'],
     ['inlineLatex', 'inline', /^\\\(([^\n]+?)\\\)/, false, '\\('],
+    // Match escaped delimiters before Markdown consumes the leading backslash.
+    // Keep the formula body intact (notably TeX's \\ row separators).
+    ['escapedBlockLatex', 'block', /^\\\\\[([\s\S]+?)\\\\\][ \t]*(?:\n|$)/, true, '\\\\['],
+    ['escapedDisplayLatex', 'inline', /^\\\\\[([\s\S]+?)\\\\\]/, true, '\\\\['],
+    ['escapedInlineLatex', 'inline', /^\\\\\(([^\n]+?)\\\\\)/, false, '\\\\('],
   ] as const) {
     markdown.use({
       extensions: [

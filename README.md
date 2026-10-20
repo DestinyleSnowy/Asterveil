@@ -37,7 +37,11 @@ npm run zip
 
 两版均保留完整的 Markdown/公式预览、Markdown 源文件保存、草稿、作业折叠和其他网站增强功能。light 构建完全排除 PDF 库、字体/CMap 与解码资源；Markdown 和公式使用与 full 相同的渲染器及 KaTeX 字体。
 
-`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.2-chrome.zip` 和 `.output/Asterveil-Pro-0.1.2-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
+编辑器内按 `Ctrl+F` 打开查找替换，`Ctrl+H` 聚焦替换框，支持当前匹配高亮、区分大小写、单次/全部替换和撤销；`Enter` / `Shift+Enter` 在查找框中跳转匹配，`Esc` 关闭。公式兼容 `$...$`、`$$...$$`、`\(...\)`、`\[...\]` 及双反斜杠分隔符 `\\(...\\)`、`\\[...\\]`，代码中的公式文本保持原样。
+
+`npm run build` 默认构建 full；`build:light` / `build:full` 可单独构建，`build:all` 构建两版。`npm run zip` 打包两版，也可使用 `zip:light` / `zip:full`，产物分别为 `.output/Asterveil-0.1.3-chrome.zip` 和 `.output/Asterveil-Pro-0.1.3-chrome.zip`，不会发布到商店。旧 `chrome-mv3*` 目录是历史构建，升级时请选择上述新目录。不同安装实例的本地草稿独立，切换前可保存 Markdown。
+
+`npm run test:homework:browser` 使用 Playwright 验证查找替换、公式、草稿保存与窄屏布局。可用 `npx playwright install chromium` 安装测试浏览器，或通过环境变量 `CHROME_PATH` 指定本机 Chrome 可执行文件。
 
 同一浏览器配置中两版同时启用时，普通版 Asterveil 会自动停用自身，优先使用 Asterveil Pro；启动时及 Pro 后续安装、启用时都会检测。普通版通过 `management` 权限识别已启用、名称为 `Asterveil Pro` 的扩展，并在停用前通知已打开的页面清理普通版功能。Pro 不申请此权限。仅安装但未启用的 Pro 不影响普通版；Pro 的页面总开关不改变版本优先级。切回普通版时，先在浏览器扩展管理页停用 Pro，再启用 Asterveil，并刷新网站页面；设置和已保存的草稿保留。
 
@@ -59,8 +63,8 @@ Windows 10/11 x64 的 Chrome、Edge 可以配合[本地更新器](updater/README
 
 发布新版本时：
 
-1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.2 --no-git-tag-version`），提交并推送到 `main`。
-2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.2`、`git push origin v0.1.2`。
+1. 更新 `package.json` 和 `package-lock.json` 的版本号（例如 `npm version 0.1.3 --no-git-tag-version`），提交并推送到 `main`。
+2. 等待该提交的 CI 通过，再在同一提交打标签并推送，例如 `git tag v0.1.3`、`git push origin v0.1.3`。
 3. [Release](https://github.com/DestinyleSnowy/Asterveil/actions/workflows/release.yml) 工作流确认标签为 `v主版本.次版本.修订号` 且与项目版本一致，复用 CI 检查和打包，再创建附带普通版/Pro × With/Without updater 四个 ZIP、校验文件和更新元数据的 **Release 草稿**。
 4. 到 Releases 检查草稿和附件，确认后手动发布。同名 Release 尚为草稿时，重新构建会刷新附件并保留文案与预发布状态；已公开发布的版本拒绝覆盖。
 

@@ -22,6 +22,10 @@ const paths = {
   download: '<path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/>',
   send: '<path d="m3 3 19 9-19 9 4-9Zm4 9h15"/>',
   chevron: '<path d="m6 9 6 6 6-6"/>',
+  search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',
+  up: '<path d="m6 15 6-6 6 6"/>',
+  down: '<path d="m6 9 6 6 6-6"/>',
+  close: '<path d="m6 6 12 12M6 18 18 6"/>',
 } as const;
 
 export function icon(name: keyof typeof paths): string {

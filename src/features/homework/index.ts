@@ -9,6 +9,7 @@ import { canvasBlob, captureAnswer, downloadBlob } from './export';
 import { formatToolbar, icon } from './icons';
 import { type MarkdownAnchor, renderMarkdown } from './markdown';
 import { createScrollSync } from './scroll-sync';
+import { createSearch, searchMarkup, searchToggle } from './search';
 import style from './style.css?inline';
 
 export default {
@@ -41,16 +42,15 @@ export default {
       <section class="editor" aria-label="${editorName}">
         <div class="toolbar" role="toolbar" aria-label="Markdown 格式">
           <div class="format-tools">${formatToolbar()}</div>
-          ${
+          <div class="extra-tools">${searchToggle()}${
             pdfEnabled
-              ? `<div class="extra-tools">
-            <label class="icon-button file-button" title="上传 PDF">${icon('upload')}<input type="file" accept="application/pdf,.pdf" aria-label="上传 PDF"></label>
-          </div>`
+              ? `<label class="icon-button file-button" title="上传 PDF">${icon('upload')}<input type="file" accept="application/pdf,.pdf" aria-label="上传 PDF"></label>`
               : ''
-          }
+          }</div>
         </div>
+        ${searchMarkup()}
         <div class="panes">
-          <div class="pane"><textarea aria-label="Markdown" spellcheck="false" maxlength="200000" placeholder="在此输入 Markdown…"></textarea></div>
+          <div class="pane source-pane"><textarea aria-label="Markdown" spellcheck="false" maxlength="200000" placeholder="在此输入 Markdown…"></textarea></div>
           <div class="pane preview-pane"><div class="pane-title">${icon('eye')}<span>实时预览</span><button type="button" class="scroll-sync" data-action="scroll-sync" aria-pressed="false">同步滚动</button></div><div class="preview-scroll"><article class="paper" aria-label="答案预览"></article></div></div>
         </div>
         <footer>
@@ -89,6 +89,7 @@ export default {
     const exportOptions = get<HTMLDetailsElement>('.export-options');
     const characterCount = get<HTMLElement>('.character-count');
     editor.value = draft;
+    createSearch(root, editor, scope);
     const updateCount = () => {
       characterCount.textContent = `${Array.from(editor.value).length} 字符`;
     };

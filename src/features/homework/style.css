@@ -47,6 +47,7 @@ summary:hover,
 button:focus-visible,
 summary:focus-visible,
 textarea:focus-visible,
+.search-panel input:focus-visible,
 .file-button:focus-within {
   outline: 2px solid var(--av-accent, #3b82c4);
   outline-offset: -2px;
@@ -61,6 +62,88 @@ button:disabled {
   width: 16px;
   height: 16px;
   flex: none;
+}
+.search-controls svg {
+  width: 16px;
+  height: 16px;
+}
+.search-tool {
+  position: relative;
+  display: inline-flex;
+}
+.search-tooltip {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: calc(100% + 6px);
+  padding: 4px 8px;
+  border: 1px solid var(--av-border, #d8e1ec);
+  border-radius: 5px;
+  background: var(--av-paper, #fff);
+  color: var(--av-text, #334155);
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  visibility: hidden;
+}
+.search-tool:hover .search-tooltip,
+.search-tool:focus-within .search-tooltip {
+  visibility: visible;
+  transition: visibility 0s 550ms;
+}
+.search-panel {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--av-border, #d8e1ec);
+}
+.search-row,
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.search-row {
+  flex-wrap: wrap;
+}
+.search-row + .search-row {
+  margin-top: 5px;
+}
+.search-panel input {
+  flex: 1 1 160px;
+  min-width: 0;
+  width: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--av-border, #d8e1ec);
+  border-radius: 5px;
+  font: inherit;
+  line-height: 20px;
+  color: inherit;
+  background: var(--av-paper, #fff);
+}
+.search-panel input::placeholder,
+.search-count {
+  color: var(--av-muted, #647184);
+}
+.search-count {
+  min-width: 3ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.search-controls {
+  margin-left: auto;
+}
+.search-controls button {
+  padding-block: 4px;
+}
+.search-controls button:disabled {
+  cursor: default;
+}
+.search-error {
+  display: block;
+  margin-top: 4px;
+  color: var(--av-danger, #ad3549);
+}
+.search-error:empty {
+  display: none;
 }
 .primary {
   background: var(--av-solid, var(--av-accent, #3b82c4));
@@ -131,6 +214,25 @@ footer,
 .pane {
   min-width: 0;
   min-height: 0;
+}
+.source-pane {
+  position: relative;
+}
+.search-highlight {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: transparent;
+}
+.search-highlight mark {
+  color: transparent;
+  background: color-mix(in srgb, var(--av-accent, #3b82c4) 35%, transparent);
+  border-radius: 2px;
+}
+textarea.searching {
+  position: relative;
+  background: transparent;
 }
 .preview-pane {
   display: grid;

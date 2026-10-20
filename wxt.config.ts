@@ -4,7 +4,6 @@ import { resolve } from 'node:path';
 import { defineConfig } from 'wxt';
 import { katexAssets } from './build/katex-assets';
 import { lightEdition } from './build/light-edition';
-import { exportImageOrigin } from './src/shared/export-image';
 import { contentMatches } from './src/site/target';
 
 const icons = {
@@ -109,8 +108,9 @@ export default defineConfig({
     declarative_net_request: {
       rule_resources: [{ id: 'gravatar', enabled: true, path: 'gravatar-rules.json' }],
     },
+    optional_permissions: ['webRequest'],
+    optional_host_permissions: ['http://*/*', 'https://*/*'],
     host_permissions: [
-      `${exportImageOrigin}/*`,
       '*://oj.7fa4.cn/*',
       '*://jx.7fa4.cn/*',
       '*://in.7fa4.cn/*',

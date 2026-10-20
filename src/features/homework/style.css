@@ -360,6 +360,12 @@ summary::-webkit-details-marker {
 .status[data-error] {
   color: var(--av-danger, #ad3549);
 }
+.image-access {
+  margin: 0 12px 8px;
+}
+.image-access[hidden] {
+  display: none;
+}
 .file-button {
   position: relative;
   overflow: hidden;

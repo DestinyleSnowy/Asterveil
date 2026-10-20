@@ -53,8 +53,12 @@ def verify_package(output, name, version):
             f"Unexpected permissions: {archive.name}",
         )
         require(
-            not manifest.get("optional_permissions"),
+            set(manifest.get("optional_permissions", [])) == {"webRequest"},
             f"Unexpected optional permissions: {archive.name}",
+        )
+        require(
+            set(manifest.get("optional_host_permissions", [])) == {"http://*/*", "https://*/*"},
+            f"Missing optional image origins: {archive.name}",
         )
 
         required_files = {

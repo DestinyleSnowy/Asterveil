@@ -5,7 +5,13 @@ import { preventUpdateWhile } from '../../platform/update-guard';
 import { editorName, pdfEnabled } from '../../shared/edition';
 import { isRecord } from '../../shared/settings';
 import { findHomework, submitHomework } from '../../site/homework';
-import { canvasBlob, captureAnswer, downloadBlob } from './export';
+import {
+  canvasBlob,
+  captureAnswer,
+  downloadBlob,
+  ImageAccessError,
+  requestImageAccess,
+} from './export';
 import { formatToolbar, icon } from './icons';
 import { type MarkdownAnchor, renderMarkdown } from './markdown';
 import { createScrollSync } from './scroll-sync';
@@ -63,7 +69,8 @@ export default {
             <button type="button" data-action="submit" class="primary">${icon('send')}<span>提交答案</span></button>
           </div>
         </footer>
-        <p class="status" role="status" aria-live="polite"></p>
+        <p id="export-status" class="status" role="status" aria-live="polite"></p>
+        <button type="button" class="image-access" data-action="image-access" aria-describedby="export-status" hidden>授权并重试</button>
       </section>
       <dialog aria-labelledby="submission-title">
         <h2 id="submission-title">确认提交</h2>
@@ -78,6 +85,8 @@ export default {
     let scrollSync = false;
     const previewSync = createScrollSync(editor, previewScroll, preview, scope);
     const status = get<HTMLElement>('.status');
+    const imageAccess = get<HTMLButtonElement>('.image-access');
+    let imageRetry: { urls: string[]; action: () => Promise<void> } | undefined;
     const visibilityHost = document.createElement('span');
     visibilityHost.dataset.asterveilAnswerToggle = '';
     const visibilityRoot = visibilityHost.attachShadow({ mode: 'open' });
@@ -114,6 +123,8 @@ export default {
     const report = (message: string, error = false) => {
       status.textContent = message;
       status.toggleAttribute('data-error', error);
+      imageAccess.hidden = true;
+      imageRetry = undefined;
     };
     const save = () => {
       clearTimeout(saveTimer);
@@ -177,7 +188,7 @@ export default {
       get<HTMLImageElement>('.submission-preview img').src = previewUrl;
       dialog.showModal();
     };
-    const run = async (action: () => Promise<void>) => {
+    const run = async (action: () => Promise<void>, authorize?: string[]) => {
       if (busy || submitted || scope.signal.aborted) return;
       busy = true;
       exportOptions.open = false;
@@ -187,11 +198,18 @@ export default {
       editor.readOnly = true;
       report('正在生成，请稍候…');
       try {
+        if (authorize) await requestImageAccess(authorize);
+        scope.signal.throwIfAborted();
         await action();
         if (!scope.signal.aborted) report('');
       } catch (error) {
-        if (!scope.signal.aborted)
+        if (!scope.signal.aborted) {
           report(error instanceof Error ? error.message : '生成失败，请重试。', true);
+          if (error instanceof ImageAccessError) {
+            imageRetry = { urls: error.urls, action };
+            imageAccess.hidden = false;
+          }
+        }
       } finally {
         busy = false;
         for (const button of root.querySelectorAll<HTMLButtonElement>('.actions button'))
@@ -239,6 +257,7 @@ export default {
     editor.addEventListener(
       'input',
       () => {
+        if (imageRetry) report('');
         updateCount();
         dirty = true;
         clearTimeout(saveTimer);
@@ -254,7 +273,10 @@ export default {
         const button = (event.target as Element).closest<HTMLButtonElement>('button');
         if (!button) return;
         const action = button.dataset.action;
-        if (action === 'scroll-sync') {
+        if (action === 'image-access' && imageRetry) {
+          const retry = imageRetry;
+          void run(retry.action, retry.urls);
+        } else if (action === 'scroll-sync') {
           scrollSync = !scrollSync;
           scrollSyncButton.setAttribute('aria-pressed', String(scrollSync));
           previewSync.setEnabled(scrollSync);

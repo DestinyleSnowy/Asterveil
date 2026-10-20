@@ -43,6 +43,8 @@ npm run zip
 
 `npm run test:homework:browser` 使用 Playwright 验证查找替换、公式、草稿保存与窄屏布局。可用 `npx playwright install chromium` 安装测试浏览器，或通过环境变量 `CHROME_PATH` 指定本机 Chrome 可执行文件。
 
+导出时，`images.openai.com` 的图片由扩展后台读取并嵌入图片或 PDF，解决原图可显示但跨域读取被阻止的问题。两版都申请该图片站点的读取权限；后台请求不携带 Cookie、不跟随跳转，仅接收不超过 10 MB 的 PNG、JPEG、WebP、GIF 或 AVIF。其他图片仍沿用页面的读取权限。`npm run test:homework-export:browser` 构建两版并验证实际扩展的图片导出、PDF、提交预览与错误恢复。
+
 同一浏览器配置中两版同时启用时，普通版 Asterveil 会自动停用自身，优先使用 Asterveil Pro；启动时及 Pro 后续安装、启用时都会检测。普通版通过 `management` 权限识别已启用、名称为 `Asterveil Pro` 的扩展，并在停用前通知已打开的页面清理普通版功能。Pro 不申请此权限。仅安装但未启用的 Pro 不影响普通版；Pro 的页面总开关不改变版本优先级。切回普通版时，先在浏览器扩展管理页停用 Pro，再启用 Asterveil，并刷新网站页面；设置和已保存的草稿保留。
 
 ## 自动检查与版本发布

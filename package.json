@@ -21,6 +21,7 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test",
     "test:homework:browser": "node tests/homework.browser.mjs",
+    "test:homework-export:browser": "npm run build:all && node tests/homework-export.browser.mjs",
     "test:updater:browser": "node updater/scripts/browser-smoke.mjs light && node updater/scripts/browser-smoke.mjs full",
     "check": "biome check . && tsc --noEmit",
     "format": "biome check --write .",

@@ -1,5 +1,8 @@
 import { fontCss } from 'virtual:homework-katex';
 import { toCanvas } from 'html-to-image';
+import { browser } from 'wxt/browser';
+import { type ExportImageRequest, isExportImageUrl } from '../../shared/export-image';
+import { isRecord } from '../../shared/settings';
 
 export const maxPixels = 32_000_000;
 
@@ -19,17 +22,47 @@ export async function captureAnswer(preview: HTMLElement, signal: AbortSignal) {
   await Promise.all(
     [...preview.querySelectorAll('img')].map(async (image) => {
       try {
-        const response = await fetch(image.src, { signal: bounded, credentials: 'same-origin' });
-        if (!response.ok) throw new Error();
-        const blob = await response.blob();
-        image.src = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(String(reader.result));
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        });
+        let dataUrl: string;
+        if (isExportImageUrl(image.src)) {
+          const request: ExportImageRequest = { channel: 'asterveil:export-image', url: image.src };
+          const result: unknown = await browser.runtime.sendMessage(request);
+          bounded.throwIfAborted();
+          if (!isRecord(result) || result.ok !== true || typeof result.dataUrl !== 'string')
+            throw new Error(
+              isRecord(result) && typeof result.error === 'string'
+                ? result.error
+                : '图片读取失败，请重新加载扩展后重试。',
+            );
+          dataUrl = result.dataUrl;
+        } else {
+          const response = await fetch(image.src, {
+            signal: bounded,
+            credentials: 'same-origin',
+            referrerPolicy: 'no-referrer',
+          });
+          if (!response.ok) throw new Error();
+          const blob = await response.blob();
+          dataUrl = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result));
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+          });
+        }
+        // srcset and <picture> sources otherwise take precedence over embedded src.
+        image.removeAttribute('srcset');
+        image
+          .closest('picture')
+          ?.querySelectorAll('source')
+          .forEach((source) => {
+            source.remove();
+          });
+        image.loading = 'eager';
+        image.src = dataUrl;
         await image.decode();
-      } catch {
+      } catch (error) {
+        signal.throwIfAborted();
+        if (isExportImageUrl(image.src) && error instanceof Error) throw error;
         throw new Error('有图片无法加载或不允许导出，请更换图片后重试。');
       }
     }),

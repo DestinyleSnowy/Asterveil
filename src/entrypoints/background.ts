@@ -2,6 +2,7 @@ import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/utils/define-background';
 import { createAvatarRuleService } from '../background/avatar-rules';
 import { createEditionPriority } from '../background/edition-priority';
+import { fetchExportImage } from '../background/export-image';
 import { isSettingsSender } from '../background/settings-sender';
 import { createSettingsService } from '../background/settings-service';
 import { createSubmitterService } from '../background/submitter-service';
@@ -9,6 +10,7 @@ import { createUpdaterService } from '../background/updater-service';
 import { localSettings, watchSettings } from '../platform/settings-repository';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage } from '../shared/edition-coordination';
+import { type ExportImageResponse, isExportImageRequest } from '../shared/export-image';
 import { isSettingsRequest, type SettingsResponse } from '../shared/protocol';
 import { isUpdateRequest } from '../shared/updater';
 import { isSubmitterRequest } from '../submitter/model';
@@ -54,6 +56,18 @@ export default defineBackground(() => {
   const popupUrl = browser.runtime.getURL('/popup.html');
 
   browser.runtime.onMessage.addListener((message: unknown, sender, sendResponse) => {
+    if (isExportImageRequest(message)) {
+      if (!isSettingsSender(sender, browser.runtime.id)) return false;
+      void fetchExportImage(message.url).then(
+        (dataUrl) => sendResponse({ ok: true, dataUrl } satisfies ExportImageResponse),
+        (error: unknown) =>
+          sendResponse({
+            ok: false,
+            error: error instanceof Error ? error.message : '图片读取失败，请重试。',
+          } satisfies ExportImageResponse),
+      );
+      return true;
+    }
     if (isUpdateRequest(message)) {
       if (!isSettingsSender(sender, browser.runtime.id)) return false;
       void updater(message).then(

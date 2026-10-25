@@ -9,6 +9,7 @@ import type { SettingsCommand } from '../../shared/protocol';
 import type { Settings } from '../../shared/settings';
 import { mountAvatarSettings } from './avatars';
 import { mountBackgroundSettings } from './background';
+import { mountCommunitySettings } from './community';
 import { mountHomeLayoutSettings } from './home-layout';
 import { mountUpdaterSettings } from './updater';
 
@@ -37,6 +38,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   let storageChanges = 0;
   const homeLayout = mountHomeLayoutSettings(root, scope, save);
   mountUpdaterSettings(root, scope);
+  mountCommunitySettings(root, scope);
   const background = mountBackgroundSettings(root, scope, save);
   let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
 
@@ -48,6 +50,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   );
 
   for (const module of moduleCatalog) {
+    if (module.id === 'home-layout') continue;
     const label = document.createElement('label');
     label.className = 'module row settings-card';
     label.dataset.moduleId = module.id;

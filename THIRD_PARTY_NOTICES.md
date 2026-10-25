@@ -1,5 +1,13 @@
 # 第三方来源
 
+## Better Names for 7FA4
+
+“关于”中的售后群信息、Better Names 计划说明与加入状态接口参考
+[Better Names for 7FA4](https://github.com/DestinyleSnowy/Better-Names-for-7FA4)。
+微信赞赏码 `src/ui/settings/donate.jpg` 原样取自该项目的 `content/panel/donate.jpg`。
+上游采用 MIT 许可证，Copyright (c) 2025-2026 鱼oe不缺氧；完整许可随扩展保留在
+`licenses/better-names/LICENSE`。
+
 ## 7FA4 submitter 0.1.13
 
 提交器的站点适配与请求字段基于用户提供的 `submitter-main (1).zip`。

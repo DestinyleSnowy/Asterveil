@@ -273,6 +273,14 @@
     padding: 6px;
   }
 }
+@media (max-width: 360px) {
+  .settings-nav .ui-icon {
+    display: none;
+  }
+  .settings-nav button {
+    gap: 0;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .settings-launcher:hover,
   .settings-launcher:hover svg,

@@ -30,5 +30,11 @@ export function backgroundCss(background: BackgroundSettings): string {
     html[data-asterveil-appearance="polished"][data-asterveil-page] .ui.center.aligned.container > span > a {
       color: color-mix(in srgb, var(--av-accent) 80%, var(--av-text));
     }
+    html[data-asterveil-appearance="polished"][data-asterveil-page="account-vjudge"] .ui.main.container > .ui.main.container > h2.ui.header {
+      display: table;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--av-paper) 94%, transparent);
+    }
   }`;
 }

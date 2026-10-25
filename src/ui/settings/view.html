@@ -58,14 +58,42 @@
       </fieldset>
       <section class="about" aria-label="关于 {{productName}}">
         <div class="settings-card about-info">
-        <div class="about-product"><span class="emblem" aria-hidden="true"></span><h2>{{productName}}</h2></div>
-        <dl class="about-details">
-          <div><dt>版本</dt><dd id="version"></dd></div>
-          <div><dt>作者</dt><dd>鱼oe不缺氧</dd></div>
-          <div><dt>开源许可</dt><dd><a href="https://github.com/DestinyleSnowy/Asterveil/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Apache-2.0</a></dd></div>
-          <div><dt>项目地址</dt><dd><a href="https://github.com/DestinyleSnowy/Asterveil" target="_blank" rel="noopener noreferrer">GitHub</a></dd></div>
-        </dl>
+          <div class="about-product">
+            <span class="emblem" aria-hidden="true"></span>
+            <div class="about-identity"><h2>{{productName}}</h2><span id="version" class="about-version"></span></div>
+            <a class="about-repository" href="https://github.com/DestinyleSnowy/Asterveil" target="_blank" rel="noopener noreferrer" title="GitHub 项目地址"><i data-settings-icon="github"></i><span class="visually-hidden">GitHub 项目地址</span></a>
+          </div>
+          <dl class="about-details">
+            <div><dt>作者</dt><dd>鱼oe不缺氧</dd></div>
+            <div><dt>开源许可</dt><dd><a href="https://github.com/DestinyleSnowy/Asterveil/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Apache-2.0</a></dd></div>
+          </dl>
         </div>
+        <section class="community" aria-label="支持与社区">
+          <button class="community-action" type="button" data-community-open="donate" aria-haspopup="dialog" aria-expanded="false" aria-controls="community-dialog"><span class="community-action-icon"><i data-settings-icon="heart"></i></span><span class="community-action-name">赞赏</span></button>
+          <button class="community-action" type="button" data-community-open="group" aria-haspopup="dialog" aria-expanded="false" aria-controls="community-dialog"><span class="community-action-icon"><i data-settings-icon="chat"></i></span><span class="community-action-name">售后群</span></button>
+          <button class="community-action" type="button" data-community-open="plan" aria-haspopup="dialog" aria-expanded="false" aria-controls="community-dialog"><span class="community-action-icon"><i data-settings-icon="users"></i></span><span class="community-action-name">Better Names <span>计划</span></span></button>
+          <dialog id="community-dialog" class="community-dialog" aria-labelledby="community-dialog-title">
+            <header class="community-dialog-heading"><span id="community-dialog-icon" class="community-action-icon" aria-hidden="true"></span><h2 id="community-dialog-title">赞赏</h2><button id="community-close" class="community-icon-button" type="button" aria-label="关闭详情" title="关闭详情"><i data-settings-icon="close"></i></button></header>
+            <section id="community-donate" data-community-panel="donate" hidden>
+              <img id="donate-qr" class="donate-qr" alt="Better Names 开发者微信赞赏码" loading="lazy" />
+            </section>
+            <section data-community-panel="group" hidden>
+              <dl class="community-facts">
+                <div><dt>QQ群</dt><dd><button type="button" data-community-copy="1082168604" aria-label="复制群号 1082168604" title="复制群号"><span class="community-copy-value">1082168604</span><i class="community-copy-icon" data-settings-icon="copy"></i><i class="community-copied-icon" data-settings-icon="check"></i></button></dd></div>
+                <div><dt>验证码</dt><dd><button type="button" data-community-copy="YOUareCRYINGtoX" aria-label="复制验证码 YOUareCRYINGtoX" title="复制验证码"><span class="community-copy-value">YOUareCRYINGtoX</span><i class="community-copy-icon" data-settings-icon="copy"></i><i class="community-copied-icon" data-settings-icon="check"></i></button></dd></div>
+              </dl>
+              <p id="community-copy-status" class="visually-hidden" role="status" aria-live="polite" hidden></p>
+            </section>
+            <section id="better-names-plan" data-community-panel="plan" hidden>
+              <div class="community-plan-status">
+                <p id="better-names-status" role="status" aria-live="polite">正在检查…</p>
+                <button id="better-names-refresh" class="community-icon-button" type="button" aria-label="刷新加入状态" title="刷新加入状态"><i data-settings-icon="refresh"></i></button>
+              </div>
+              <p class="community-plan-path"><span>修改资料</span><i data-settings-icon="right"></i><span>加入 Better Names</span></p>
+              <p class="community-plan-details">加入后，姓名、班级、性别、用户名、邮箱、学校、座位、教练和电话号码将向其他计划成员公开；90 天内不能退出。</p>
+            </section>
+          </dialog>
+        </section>
         <label class="master row settings-card">
           <strong>启用 {{productName}}</strong>
           <input type="checkbox" id="enabled" role="switch" aria-checked="false" />

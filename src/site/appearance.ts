@@ -23,6 +23,7 @@ const pages = {
   'account-rankings': /^\/progress\/(?:quiz|contests|contest_table\/html)$/,
   'account-data': /^\/user_tag_map$/,
   'account-rpgain': /^\/rpgain$/,
+  'account-vjudge': /^\/vjudge\/accounts$/,
   account:
     /^\/(?:user\/\d+\/friend|user\/login_tokens|user_requests|prints\/html|sign_list|suggestions\/html|help)$/,
 } as const;

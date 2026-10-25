@@ -40,13 +40,76 @@ html[data-asterveil-page="problem"] {
     & > .ui.grid > .row > .column > .ui.buttons {
       border: 1px solid transparent;
       border-radius: 8px;
-      overflow: hidden;
+      /* Native tooltip pseudo-elements extend beyond the action group. */
+      overflow: visible;
+      max-width: 100%;
+      flex-wrap: wrap;
       box-shadow: var(--av-shadow);
     }
     & > .ui.grid > .row > .column > .ui.buttons > .ui.button {
       /* Keep the site's action colors, including hover and pressed states. */
       border-radius: 0;
       box-shadow: none;
+      &:first-child {
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
+      }
+      &:last-child {
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
+      }
+      &[data-tooltip] {
+        &::before,
+        &::after {
+          transition:
+            opacity 120ms ease,
+            transform 120ms ease,
+            visibility 0s;
+        }
+        &::before {
+          background: var(--av-paper);
+          box-shadow: 1px 1px 0 var(--av-border);
+        }
+        &::after {
+          box-sizing: border-box;
+          left: calc(50% + var(--av-tooltip-offset, 0px));
+          width: max-content;
+          max-width: min(360px, calc(100vw - 32px));
+          padding: 10px 14px;
+          border: 1px solid var(--av-border);
+          border-radius: 10px;
+          background: var(--av-paper);
+          color: var(--av-text);
+          box-shadow: 0 6px 24px #10243d1f;
+          font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.7;
+          white-space: normal;
+          overflow-wrap: anywhere;
+        }
+        &:is(:hover, :focus-visible)::before,
+        &:is(:hover, :focus-visible)::after {
+          transition-delay: 250ms;
+        }
+        &:focus-visible {
+          outline: 2px solid var(--av-focus);
+          outline-offset: 2px;
+        }
+        &:focus-visible::before,
+        &:focus-visible::after {
+          visibility: visible;
+        }
+        &:focus-visible::before {
+          opacity: 1;
+          /* biome-ignore lint/complexity/noImportantStyles: Semantic UI hides tooltip arrows with an important transform. */
+          transform: rotate(45deg) scale(1) !important;
+        }
+        &:focus-visible::after {
+          /* biome-ignore lint/complexity/noImportantStyles: Match the native centered tooltip's important hover transform on keyboard focus. */
+          transform: translateX(-50%) scale(1) !important;
+        }
+      }
     }
     & .ui.button[data-asterveil="copy-problem-source"] {
       background-color: var(--av-solid, var(--av-accent, #3b82c4));

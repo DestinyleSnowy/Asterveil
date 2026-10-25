@@ -4,15 +4,18 @@ import { appearancePage } from '../../site/appearance';
 import { enhanceContestReview } from '../../site/contest-review';
 import { enhanceLogin } from '../../site/login';
 import { enhancePlans } from '../../site/plans';
+import { enhanceProblemActionTooltips } from '../../site/problem-actions';
 import { enhanceProblemSource } from '../../site/problem-source';
 import { enhanceProblemTitle } from '../../site/problem-title';
 import { enhanceRankingFilters } from '../../site/ranking-filters';
 import { enhanceSubmissionCode } from '../../site/submission-code';
+import { enhanceVjudgeAccounts } from '../../site/vjudge-accounts';
 
 export default {
   mount({ scope, url }) {
     const page = appearancePage(url);
     if (page === 'login') return enhanceLogin(scope);
+    if (page === 'account-vjudge') return enhanceVjudgeAccounts(scope);
     if (page === 'chat') {
       return import('../../site/chat-markdown').then(({ enhanceChatMarkdown }) => {
         if (!scope.signal.aborted) enhanceChatMarkdown(scope);
@@ -21,6 +24,7 @@ export default {
     if (page === 'contest') return enhanceContestReview(scope, url);
     if (page === 'submission') enhanceSubmissionCode(scope);
     if (page === 'problem') {
+      enhanceProblemActionTooltips(scope);
       enhanceProblemSource(scope, url);
       enhanceProblemTitle(scope);
     }

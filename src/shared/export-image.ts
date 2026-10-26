@@ -14,7 +14,9 @@ export type ExportImageResponse =
   | { ok: true; dataUrl: string }
   | { ok: false; error: string; permissionUrl?: string };
 
-export type ExportImageAccessResponse = { ok: true } | { ok: false; error: string };
+export type ExportImageAccessResponse =
+  | { ok: true }
+  | { ok: false; error: string; needsGesture?: boolean };
 
 export function isExportImageUrl(value: unknown): value is string {
   if (typeof value !== 'string' || value.length > 8192) return false;

@@ -22,6 +22,158 @@ const service = (fetch) =>
     fetch,
     require: () => shared,
   }).fetchExportImage;
+const access = compile('../src/features/homework/export.ts', {
+  require(name) {
+    if (name === 'virtual:homework-katex') return { fontCss: '' };
+    if (name === 'html-to-image') return {};
+    if (name === 'wxt/browser') return { browser: {} };
+    if (name === '../../shared/export-image') return shared;
+    if (name === '../../shared/settings') return {};
+    throw new Error(`Unexpected import: ${name}`);
+  },
+});
+
+test('missing image access requests authorization before retrying the export', async () => {
+  let attempts = 0;
+  const requests = [];
+  const waiting = [];
+  await access.withImageAccess(
+    async () => {
+      if (++attempts === 1) throw new access.ImageAccessError([url]);
+    },
+    new AbortController().signal,
+    (value) => waiting.push(value),
+    async (urls) => {
+      assert.equal(attempts, 1);
+      requests.push([...urls]);
+    },
+  );
+  assert.equal(attempts, 2);
+  assert.deepEqual(requests, [[url]]);
+  assert.deepEqual(waiting, [true, false]);
+});
+
+test('declining image access ends the current export without automatically prompting again', async () => {
+  let attempts = 0;
+  let requests = 0;
+  const denied = new access.ImageAccessError([url], '未获图片来源授权');
+  await assert.rejects(
+    access.withImageAccess(
+      async () => {
+        attempts++;
+        throw new access.ImageAccessError([url]);
+      },
+      new AbortController().signal,
+      () => {},
+      async () => {
+        requests++;
+        throw denied;
+      },
+    ),
+    (error) => error === denied,
+  );
+  assert.equal(attempts, 1);
+  assert.equal(requests, 1);
+});
+
+test('new redirect origins are authorized automatically while an ineffective grant cannot loop', async () => {
+  const destination = 'https://destination.example.net/image.png';
+  let attempts = 0;
+  const requests = [];
+  await access.withImageAccess(
+    async () => {
+      const missing = [url, destination][attempts++];
+      if (missing) throw new access.ImageAccessError([missing]);
+    },
+    new AbortController().signal,
+    () => {},
+    async (urls) => {
+      requests.push(...urls);
+    },
+  );
+  assert.equal(attempts, 3);
+  assert.deepEqual(requests, [url, destination]);
+  attempts = 0;
+  requests.length = 0;
+  await assert.rejects(
+    access.withImageAccess(
+      async () => {
+        attempts++;
+        throw new access.ImageAccessError([`${url}&attempt=${attempts}`]);
+      },
+      new AbortController().signal,
+      () => {},
+      async (urls) => {
+        requests.push(...urls);
+      },
+    ),
+    /授权未生效/,
+  );
+  assert.equal(attempts, 2);
+  assert.equal(requests.length, 1);
+});
+
+test('ordinary export failures bypass permission prompts, and disposal stops an authorized retry', async () => {
+  const failure = new Error('HTTP 404');
+  await assert.rejects(
+    access.withImageAccess(
+      async () => {
+        throw failure;
+      },
+      new AbortController().signal,
+      () => assert.fail('No authorization state for a failed image'),
+      () => assert.fail('No permission prompt for a failed image'),
+    ),
+    (error) => error === failure,
+  );
+  const controller = new AbortController();
+  let finish;
+  let started;
+  const ready = new Promise((resolve) => {
+    started = resolve;
+  });
+  let attempts = 0;
+  const pending = access.withImageAccess(
+    async () => {
+      attempts++;
+      throw new access.ImageAccessError([url]);
+    },
+    controller.signal,
+    () => {},
+    () =>
+      new Promise((resolve) => {
+        finish = resolve;
+        started();
+      }),
+  );
+  const stopped = assert.rejects(pending, (error) => error.name === 'AbortError');
+  await ready;
+  controller.abort();
+  finish();
+  await stopped;
+  assert.equal(attempts, 1);
+});
+
+test('initial image authorization uses only distinct external image origins', () => {
+  const page = new URL('https://jx.7fa4.cn:8888/problem/1');
+  const images = [
+    { src: 'https://jx.7fa4.cn:8888/local.png' },
+    { src: 'data:image/png;base64,AA==' },
+    { src: 'blob:https://jx.7fa4.cn:8888/example' },
+    { src: 'https://images.example.org/one.png?token=example' },
+    { src: 'https://images.example.org/two.png' },
+    {
+      src: 'https://fallback.example.org/picture.png',
+      currentSrc: 'https://cdn.example.net/selected.png',
+    },
+    { src: 'https://name:password@private.example.org/hidden.png' },
+  ];
+  const sources = access.externalImageSources({ querySelectorAll: () => images }, page);
+  assert.deepEqual(Array.from(sources, shared.imagePermissionOrigin), [
+    'https://images.example.org/*',
+    'https://cdn.example.net/*',
+  ]);
+});
 
 test('export image requests accept arbitrary HTTP(S) sources without embedded credentials', async () => {
   for (const valid of [

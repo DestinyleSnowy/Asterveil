@@ -3,6 +3,37 @@
     <fieldset id="controls" disabled>
       <legend class="visually-hidden">扩展设置</legend>
       <div id="modules"></div>
+      <section class="name-sources settings-card" aria-labelledby="user-name-sources-title">
+        <header class="name-source-heading">
+          <div class="name-source-title">
+            <h2 id="user-name-sources-title">数据源</h2>
+            <span id="user-name-source-feedback" class="name-source-feedback" role="status" aria-live="polite" hidden>
+              <button id="user-name-source-status" class="name-source-status" type="button" aria-label="查看数据源提示" aria-describedby="user-name-source-detail" hidden></button>
+              <span id="user-name-source-detail" class="name-source-detail" role="tooltip"></span>
+            </span>
+          </div>
+          <div class="name-source-actions">
+            <button id="user-name-template" type="button" title="下载 JSON 数据源模板" aria-label="下载数据源模板">模板</button>
+            <button id="user-name-import" type="button" title="导入 JSON，重复用户 ID 的姓名和年级必须一致" aria-description="支持用户 ID 到姓名的 JSON 对象、Better Names 的 users 结构或用户列表；可通过 colorKey 或 grade 指定年级">导入</button>
+          </div>
+        </header>
+        <input id="user-name-file" type="file" accept=".json,application/json" hidden />
+        <ul id="user-name-source-list" aria-label="数据源列表"></ul>
+      </section>
+      <section class="name-palette settings-card" aria-labelledby="user-grade-palette-title">
+        <header class="name-palette-heading">
+          <h2 id="user-grade-palette-title">年级配色</h2>
+          <div class="name-palette-actions">
+            <fieldset class="mode-options" aria-label="年级配色方案">
+              <label><input type="radio" name="user-grade-palette-mode" value="default" /><span>默认</span></label>
+              <label><input type="radio" name="user-grade-palette-mode" value="custom" /><span>自定义</span></label>
+            </fieldset>
+            <button id="user-grade-palette-reset" type="button">恢复默认</button>
+          </div>
+        </header>
+        <div id="user-grade-colors" class="name-grade-grid"></div>
+        <p id="user-grade-status" class="name-source-status" role="status" aria-live="polite" hidden></p>
+      </section>
       <section class="home-layout-settings" aria-label="首页布局">
         <label class="row settings-card">
           <strong>自定义首页</strong>

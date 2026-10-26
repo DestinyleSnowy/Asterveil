@@ -12,6 +12,8 @@ import { mountBackgroundSettings } from './background';
 import { mountCommunitySettings } from './community';
 import { mountHomeLayoutSettings } from './home-layout';
 import { mountUpdaterSettings } from './updater';
+import { mountUserNamePalette } from './user-name-palette';
+import { mountUserNameSources } from './user-name-sources';
 
 export function mountSettings(root: ParentNode, scope: Scope): void {
   function element<T extends HTMLElement>(id: string): T {
@@ -40,6 +42,15 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   mountUpdaterSettings(root, scope);
   mountCommunitySettings(root, scope);
   const background = mountBackgroundSettings(root, scope, save);
+  const commitUserNames = async (command: SettingsCommand) => {
+    if (scope.signal.aborted || !current) throw new Error('设置尚未就绪');
+    const settings = await requestSettings(command);
+    if (!current || settings.revision >= current.revision) current = settings;
+    render();
+    return current;
+  };
+  const nameSources = mountUserNameSources(root, scope, commitUserNames);
+  const namePalette = mountUserNamePalette(root, scope, commitUserNames);
   let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
 
   element('version').textContent = `v${browser.runtime.getManifest().version}`;
@@ -145,6 +156,8 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
     if (scope.signal.aborted) return;
     homeLayout.render(current);
     background.render(current);
+    nameSources.render(current);
+    namePalette.render(current);
     avatarControls?.render(current);
     controls.disabled = pending || !current;
     enabled.checked = current?.enabled ?? false;

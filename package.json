@@ -1,6 +1,6 @@
 {
   "name": "asterveil",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "private": true,
   "license": "Apache-2.0",
   "description": "The next generation of Better Names.",
@@ -20,6 +20,9 @@
     "zip:all": "npm run zip:light && npm run zip:full",
     "typecheck": "tsc --noEmit",
     "test": "node --test",
+    "test:user-names:browser": "npm run build:all && node tests/user-names.browser.mjs",
+    "update:user-names": "node build/update-user-names.mjs",
+    "encrypt:user-names": "node build/encrypt-user-names.mjs",
     "test:homework:browser": "node tests/homework.browser.mjs",
     "test:homework-export:browser": "npm run build:all && node tests/homework-export.browser.mjs",
     "test:updater:browser": "node updater/scripts/browser-smoke.mjs light && node updater/scripts/browser-smoke.mjs full",

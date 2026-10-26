@@ -4,6 +4,7 @@ import { browser } from 'wxt/browser';
 import {
   type ExportImageAccessRequest,
   type ExportImageRequest,
+  imagePermissionOrigin,
   imageResponseData,
   isExportImageUrl,
 } from '../../shared/export-image';
@@ -15,6 +16,7 @@ export class ImageAccessError extends Error {
   constructor(
     readonly urls: string[],
     message = '需要授权读取图片来源。',
+    readonly needsGesture = false,
   ) {
     super(message);
   }
@@ -29,7 +31,45 @@ export async function requestImageAccess(urls: string[]): Promise<void> {
       isRecord(result) && typeof result.error === 'string'
         ? result.error
         : '图片授权失败，请重试。',
+      isRecord(result) && result.needsGesture === true,
     );
+}
+
+export function externalImageSources(preview: ParentNode, page: URL): string[] {
+  const sources = new Map<string, string>();
+  for (const image of preview.querySelectorAll<HTMLImageElement>('img')) {
+    const source = image.currentSrc || image.src;
+    if (isExportImageUrl(source) && new URL(source).origin !== page.origin)
+      sources.set(imagePermissionOrigin(source), source);
+  }
+  return [...sources.values()];
+}
+
+export async function withImageAccess(
+  action: () => Promise<void>,
+  signal: AbortSignal,
+  waiting: (active: boolean) => void,
+  authorize = requestImageAccess,
+): Promise<void> {
+  const requested = new Set<string>();
+  for (;;) {
+    signal.throwIfAborted();
+    try {
+      await action();
+      return;
+    } catch (error) {
+      signal.throwIfAborted();
+      if (!(error instanceof ImageAccessError)) throw error;
+      const origins = error.urls.map(imagePermissionOrigin);
+      if (!origins.length || origins.some((origin) => requested.has(origin)))
+        throw new ImageAccessError(error.urls, '图片来源授权未生效，请重试。');
+      for (const origin of origins) requested.add(origin);
+      waiting(true);
+      await authorize(error.urls);
+      signal.throwIfAborted();
+      waiting(false);
+    }
+  }
 }
 
 async function readImage(url: string, signal: AbortSignal): Promise<string> {

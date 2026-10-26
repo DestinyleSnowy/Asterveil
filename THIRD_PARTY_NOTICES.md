@@ -4,6 +4,11 @@
 
 “关于”中的售后群信息、Better Names 计划说明与加入状态接口参考
 [Better Names for 7FA4](https://github.com/DestinyleSnowy/Better-Names-for-7FA4)。
+Better Names 功能使用上游扩展包中的 `data/users.json` 与 `data/special_users.json`，保留用户 ID、
+姓名与年级代码，数据位于 `src/data/user-names.json` 和 `src/data/user-grades.json`；来源提交与记录数见
+`src/data/user-names.source.json`。年级分类沿用上游面板定义，默认配色由项目定制，年级记录及标签维护到 2026 学年。
+运行时接入当前 7FA4 站点的 `/better_names` 和当前账号的 `/user/用户ID/friend` 作为可独立关闭的补充源，仅使用用户 ID、姓名和用于推算年级的高中毕业年份或班级；
+本地数据库中的特殊人员处理优先保留，计划名单不随扩展发布。
 微信赞赏码 `src/ui/settings/donate.jpg` 原样取自该项目的 `content/panel/donate.jpg`。
 上游采用 MIT 许可证，Copyright (c) 2025-2026 鱼oe不缺氧；完整许可随扩展保留在
 `licenses/better-names/LICENSE`。

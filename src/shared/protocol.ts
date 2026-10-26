@@ -5,6 +5,18 @@ import { type ColorMode, isColorMode } from './color-mode';
 import { type HomeColumn, type HomeSectionId, isHomeColumn, isHomeSectionId } from './home-layout';
 import { isAccentColor } from './palette';
 import { isRecord, type Settings } from './settings';
+import {
+  isUserGradeKey,
+  isUserGradePaletteMode,
+  type UserGradeKey,
+  type UserGradePaletteMode,
+} from './user-name-palette';
+import {
+  isBuiltinUserNameSourceId,
+  isUserNameSourceId,
+  isUserNameSourceName,
+  maxUserNameImportLength,
+} from './user-name-sources';
 
 export type SettingsCommand =
   | { type: 'settings.read' }
@@ -23,6 +35,12 @@ export type SettingsCommand =
       before: HomeSectionId | null;
     }
   | { type: 'settings.home.reset' }
+  | { type: 'settings.user-names.import'; name: string; text: string; officialPassword?: string }
+  | { type: 'settings.user-names.remove'; id: string }
+  | { type: 'settings.user-names.source'; id: string; enabled: boolean }
+  | { type: 'settings.user-names.palette.mode'; mode: UserGradePaletteMode }
+  | { type: 'settings.user-names.palette.color'; grade: UserGradeKey; color: string }
+  | { type: 'settings.user-names.palette.reset' }
   | { type: 'settings.module'; moduleId: ModuleId; enabled: boolean };
 
 export type SettingsRequest = SettingsCommand & { channel: 'asterveil' };
@@ -58,6 +76,27 @@ export function isSettingsRequest(value: unknown): value is SettingsRequest {
         (value.before === null || isHomeSectionId(value.before))
       );
     case 'settings.home.reset':
+      return true;
+    case 'settings.user-names.import':
+      return (
+        isUserNameSourceName(value.name) &&
+        typeof value.text === 'string' &&
+        value.text.length <= maxUserNameImportLength &&
+        (value.officialPassword === undefined ||
+          (typeof value.officialPassword === 'string' && value.officialPassword.length <= 4096))
+      );
+    case 'settings.user-names.remove':
+      return isUserNameSourceId(value.id);
+    case 'settings.user-names.source':
+      return (
+        (isBuiltinUserNameSourceId(value.id) || isUserNameSourceId(value.id)) &&
+        typeof value.enabled === 'boolean'
+      );
+    case 'settings.user-names.palette.mode':
+      return isUserGradePaletteMode(value.mode);
+    case 'settings.user-names.palette.color':
+      return isUserGradeKey(value.grade) && isAccentColor(value.color);
+    case 'settings.user-names.palette.reset':
       return true;
     default:
       return false;

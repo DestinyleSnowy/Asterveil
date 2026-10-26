@@ -20,6 +20,7 @@ import {
 } from '../shared/export-image';
 import { isSettingsRequest, type SettingsResponse } from '../shared/protocol';
 import { isUpdateRequest } from '../shared/updater';
+import { decryptOfficialUserNames, userNameEntryDatabase } from '../shared/user-name-database';
 import { isSubmitterRequest } from '../submitter/model';
 
 export default defineBackground(() => {
@@ -43,20 +44,27 @@ export default defineBackground(() => {
       if (settingsChanges === initialChanges) return avatarRules(settings);
     })
     .catch(reportRuleError);
-  const handle = createSettingsService({
-    read: localSettings.read,
-    async write(settings) {
-      settingsChanges++;
-      // Apply network policy before content scripts receive the setting change.
-      await avatarRules(settings);
-      try {
-        await localSettings.write(settings);
-      } catch (error) {
-        await avatarRules(await localSettings.read());
-        throw error;
-      }
+  const handle = createSettingsService(
+    {
+      read: localSettings.read,
+      async write(settings) {
+        settingsChanges++;
+        // Apply network policy before content scripts receive the setting change.
+        await avatarRules(settings);
+        try {
+          await localSettings.write(settings);
+        } catch (error) {
+          await avatarRules(await localSettings.read());
+          throw error;
+        }
+      },
     },
-  });
+    async (command) => {
+      if (command.type !== 'settings.user-names.import' || !command.officialPassword)
+        throw new Error('请先解锁官方数据源');
+      return userNameEntryDatabase(await decryptOfficialUserNames(command.officialPassword));
+    },
+  );
   const submitter = createSubmitterService();
   let activeSubmissions = 0;
   const updater = createUpdaterService(() => activeSubmissions > 0);
@@ -65,7 +73,7 @@ export default defineBackground(() => {
   browser.runtime.onMessage.addListener((message: unknown, sender, sendResponse) => {
     if (isExportImageAccessRequest(message)) {
       if (!isSettingsSender(sender, browser.runtime.id)) return false;
-      // Request immediately: the message carries the retry button's user gesture.
+      // Request immediately to preserve the editor action's user gesture.
       void browser.permissions
         .request({
           permissions: ['webRequest'],
@@ -76,11 +84,15 @@ export default defineBackground(() => {
             sendResponse(
               granted ? { ok: true } : { ok: false, error: '未获图片来源授权，请授权后重试。' },
             ),
-          () =>
+          (error: unknown) => {
+            const needsGesture =
+              error instanceof Error && /user (?:gesture|activation)/i.test(error.message);
             sendResponse({
               ok: false,
-              error: '图片授权失败，请重新点击授权并重试。',
-            } satisfies ExportImageAccessResponse),
+              error: needsGesture ? '请允许访问图片来源。' : '图片授权失败，请重试。',
+              needsGesture,
+            } satisfies ExportImageAccessResponse);
+          },
         );
       return true;
     }

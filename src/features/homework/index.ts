@@ -9,8 +9,10 @@ import {
   canvasBlob,
   captureAnswer,
   downloadBlob,
+  externalImageSources,
   ImageAccessError,
   requestImageAccess,
+  withImageAccess,
 } from './export';
 import { formatToolbar, icon } from './icons';
 import { type MarkdownAnchor, renderMarkdown } from './markdown';
@@ -188,7 +190,7 @@ export default {
       get<HTMLImageElement>('.submission-preview img').src = previewUrl;
       dialog.showModal();
     };
-    const run = async (action: () => Promise<void>, authorize?: string[]) => {
+    const run = async (action: () => Promise<void>, authorize?: string[] | (() => string[])) => {
       if (busy || submitted || scope.signal.aborted) return;
       busy = true;
       exportOptions.open = false;
@@ -198,15 +200,28 @@ export default {
       editor.readOnly = true;
       report('正在生成，请稍候…');
       try {
-        if (authorize) await requestImageAccess(authorize);
+        // Start authorization from this click, before asynchronous image reads consume its gesture.
+        const sources = typeof authorize === 'function' ? authorize() : authorize;
+        if (sources?.length) {
+          report('正在等待图片来源授权…');
+          await requestImageAccess(sources);
+          report('正在生成，请稍候…');
+        }
         scope.signal.throwIfAborted();
-        await action();
+        await withImageAccess(action, scope.signal, (waiting) => {
+          if (!scope.signal.aborted)
+            report(waiting ? '正在等待图片来源授权…' : '正在生成，请稍候…');
+        });
         if (!scope.signal.aborted) report('');
       } catch (error) {
         if (!scope.signal.aborted) {
-          report(error instanceof Error ? error.message : '生成失败，请重试。', true);
+          report(
+            error instanceof Error ? error.message : '生成失败，请重试。',
+            !(error instanceof ImageAccessError && error.needsGesture),
+          );
           if (error instanceof ImageAccessError) {
             imageRetry = { urls: error.urls, action };
+            imageAccess.textContent = error.needsGesture ? '允许访问' : '授权并重试';
             imageAccess.hidden = false;
           }
         }
@@ -296,7 +311,16 @@ export default {
             report('提交未完成，请检查页面后重试。', true);
           }
         } else if (action && ['png', 'pdf', 'markdown', 'submit'].includes(action))
-          void run(() => generate(action));
+          void run(
+            () => generate(action),
+            action === 'markdown'
+              ? undefined
+              : () => {
+                  const paper = document.createElement('article');
+                  renderMarkdown(editor.value, paper);
+                  return externalImageSources(paper, url);
+                },
+          );
         else if (button.dataset.format && !busy) {
           const selected = editor.value.slice(editor.selectionStart, editor.selectionEnd);
           const formats: Record<string, string> = {

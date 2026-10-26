@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/DestinyleSnowy/Better-Names-for-7FA4",
+  "revision": "db57e8354989c9b1736905f6468f374abed884f6",
+  "sourceAcademicYear": 2025,
+  "academicYear": 2026,
+  "records": 3567,
+  "gradeRecords": 3567,
+  "files": [
+    "Better-Names-for-7FA4/data/users.json",
+    "Better-Names-for-7FA4/data/special_users.json"
+  ]
+}

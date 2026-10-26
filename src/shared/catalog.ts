@@ -23,6 +23,12 @@ export const moduleCatalog = [
     defaultEnabled: true,
   },
   {
+    id: 'user-names',
+    title: 'Better Names',
+    description: '根据 Better Names 数据库显示姓名，悬停可查看原用户名。',
+    defaultEnabled: true,
+  },
+  {
     id: 'local-avatars',
     title: '头像替换',
     description: '',

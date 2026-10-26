@@ -14,6 +14,12 @@ export const modules = [
     load: () => import('./ui-polish').then((module) => module.default),
   },
   {
+    id: 'user-names',
+    configurationKey: (settings) => String(settings.userNames.revision),
+    matches: () => true,
+    load: () => import('./user-names').then((module) => module.default),
+  },
+  {
     id: 'local-avatars',
     configurationKey: (settings) => settings.avatarStyle,
     matches: () => true,

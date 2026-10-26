@@ -4,6 +4,11 @@ import { type ModuleId, moduleCatalog } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { decodeHomeLayout, defaultHomeLayout, type HomeLayout } from './home-layout';
 import { accentPresets, defaultAccentColor, isAccentColor } from './palette';
+import {
+  decodeUserNameSources,
+  defaultUserNameSources,
+  type UserNameSources,
+} from './user-name-sources';
 
 export const settingsKey = 'asterveil:settings';
 
@@ -16,6 +21,7 @@ export interface Settings {
   readonly avatarStyle: AvatarStyle;
   readonly background: BackgroundSettings;
   readonly homeLayout: HomeLayout;
+  readonly userNames: UserNameSources;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
 
@@ -33,6 +39,7 @@ export function defaultSettings(): Settings {
     avatarStyle: defaultAvatarStyle,
     background: defaultBackground(),
     homeLayout: defaultHomeLayout(),
+    userNames: defaultUserNameSources(),
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
     ) as Record<ModuleId, boolean>,
@@ -81,6 +88,7 @@ export function decodeSettings(value: unknown): Settings {
     avatarStyle,
     background: decodeBackground(value.background),
     homeLayout: decodeHomeLayout(value.homeLayout),
+    userNames: decodeUserNameSources(value.userNames),
     modules,
   };
 }

@@ -11,3 +11,5 @@ Thumbs.db
 updater/target/
 *.private.pem
 __pycache__/
+src/data/user-names.json
+src/data/user-grades.json

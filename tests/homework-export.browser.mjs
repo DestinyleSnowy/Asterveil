@@ -43,14 +43,22 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
     ];
     const document = `${sample}\n\n${extraImages.map((url, i) => `![图片 ${i}](${url})`).join('\n\n')}`;
     let failImage = false;
+    let slowCors = false;
     let backgroundReads = 0;
     const backgroundUrls = new Set();
     await context.route(
       /https?:\/\/(images\.openai\.com|[^/]+\.example\.(com|org|net))\//,
-      (route) => {
+      async (route) => {
         if (route.request().serviceWorker()) backgroundReads++;
         if (route.request().serviceWorker()) backgroundUrls.add(route.request().url());
         const url = new URL(route.request().url());
+        if (
+          slowCors &&
+          !route.request().serviceWorker() &&
+          route.request().resourceType() === 'fetch' &&
+          url.hostname === 'images.openai.com'
+        )
+          await new Promise((resolve) => setTimeout(resolve, 5500));
         if (url.hostname === 'redirect.example.org')
           return route.fulfill({
             status: 302,
@@ -100,10 +108,19 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
     await worker.evaluate(() => {
       globalThis.permissionRequests = [];
       globalThis.denyPermission = true;
+      globalThis.holdPermission = true;
       const permissions = (globalThis.browser || chrome).permissions;
       const request = permissions.request.bind(permissions);
       permissions.request = (...args) => {
         globalThis.permissionRequests.push(args[0]);
+        if (globalThis.holdPermission)
+          return new Promise((resolve) => {
+            globalThis.resolvePermission = resolve;
+          });
+        if (globalThis.requireGestureOnce) {
+          globalThis.requireGestureOnce = false;
+          return Promise.reject(new Error('This function must be called during a user gesture.'));
+        }
         if (globalThis.denyPermission) return Promise.resolve(false);
         return request(...args);
       };
@@ -146,20 +163,36 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
 
     await page.getByRole('button', { name: '导出图片', exact: true }).click();
     const retry = page.getByRole('button', { name: '授权并重试', exact: true });
+    await worker.evaluate(async () => {
+      for (let attempt = 0; attempt < 200; attempt++) {
+        if (globalThis.permissionRequests.length === 1) return;
+        await new Promise((resolve) => setTimeout(resolve, 25));
+      }
+      throw new Error('Export did not request image access automatically');
+    });
+    assert.equal(
+      await page.locator('.status').getAttribute('data-error'),
+      null,
+      'Requesting permission must not show an error',
+    );
+    assert.equal(
+      await retry.isVisible(),
+      false,
+      'The first export must request access automatically',
+    );
+    assert.match(await page.locator('.status').textContent(), /授权/);
+    await worker.evaluate(() => {
+      globalThis.holdPermission = false;
+      globalThis.resolvePermission(false);
+    });
     await retry.waitFor({ state: 'visible' });
+    assert.match(await page.locator('.status').textContent(), /未获/);
     assert.equal(backgroundReads, 0, 'No privileged fetch before source permission');
     await page.screenshot({ path: resolve(out, `${edition}-permission.png`) });
     await page.setViewportSize({ width: 440, height: 850 });
     await retry.scrollIntoViewIfNeeded();
     await page.screenshot({ path: resolve(out, `${edition}-permission-narrow.png`) });
     await page.setViewportSize({ width: 1100, height: 850 });
-    await retry.click();
-    await page.waitForFunction(() =>
-      document
-        .querySelector('[data-asterveil-homework]')
-        .shadowRoot.querySelector('.status')
-        .textContent.includes('未获'),
-    );
     assert.equal(backgroundReads, 0, 'Denial must not fetch or export');
     await worker.evaluate(() => {
       globalThis.denyPermission = false;
@@ -170,8 +203,9 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
       'http://assets.example.org/*',
       'https://cdn.example.net/*',
       'https://redirect.example.org/*',
+      'https://cors.example.net/*',
     ];
-    await seedPermission(initialHosts);
+    await seedPermission([...initialHosts, 'https://destination.example.net/*']);
     assert.equal(
       await worker.evaluate(
         (hosts) => chrome.permissions.contains({ origins: hosts }),
@@ -179,24 +213,9 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
       ),
       false,
     );
+    const downloadPromise = page.waitForEvent('download');
     await retry.focus();
     await retry.press('Enter');
-    await retry.waitFor({ state: 'visible' });
-    assert.equal(
-      await worker.evaluate(
-        (hosts) => chrome.permissions.contains({ origins: hosts }),
-        initialHosts,
-      ),
-      true,
-      'Real permission request from content click succeeded',
-    );
-    assert.ok(
-      (await page.locator('.status').textContent()).includes('授权'),
-      await page.locator('.status').textContent(),
-    );
-    await seedPermission(['https://destination.example.net/*']);
-    const downloadPromise = page.waitForEvent('download');
-    await retry.click();
     const download = await Promise.race([
       downloadPromise,
       page
@@ -242,12 +261,13 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
     assert.ok(backgroundReads > 0, 'The real extension worker fetched the image');
     assert.equal(await editor.inputValue(), document);
     const requests = await worker.evaluate(() => globalThis.permissionRequests);
+    assert.deepEqual([...requests[0].origins].sort(), [...initialHosts].sort());
     assert.deepEqual([...requests[1].origins].sort(), [...initialHosts].sort());
     assert.deepEqual(requests[2].origins, ['https://destination.example.net/*']);
     assert.equal(
       backgroundUrls.has('https://cors.example.net/photo.png'),
       false,
-      'CORS-readable image needs no permission',
+      'CORS-readable image uses the direct page reader',
     );
     for (const url of [
       imageUrl,
@@ -293,12 +313,18 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
       true,
     );
     failImage = false;
+    await worker.evaluate(() => {
+      globalThis.denyPermission = true;
+    });
     await worker.evaluate(() =>
       chrome.permissions.remove({ origins: ['https://images.openai.com/*'] }),
     );
     await page.getByRole('button', { name: '导出图片', exact: true }).click();
     await retry.waitFor({ state: 'visible' });
     await editor.fill('![允许跨域的图片](https://cors.example.net/photo.png)');
+    await worker.evaluate(() => {
+      globalThis.denyPermission = false;
+    });
     assert.equal(await retry.isVisible(), false, 'Editing clears the stale permission retry');
     const readsBeforeCors = backgroundReads;
     const corsDownload = page.waitForEvent('download');
@@ -309,6 +335,62 @@ for (const edition of ['Asterveil', 'Asterveil Pro']) {
       readsBeforeCors,
       'CORS images export directly without background privileges',
     );
+    await seedPermission(['https://images.openai.com/*']);
+    await worker.evaluate(() => {
+      globalThis.denyPermission = false;
+    });
+    slowCors = true;
+    await editor.fill(`![慢速图片](${imageUrl})`);
+    const slowDownload = page.waitForEvent('download');
+    await page.getByRole('button', { name: '导出图片', exact: true }).click();
+    await Promise.race([
+      slowDownload,
+      page
+        .waitForFunction(() => {
+          const status = document
+            .querySelector('[data-asterveil-homework]')
+            .shadowRoot.querySelector('.status');
+          return status.hasAttribute('data-error') ? status.textContent : false;
+        })
+        .then(async (handle) => {
+          throw new Error(await handle.jsonValue());
+        }),
+    ]);
+    assert.equal(
+      await retry.isVisible(),
+      false,
+      'A fresh slow source must authorize and export with one click',
+    );
+    slowCors = false;
+    await worker.evaluate(() => {
+      globalThis.requireGestureOnce = true;
+    });
+    await editor.fill(`![继续授权](${imageUrl})`);
+    const allow = page.getByRole('button', { name: '允许访问', exact: true });
+    await page.getByRole('button', { name: '导出图片', exact: true }).click();
+    await Promise.race([
+      allow.waitFor({ state: 'visible' }),
+      page
+        .waitForFunction(() => {
+          const status = document
+            .querySelector('[data-asterveil-homework]')
+            .shadowRoot.querySelector('.status');
+          return status.hasAttribute('data-error') ? status.textContent : false;
+        })
+        .then(async (handle) => {
+          throw new Error(await handle.jsonValue());
+        }),
+    ]);
+    assert.equal(
+      await page.locator('.status').getAttribute('data-error'),
+      null,
+      'A new browser gesture is an authorization step, not an export error',
+    );
+    await page.screenshot({ path: resolve(out, `${edition}-continue-access.png`) });
+    const redirectedDownload = page.waitForEvent('download');
+    await allow.click();
+    await redirectedDownload;
+    assert.equal(await allow.isVisible(), false);
     assert.deepEqual(errors, []);
     console.log(
       `PASS ${edition}: multiple HTTP(S) sources, SVG, CORS, relative/data images, scoped real permissions, denial/retry, CDN redirect, embedded pixels, formulas, submission preview, error recovery${edition === 'Asterveil Pro' ? ', PDF' : ''}.`,

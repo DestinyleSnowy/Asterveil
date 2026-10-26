@@ -142,6 +142,8 @@
   min-height: 0;
 }
 .settings-nav {
+  display: flex;
+  flex-direction: column;
   width: 174px;
   flex-shrink: 0;
   padding: 24px 14px;
@@ -154,6 +156,7 @@
   align-items: center;
   gap: 12px;
   width: 100%;
+  flex-shrink: 0;
   padding: 13px 14px;
   margin-bottom: 8px;
   border: 0;
@@ -167,6 +170,13 @@
     background-color calc(180ms * var(--av-motion, 1)) ease,
     color calc(180ms * var(--av-motion, 1)) ease,
     transform calc(180ms * var(--av-motion, 1)) ease;
+}
+.settings-nav button[data-section="about"] {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+.settings-nav span {
+  min-width: 0;
 }
 .settings-nav button::before {
   content: "";
@@ -235,6 +245,7 @@
   .settings-nav {
     width: auto;
     display: flex;
+    flex-direction: row;
     flex-shrink: 0;
     padding: 8px;
     gap: 4px;
@@ -242,12 +253,17 @@
     border-bottom: 1px solid var(--av-border);
   }
   .settings-nav button {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
+    width: auto;
     margin: 0;
     justify-content: center;
-    padding: 10px 6px;
-    gap: 7px;
+    padding: 8px 4px;
+    gap: 0;
     font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    white-space: normal;
   }
   .settings-nav button::before {
     top: auto;
@@ -258,12 +274,14 @@
     width: auto;
     transform: scaleX(0.5);
   }
+  .settings-nav button[data-section="about"] {
+    margin-top: 0;
+  }
   .settings-nav button[aria-current]::before {
     transform: scaleX(1);
   }
   .settings-nav .ui-icon {
-    width: 18px;
-    height: 18px;
+    display: none;
   }
   .settings-launcher {
     right: max(16px, env(safe-area-inset-right));
@@ -273,12 +291,9 @@
     padding: 6px;
   }
 }
-@media (max-width: 360px) {
-  .settings-nav .ui-icon {
-    display: none;
-  }
+@media (max-width: 400px) {
   .settings-nav button {
-    gap: 0;
+    font-size: 11px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

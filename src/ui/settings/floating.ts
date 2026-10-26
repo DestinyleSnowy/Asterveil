@@ -32,10 +32,11 @@ export function mountFloatingSettings(scope: Scope): {
     <div class="dialog-heading"><div class="dialog-identity"><span class="dialog-brand">${brandIcon}<span>${productName}</span></span><h2 id="settings-title">设置</h2></div><button type="button" class="dialog-close" aria-label="关闭设置">${settingsIcon('close')}</button></div>
     <div class="dialog-body">
       <nav class="settings-nav" aria-label="设置分类">
-        <button type="button" data-section="appearance" aria-current="page">${settingsIcon('appearance')}外观配色</button>
-        <button type="button" data-section="home">${settingsIcon('home')}首页布局</button>
-        <button type="button" data-section="modules">${settingsIcon('modules')}功能模块</button>
-        <button type="button" data-section="about">${settingsIcon('about')}关于</button>
+        <button type="button" data-section="appearance" aria-current="page">${settingsIcon('appearance')}<span>外观配色</span></button>
+        <button type="button" data-section="home">${settingsIcon('home')}<span>首页布局</span></button>
+        <button type="button" data-section="modules">${settingsIcon('modules')}<span>功能模块</span></button>
+        <button type="button" data-section="better-names">${settingsIcon('users')}<span>Better Names</span></button>
+        <button type="button" data-section="about">${settingsIcon('about')}<span>关于</span></button>
       </nav>
       <div class="page-view">${markup.replaceAll('{{productName}}', productName)}</div>
     </div>`;

@@ -21,6 +21,7 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test",
     "test:user-names:browser": "npm run build:all && node tests/user-names.browser.mjs",
+    "test:problem-copy:browser": "npm run build:all && node tests/problem-copy.browser.mjs",
     "update:user-names": "node build/update-user-names.mjs",
     "encrypt:user-names": "node build/encrypt-user-names.mjs",
     "test:homework:browser": "node tests/homework.browser.mjs",

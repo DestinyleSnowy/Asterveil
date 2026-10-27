@@ -79,6 +79,10 @@ export function createSettingsService(
         ...current,
         revision: current.revision + 1,
         userNames,
+        problemCopy:
+          command.type === 'settings.problem-copy'
+            ? { ...current.problemCopy, [command.option]: command.enabled }
+            : current.problemCopy,
         enabled: command.type === 'settings.enabled' ? command.enabled : current.enabled,
         accentColor:
           command.type === 'settings.accent' ? command.color.toLowerCase() : current.accentColor,

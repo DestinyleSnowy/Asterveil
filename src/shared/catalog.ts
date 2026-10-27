@@ -11,6 +11,12 @@ export const moduleCatalog = [
     defaultEnabled: true,
   },
   {
+    id: 'problem-copy',
+    title: '复制题面',
+    description: '',
+    defaultEnabled: true,
+  },
+  {
     id: 'ui-polish',
     title: '界面微调',
     description: '调整导航、面板和表格的配色与间距。',

@@ -4,6 +4,7 @@ import { isModuleId, type ModuleId } from './catalog';
 import { type ColorMode, isColorMode } from './color-mode';
 import { type HomeColumn, type HomeSectionId, isHomeColumn, isHomeSectionId } from './home-layout';
 import { isAccentColor } from './palette';
+import { isProblemCopyOption, type ProblemCopyOption } from './problem-copy';
 import { isRecord, type Settings } from './settings';
 import {
   isUserGradeKey,
@@ -35,6 +36,7 @@ export type SettingsCommand =
       before: HomeSectionId | null;
     }
   | { type: 'settings.home.reset' }
+  | { type: 'settings.problem-copy'; option: ProblemCopyOption; enabled: boolean }
   | { type: 'settings.user-names.import'; name: string; text: string; officialPassword?: string }
   | { type: 'settings.user-names.remove'; id: string }
   | { type: 'settings.user-names.source'; id: string; enabled: boolean }
@@ -77,6 +79,8 @@ export function isSettingsRequest(value: unknown): value is SettingsRequest {
       );
     case 'settings.home.reset':
       return true;
+    case 'settings.problem-copy':
+      return isProblemCopyOption(value.option) && typeof value.enabled === 'boolean';
     case 'settings.user-names.import':
       return (
         isUserNameSourceName(value.name) &&

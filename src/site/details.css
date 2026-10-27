@@ -50,11 +50,11 @@ html[data-asterveil-page="problem"] {
       /* Keep the site's action colors, including hover and pressed states. */
       border-radius: 0;
       box-shadow: none;
-      &:first-child {
+      &:nth-child(1 of .ui.button:not([hidden], .hidden)) {
         border-top-left-radius: 7px;
         border-bottom-left-radius: 7px;
       }
-      &:last-child {
+      &:nth-last-child(1 of .ui.button:not([hidden], .hidden)) {
         border-top-right-radius: 7px;
         border-bottom-right-radius: 7px;
       }
@@ -111,11 +111,19 @@ html[data-asterveil-page="problem"] {
         }
       }
     }
-    & .ui.button[data-asterveil="copy-problem-source"] {
+    &
+      .ui.button:is(
+        [data-asterveil="copy-problem-source"],
+        [data-asterveil="copy-problem-description"]
+      ) {
       background-color: var(--av-solid, var(--av-accent, #3b82c4));
       color: var(--av-on-accent);
     }
-    & .ui.button[data-asterveil="copy-problem-source"]:is(:hover, :focus-visible) {
+    &
+      .ui.button:is(
+        [data-asterveil="copy-problem-source"],
+        [data-asterveil="copy-problem-description"]
+      ):is(:hover, :focus-visible) {
       background-color: color-mix(in srgb, var(--av-solid, var(--av-accent)) 94%, #000);
     }
     & .ui.bottom.attached.segment.font-content {

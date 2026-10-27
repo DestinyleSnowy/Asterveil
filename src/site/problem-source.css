@@ -1,0 +1,13 @@
+.ui.buttons.asterveil-problem-copy-actions > .ui.button {
+  border-radius: 0;
+}
+.ui.buttons.asterveil-problem-copy-actions
+  > .ui.button:nth-child(1 of .ui.button:not([hidden], .hidden)) {
+  border-top-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+}
+.ui.buttons.asterveil-problem-copy-actions
+  > .ui.button:nth-last-child(1 of .ui.button:not([hidden], .hidden)) {
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: inherit;
+}

@@ -116,6 +116,37 @@ h2 {
 .master {
   min-height: 70px;
 }
+.problem-copy-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--av-border);
+}
+.problem-copy-options label {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 30px;
+  color: var(--av-text);
+  font-size: 13px;
+  cursor: pointer;
+}
+.problem-copy-options:where(:disabled) label {
+  color: var(--av-muted);
+  cursor: default;
+}
+@media (max-width: 650px) {
+  .problem-copy-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 12px;
+  }
+}
 .row:hover {
   border-color: color-mix(in srgb, var(--av-accent) 35%, var(--av-border));
 }
@@ -495,6 +526,19 @@ input[role="switch"]:checked {
 }
 input[role="switch"]:checked::after {
   transform: translateX(18px);
+}
+.problem-copy-options input[role="switch"] {
+  order: 1;
+  flex-basis: 32px;
+  width: 32px;
+  height: 18px;
+}
+.problem-copy-options input[role="switch"]::after {
+  width: 12px;
+  height: 12px;
+}
+.problem-copy-options input[role="switch"]:checked::after {
+  transform: translateX(14px);
 }
 input:disabled {
   opacity: 0.45;

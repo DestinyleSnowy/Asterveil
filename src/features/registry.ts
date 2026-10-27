@@ -1,5 +1,5 @@
 import type { ModuleDefinition } from '../core/module';
-import { matchesAppearancePage } from '../site/appearance';
+import { appearancePage, matchesAppearancePage } from '../site/appearance';
 import { matchesHomeworkPage } from '../site/homework';
 
 export const modules = [
@@ -7,6 +7,12 @@ export const modules = [
     id: 'homework',
     matches: matchesHomeworkPage,
     load: () => import('./homework').then((module) => module.default),
+  },
+  {
+    id: 'problem-copy',
+    configurationKey: (settings) => JSON.stringify(settings.problemCopy),
+    matches: (url) => appearancePage(url) === 'problem',
+    load: () => import('./problem-copy').then((module) => module.default),
   },
   {
     id: 'ui-polish',

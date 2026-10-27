@@ -11,6 +11,7 @@ import { mountAvatarSettings } from './avatars';
 import { mountBackgroundSettings } from './background';
 import { mountCommunitySettings } from './community';
 import { mountHomeLayoutSettings } from './home-layout';
+import { mountProblemCopySettings } from './problem-copy';
 import { mountUpdaterSettings } from './updater';
 import { mountUserNamePalette } from './user-name-palette';
 import { mountUserNameSources } from './user-name-sources';
@@ -52,6 +53,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
   const nameSources = mountUserNameSources(root, scope, commitUserNames);
   const namePalette = mountUserNamePalette(root, scope, commitUserNames);
   let avatarControls: ReturnType<typeof mountAvatarSettings> | undefined;
+  let problemCopyControls: ReturnType<typeof mountProblemCopySettings> | undefined;
 
   element('version').textContent = `v${browser.runtime.getManifest().version}`;
   element<HTMLFormElement>('settings-form').addEventListener(
@@ -85,13 +87,14 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
       input.setAttribute('aria-description', module.description);
     }
     label.append(text, input);
-    if (module.id === 'local-avatars') {
+    if (module.id === 'local-avatars' || module.id === 'problem-copy') {
       const card = document.createElement('div');
       card.className = 'module settings-card';
       card.dataset.moduleId = module.id;
       label.className = 'row';
       card.append(label);
-      avatarControls = mountAvatarSettings(card, scope, save);
+      if (module.id === 'local-avatars') avatarControls = mountAvatarSettings(card, scope, save);
+      else problemCopyControls = mountProblemCopySettings(card, scope, save);
       list.append(card);
     } else list.append(label);
     if (module.id === 'ui-polish') list.append(colorMode, palette, element('background'));
@@ -159,6 +162,7 @@ export function mountSettings(root: ParentNode, scope: Scope): void {
     nameSources.render(current);
     namePalette.render(current);
     avatarControls?.render(current);
+    problemCopyControls?.render(current);
     controls.disabled = pending || !current;
     enabled.checked = current?.enabled ?? false;
     enabled.setAttribute('aria-checked', String(enabled.checked));

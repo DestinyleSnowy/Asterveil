@@ -5,7 +5,6 @@ import { enhanceContestReview } from '../../site/contest-review';
 import { enhanceLogin } from '../../site/login';
 import { enhancePlans } from '../../site/plans';
 import { enhanceProblemActionTooltips } from '../../site/problem-actions';
-import { enhanceProblemSource } from '../../site/problem-source';
 import { enhanceProblemTitle } from '../../site/problem-title';
 import { enhanceRankingFilters } from '../../site/ranking-filters';
 import { enhanceSubmissionCode } from '../../site/submission-code';
@@ -25,7 +24,6 @@ export default {
     if (page === 'submission') enhanceSubmissionCode(scope);
     if (page === 'problem') {
       enhanceProblemActionTooltips(scope);
-      enhanceProblemSource(scope, url);
       enhanceProblemTitle(scope);
     }
     if (page === 'plans') enhancePlans(scope);

@@ -5,6 +5,11 @@ import { type ColorMode, isColorMode } from './color-mode';
 import { decodeHomeLayout, defaultHomeLayout, type HomeLayout } from './home-layout';
 import { accentPresets, defaultAccentColor, isAccentColor } from './palette';
 import {
+  decodeProblemCopySettings,
+  defaultProblemCopySettings,
+  type ProblemCopySettings,
+} from './problem-copy';
+import {
   decodeUserNameSources,
   defaultUserNameSources,
   type UserNameSources,
@@ -22,6 +27,7 @@ export interface Settings {
   readonly background: BackgroundSettings;
   readonly homeLayout: HomeLayout;
   readonly userNames: UserNameSources;
+  readonly problemCopy: ProblemCopySettings;
   readonly modules: Readonly<Record<ModuleId, boolean>>;
 }
 
@@ -40,6 +46,7 @@ export function defaultSettings(): Settings {
     background: defaultBackground(),
     homeLayout: defaultHomeLayout(),
     userNames: defaultUserNameSources(),
+    problemCopy: defaultProblemCopySettings(),
     modules: Object.fromEntries(
       moduleCatalog.map((item) => [item.id, item.defaultEnabled]),
     ) as Record<ModuleId, boolean>,
@@ -89,6 +96,7 @@ export function decodeSettings(value: unknown): Settings {
     background: decodeBackground(value.background),
     homeLayout: decodeHomeLayout(value.homeLayout),
     userNames: decodeUserNameSources(value.userNames),
+    problemCopy: decodeProblemCopySettings(value.problemCopy),
     modules,
   };
 }

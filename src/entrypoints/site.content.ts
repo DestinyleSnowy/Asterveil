@@ -8,6 +8,7 @@ import { mountUpdateGuard } from '../platform/update-guard';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage, editionStopMessage } from '../shared/edition-coordination';
 import type { Settings } from '../shared/settings';
+import { createCodeEditorLayout } from '../site/code-editor';
 import { createHomeLayout } from '../site/home-layout';
 import { contentMatches, resolveSite } from '../site/target';
 import { createPageTheme } from '../site/theme';
@@ -29,6 +30,7 @@ export default defineContentScript({
     let floatingSettings: ReturnType<typeof mountFloatingSettings> | undefined;
     let theme: ReturnType<typeof createPageTheme> | undefined;
     let homeLayout: ReturnType<typeof createHomeLayout> | undefined;
+    let codeEditorLayout: ReturnType<typeof createCodeEditorLayout> | undefined;
     let domReady = false;
     let settingsResolved = false;
     const lifetime = new AbortController();
@@ -40,6 +42,7 @@ export default defineContentScript({
       const url = new URL(location.href);
       if (settingsResolved) theme?.update(url, settings);
       homeLayout?.update(url, settings);
+      codeEditorLayout?.update(url, settings?.enabled ?? false);
       if (settings) {
         if (domReady) runtime.reconcile(url, settings);
         floatingSettings?.setAppearance(settings.accentColor, settings.colorMode);
@@ -63,6 +66,7 @@ export default defineContentScript({
       initRoot();
       floatingSettings = mountFloatingSettings(uiScope);
       homeLayout = createHomeLayout(uiScope);
+      codeEditorLayout = createCodeEditorLayout(uiScope);
       reconcile();
     };
     if (document.readyState === 'loading') {

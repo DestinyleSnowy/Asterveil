@@ -84,11 +84,18 @@ const emptyState = (): BetterNamesPlanState => ({
 });
 
 export function createBetterNamesPlanSource(
-  load: (signal: AbortSignal) => Promise<readonly UserNameEntry[]>,
+  load: (signal: AbortSignal, force: boolean) => Promise<readonly UserNameEntry[]>,
   context: () => string,
 ) {
   let key = context();
   let state = emptyState();
+  const sameEntries = (incoming: readonly UserNameEntry[]) =>
+    state.entries.length === incoming.length &&
+    state.entries.every(
+      (entry, index) =>
+        entry.length === incoming[index]?.length &&
+        entry.every((value, field) => value === incoming[index]?.[field]),
+    );
   const listeners = new Set<(value: BetterNamesPlanState) => void>();
   let request: { key: string; controller: AbortController; promise: Promise<void> } | undefined;
   const emit = () => {
@@ -114,15 +121,9 @@ export function createBetterNamesPlanSource(
     active.promise = Promise.resolve().then(async () => {
       try {
         if (request !== active || active.controller.signal.aborted) return;
-        const incoming = await load(active.controller.signal);
+        const incoming = await load(active.controller.signal, force);
         if (request !== active || active.controller.signal.aborted || checkContext()) return;
-        const same =
-          state.entries.length === incoming.length &&
-          state.entries.every(
-            (entry, index) =>
-              entry.length === incoming[index]?.length &&
-              entry.every((value, field) => value === incoming[index]?.[field]),
-          );
+        const same = sameEntries(incoming);
         state = {
           entries: same ? state.entries : incoming,
           loaded: true,
@@ -158,6 +159,20 @@ export function createBetterNamesPlanSource(
     checkContext,
     refresh,
     cancel,
+    seed(entries: readonly UserNameEntry[]) {
+      checkContext();
+      if (request) return;
+      const same = sameEntries(entries);
+      if (same && state.loaded && !state.error) return;
+      state = { entries: same ? state.entries : entries, loaded: true, loading: false, error: '' };
+      emit();
+    },
+    invalidate(error: string) {
+      request?.controller.abort();
+      request = undefined;
+      state = { ...emptyState(), error };
+      emit();
+    },
     subscribe(listener: (value: BetterNamesPlanState) => void) {
       checkContext();
       listeners.add(listener);

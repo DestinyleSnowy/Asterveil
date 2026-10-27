@@ -22,6 +22,7 @@ export function mountUserNamePalette(
     return node;
   }
   const grid = element<HTMLDivElement>('user-grade-colors');
+  const resetSlot = element<HTMLSpanElement>('user-grade-palette-reset-slot');
   const reset = element<HTMLButtonElement>('user-grade-palette-reset');
   const status = element<HTMLParagraphElement>('user-grade-status');
   const modes = [...root.querySelectorAll<HTMLInputElement>('[name="user-grade-palette-mode"]')];
@@ -74,8 +75,15 @@ export function mountUserNamePalette(
       input.checked = input.value === palette.mode;
       input.disabled = busy || !current;
     }
+    const custom = palette.mode === 'custom';
+    resetSlot.classList.toggle('is-visible', custom);
+    resetSlot.inert = !custom;
+    resetSlot.setAttribute('aria-hidden', String(!custom));
     reset.disabled =
-      busy || !current || JSON.stringify(palette) === JSON.stringify(defaultUserGradePalette());
+      busy ||
+      !current ||
+      !custom ||
+      JSON.stringify(palette) === JSON.stringify(defaultUserGradePalette());
     updateCells();
   }
   function flushColors(): Promise<void> {
@@ -123,6 +131,8 @@ export function mountUserNamePalette(
   });
   async function commit(command: SettingsCommand) {
     if (busy || !current) return;
+    const controlRoot = reset.getRootNode() as Document | ShadowRoot;
+    const focusedMode = modes.find((input) => input === controlRoot.activeElement);
     saveError = '';
     busy = true;
     render();
@@ -142,6 +152,12 @@ export function mountUserNamePalette(
       busy = false;
       for (const cell of cells.values()) cell.synced = '';
       render();
+      if (
+        focusedMode &&
+        !scope.signal.aborted &&
+        (!controlRoot.activeElement || controlRoot.activeElement === document.body)
+      )
+        focusedMode.focus({ preventScroll: true });
     }
   }
   for (const [index, group] of userGradeGroups.entries()) {

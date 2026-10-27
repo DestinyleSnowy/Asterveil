@@ -11,7 +11,7 @@ import ts from 'typescript';
 const root = fileURLToPath(new URL('../', import.meta.url));
 function fixture() {
   const { document, window } = parseHTML(
-    '<html><body><div id="user-grade-colors"></div><button id="user-grade-palette-reset"></button><p id="user-grade-status" hidden></p><input type="radio" name="user-grade-palette-mode" value="default"><input type="radio" name="user-grade-palette-mode" value="custom"></body></html>',
+    '<html><body><div id="user-grade-colors"></div><span id="user-grade-palette-reset-slot"><button id="user-grade-palette-reset"></button></span><p id="user-grade-status" hidden></p><input type="radio" name="user-grade-palette-mode" value="default"><input type="radio" name="user-grade-palette-mode" value="classic"><input type="radio" name="user-grade-palette-mode" value="custom"></body></html>',
   );
   const cache = new Map();
   function load(path) {
@@ -152,14 +152,19 @@ test('complete hex values auto-save, partial input survives replies, and switchi
     assert.equal(f.hex.getAttribute('aria-invalid'), 'true');
     f.hex.value = '#aabbcc';
     f.event(f.hex, 'input');
-    const mode = f.document.querySelector('[value="default"]');
+    const mode = f.document.querySelector('[value="classic"]');
     f.event(mode, 'change');
     assert.equal(f.pending[1].command.type, 'settings.user-names.palette.color');
     await f.pending[1].finish();
     assert.equal(f.pending[2].command.type, 'settings.user-names.palette.mode');
     await f.pending[2].finish();
-    assert.equal(f.stored().userNames.palette.mode, 'default');
+    assert.equal(f.stored().userNames.palette.mode, 'classic');
     assert.equal(f.stored().userNames.palette.colors.g1, '#aabbcc');
+    assert.equal(mode.checked, true);
+    assert.equal(f.picker.value, '#faad14');
+    assert.equal(f.hex.value, '#FAAD14');
+    assert.equal(f.picker.disabled, true);
+    assert.equal(f.hex.disabled, true);
   } finally {
     f.scope.dispose();
   }

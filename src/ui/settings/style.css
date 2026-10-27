@@ -920,16 +920,44 @@ input:disabled {
 .name-palette-heading h2 {
   font-size: 15px;
 }
+.name-palette-actions {
+  flex-wrap: nowrap;
+  gap: 0;
+}
 .name-palette-actions .mode-options {
+  position: relative;
+  isolation: isolate;
   display: grid;
   width: auto;
   padding: 3px;
   margin-top: 0;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 2px;
   border: 1px solid var(--av-border);
   border-radius: 10px;
   background: var(--av-surface);
+}
+.name-palette-actions .mode-options::before {
+  content: "";
+  position: absolute;
+  inset-block: 3px;
+  inset-inline-start: 3px;
+  width: calc((100% - 10px) / 3);
+  border-radius: 6px;
+  background: var(--av-paper);
+  box-shadow: 0 1px 4px #18202e0c;
+  pointer-events: none;
+  transform: translateX(calc(var(--name-palette-index, 0) * (100% + 2px)));
+  transition: transform calc(280ms * var(--av-motion, 1)) cubic-bezier(0.22, 1, 0.36, 1);
+}
+.name-palette-actions .mode-options:has([value="classic"]:checked) {
+  --name-palette-index: 1;
+}
+.name-palette-actions .mode-options:has([value="custom"]:checked) {
+  --name-palette-index: 2;
+}
+.name-palette-actions .mode-options label {
+  z-index: 1;
 }
 .name-palette-actions .mode-options label span {
   min-height: 28px;
@@ -940,16 +968,50 @@ input:disabled {
   white-space: nowrap;
 }
 .name-palette-actions :where(.mode-options) input:checked + span {
-  background: var(--av-paper);
+  background: transparent;
   color: var(--av-heading);
-  box-shadow: 0 1px 4px #18202e0c;
+}
+.name-palette-actions :where(.mode-options) label:hover span {
+  background: transparent;
+  color: var(--av-heading);
+}
+.name-palette-reset-slot {
+  flex: 0 0 auto;
+  inline-size: 0;
+  block-size: 28px;
+  margin-inline-start: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 12px;
+  transform: translateX(-4px);
+  transition:
+    inline-size calc(240ms * var(--av-motion, 1)) cubic-bezier(0.22, 1, 0.36, 1)
+    calc(60ms * var(--av-motion, 1)),
+    block-size calc(240ms * var(--av-motion, 1)) cubic-bezier(0.22, 1, 0.36, 1)
+    calc(60ms * var(--av-motion, 1)),
+    margin calc(240ms * var(--av-motion, 1)) cubic-bezier(0.22, 1, 0.36, 1)
+    calc(60ms * var(--av-motion, 1)),
+    opacity calc(100ms * var(--av-motion, 1)) ease,
+    transform calc(280ms * var(--av-motion, 1)) cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s calc(300ms * var(--av-motion, 1));
+}
+.name-palette-reset-slot.is-visible {
+  inline-size: 4em;
+  margin-inline-start: 12px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  transition-delay: 0s, 0s, 0s, calc(70ms * var(--av-motion, 1)), 0s, 0s;
 }
 #user-grade-palette-reset {
+  inline-size: 4em;
   padding: 6px 0;
   border: 0;
   background: transparent;
   color: var(--av-muted);
   font-size: 12px;
+  white-space: nowrap;
   cursor: pointer;
 }
 #user-grade-palette-reset:enabled:hover {
@@ -958,6 +1020,28 @@ input:disabled {
 #user-grade-palette-reset:disabled {
   opacity: 0.45;
   cursor: default;
+}
+@container (max-width: 360px) {
+  .name-palette-heading {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+@container (max-width: 260px) {
+  .name-palette-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .name-palette-reset-slot {
+    inline-size: 4em;
+    block-size: 0;
+    margin-inline-start: 0;
+  }
+  .name-palette-reset-slot.is-visible {
+    block-size: 28px;
+    margin-block-start: 8px;
+    margin-inline-start: 0;
+  }
 }
 .name-grade-grid {
   display: grid;

@@ -29,33 +29,38 @@ export const userGradeGroups: readonly { label: string; keys: readonly UserGrade
   { label: '大学', keys: ['d1', 'd2', 'd3', 'd4'] },
   { label: '其他', keys: ['by', 'jl', 'uk'] },
 ];
-export type UserGradePaletteMode = 'default' | 'custom';
+export type UserGradePaletteMode = 'default' | 'classic' | 'custom';
 export interface UserGradePalette {
   readonly mode: UserGradePaletteMode;
   readonly colors: Readonly<Record<UserGradeKey, string>>;
 }
+export const classicUserGradeColors: Readonly<Record<UserGradeKey, string>> = {
+  x4: '#8c8c8c',
+  x5: '#722ed1',
+  x6: '#9254de',
+  c1: '#ff4d4f',
+  c2: '#fa8c16',
+  c3: '#faad14',
+  g1: '#ca00ca',
+  g2: '#52c41a',
+  g3: '#13c2c2',
+  d1: '#9254de',
+  d2: '#597ef7',
+  d3: '#73d13d',
+  d4: '#bfbfbf',
+  by: '#8c8c8c',
+  jl: '#ff85c0',
+  uk: '#5e6e5e',
+};
+// Classic colors belong to the 2025 cohorts, including students promoted to a new school stage.
+const classicCohortColors = new Map<UserGrade, string>(
+  userGradeDefinitions.map(({ key }) => [advanceUserGrade(key, 2025), classicUserGradeColors[key]]),
+);
 const labels = new Map<string, UserGradeKey>(
   userGradeDefinitions.map(({ key, label }) => [label, key]),
 );
 const previousDefaultPalettes = [
-  [
-    '#8c8c8c',
-    '#722ed1',
-    '#9254de',
-    '#ff4d4f',
-    '#fa8c16',
-    '#faad14',
-    '#ca00ca',
-    '#52c41a',
-    '#13c2c2',
-    '#9254de',
-    '#597ef7',
-    '#73d13d',
-    '#bfbfbf',
-    '#8c8c8c',
-    '#ff85c0',
-    '#5e6e5e',
-  ],
+  userGradeDefinitions.map(({ key }) => classicUserGradeColors[key]),
   [
     '#8b6da8',
     '#785b97',
@@ -78,7 +83,7 @@ const previousDefaultPalettes = [
 export const isUserGradeKey = (value: unknown): value is UserGradeKey =>
   userGradeDefinitions.some(({ key }) => key === value);
 export const isUserGradePaletteMode = (value: unknown): value is UserGradePaletteMode =>
-  value === 'default' || value === 'custom';
+  value === 'default' || value === 'classic' || value === 'custom';
 
 export function normalizeUserGrade(
   value: unknown,
@@ -137,6 +142,7 @@ export function decodeUserGradePalette(value: unknown): UserGradePalette {
 }
 export function userGradeColor(key: UserGrade, palette: UserGradePalette): string | undefined {
   if (key === 'clear') return;
+  if (palette.mode === 'classic') return classicCohortColors.get(key) ?? classicUserGradeColors.uk;
   return palette.mode === 'custom'
     ? palette.colors[key]
     : userGradeDefinitions.find((grade) => grade.key === key)?.color;

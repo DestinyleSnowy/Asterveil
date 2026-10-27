@@ -26,9 +26,12 @@
           <div class="name-palette-actions">
             <fieldset class="mode-options" aria-label="年级配色方案">
               <label><input type="radio" name="user-grade-palette-mode" value="default" /><span>默认</span></label>
+              <label><input type="radio" name="user-grade-palette-mode" value="classic" /><span>经典</span></label>
               <label><input type="radio" name="user-grade-palette-mode" value="custom" /><span>自定义</span></label>
             </fieldset>
-            <button id="user-grade-palette-reset" type="button">恢复默认</button>
+            <span id="user-grade-palette-reset-slot" class="name-palette-reset-slot" aria-hidden="true" inert>
+              <button id="user-grade-palette-reset" type="button" disabled>恢复默认</button>
+            </span>
           </div>
         </header>
         <div id="user-grade-colors" class="name-grade-grid"></div>

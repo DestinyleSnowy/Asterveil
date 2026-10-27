@@ -30,6 +30,24 @@ const gradeKeys = [
   'jl',
   'uk',
 ];
+const classicColors = {
+  x4: '#5e6e5e',
+  x5: '#8c8c8c',
+  x6: '#722ed1',
+  c1: '#9254de',
+  c2: '#ff4d4f',
+  c3: '#fa8c16',
+  g1: '#faad14',
+  g2: '#ca00ca',
+  g3: '#52c41a',
+  d1: '#13c2c2',
+  d2: '#9254de',
+  d3: '#597ef7',
+  d4: '#73d13d',
+  by: '#8c8c8c',
+  jl: '#ff85c0',
+  uk: '#5e6e5e',
+};
 const rgb = (hex) =>
   `rgb(${[1, 3, 5].map((index) => Number.parseInt(hex.slice(index, index + 2), 16)).join(', ')})`;
 const out = resolve('.tmp/user-names-browser');
@@ -352,6 +370,31 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
     assert.equal(await page.locator('#user-grade-g1').isDisabled(), true);
     assert.equal(await page.locator('#user-grade-editor').count(), 0);
 
+    // A new document must reuse the session even while every remote source is unavailable.
+    const beforeCachedReload = [
+      officialRequests.length,
+      planRequests.length,
+      friendRequests.length,
+    ];
+    officialStatus = planStatus = friendStatus = 500;
+    await page.reload();
+    await wait(page, '#high b', 'textContent', names[high]);
+    await wait(page, '#friend', 'textContent', '好友新增同学');
+    assert.deepEqual(
+      [officialRequests.length, planRequests.length, friendRequests.length],
+      beforeCachedReload,
+    );
+    await page.evaluate(() =>
+      window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })),
+    );
+    await page.waitForTimeout(80);
+    assert.deepEqual(
+      [officialRequests.length, planRequests.length, friendRequests.length],
+      beforeCachedReload,
+    );
+    officialStatus = planStatus = friendStatus = 200;
+    await open(page);
+
     const second = await context.newPage();
     second.on('pageerror', (error) => errors.push(error.message));
     await second.goto('https://in.7fa4.cn:8888/');
@@ -410,13 +453,13 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
     await wait(disabled, '#friend', 'textContent', '好友新增同学');
     assert.equal(
       planRequests.length,
-      3,
-      'only the page without cached plan entries needs a request',
+      2,
+      'new pages reuse the account session instead of requesting plan data again',
     );
     assert.equal(
       friendRequests.length,
-      3,
-      'only the page without cached friend entries needs a request',
+      2,
+      'new pages reuse the account session instead of requesting friend data again',
     );
     await disabled.close();
     await page.locator('.name-palette').getByText('自定义', { exact: true }).click();
@@ -508,6 +551,54 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
     );
     await wait(page, '#grade-x4', 'textContent', '示例x4');
     await assertSavedColors();
+    const palettePlanRequests = planRequests.length;
+    const customColors = (await state()).userNames.palette.colors;
+    await page.locator('.name-palette').getByText('经典', { exact: true }).click();
+    await wait(page, '#high', 'color', rgb(classicColors.g1));
+    await wait(second, '#high', 'color', rgb(classicColors.g1));
+    assert.equal((await state()).userNames.palette.mode, 'classic');
+    assert.deepEqual((await state()).userNames.palette.colors, customColors);
+    for (const [key, value] of Object.entries(classicColors)) {
+      await wait(page, `#grade-${key}`, 'color', rgb(value));
+      assert.equal(await page.locator(`#user-grade-${key}`).inputValue(), value);
+      assert.equal(await page.locator(`#user-grade-${key}`).isDisabled(), true);
+    }
+    await assertSavedColors();
+    assert.equal(await page.locator('#clear').evaluate((node) => node.style.color), 'purple');
+    assert.equal(planRequests.length, palettePlanRequests);
+    await page.reload();
+    await wait(page, '#high', 'color', rgb(classicColors.g1));
+    await open(page);
+    assert.equal(await page.getByRole('radio', { name: '经典', exact: true }).isChecked(), true);
+    for (const [scheme, width, height] of [
+      ['light', 1440, 900],
+      ['dark', 390, 844],
+      ['light', 320, 568],
+    ]) {
+      await mode(scheme);
+      await waitScheme(scheme);
+      await page.setViewportSize({ width, height });
+      await assertSavedColors();
+      for (const selector of ['.page-view', '.name-palette', '.name-palette-actions .mode-options'])
+        assert.equal(
+          await page.locator(selector).evaluate((node) => node.scrollWidth <= node.clientWidth),
+          true,
+          `${selector}: classic palette must fit at ${width}px`,
+        );
+      const segments = await page
+        .locator('.name-palette-actions .mode-options label')
+        .evaluateAll((labels) => labels.map((label) => label.getBoundingClientRect().top));
+      assert.equal(new Set(segments).size, 1, 'all three palette modes stay on one row');
+      await page.mouse.move(1, 1);
+      await page
+        .locator('.name-palette')
+        .screenshot({ path: resolve(out, `${product}-classic-${scheme}-${width}.png`) });
+    }
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.locator('.name-palette').getByText('自定义', { exact: true }).click();
+    await wait(page, '#high', 'color', 'rgb(17, 34, 51)');
+    await wait(second, '#high', 'color', 'rgb(17, 34, 51)');
+    assert.deepEqual((await state()).userNames.palette.colors, customColors);
     for (const [name, text] of [
       [
         '官方年级冲突.json',
@@ -541,8 +632,8 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
     };
     assert.equal(
       planRequests.length,
-      3,
-      'palette and source edits must reuse the per-page plan cache',
+      palettePlanRequests,
+      'reloads and palette edits must reuse the account session cache',
     );
     await refreshPlan(500);
     assert.match(await page.locator('#better-names-source-status').textContent(), /暂时无法更新/);
@@ -790,6 +881,10 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
     assert.match(await page.locator('#unknown').getAttribute('title'), /大2026级/);
     await open(page);
     await wait(page, '#plan', 'textContent', '计划更新同学');
+    const sameAccount = await context.newPage();
+    await sameAccount.goto('https://jx.7fa4.cn:8888/');
+    await wait(sameAccount, '#plan', 'textContent', '计划更新同学');
+    await wait(sameAccount, '#friend', 'textContent', '好友新增同学');
     planStatus = 403;
     friendStatus = 403;
     officialStatus = 403;
@@ -810,6 +905,15 @@ for (const product of ['Asterveil', 'Asterveil Pro']) {
         .textContent.includes('暂无访问权限'),
     );
     assert.equal((await page.locator('#blank-nickname').textContent()).trim(), '');
+    await wait(sameAccount, '#plan', 'textContent', 'plan_account');
+    await wait(sameAccount, '#friend', 'textContent', 'friend_account');
+    await sameAccount.evaluate(() =>
+      window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })),
+    );
+    await sameAccount.waitForTimeout(80);
+    assert.equal(await sameAccount.locator('#plan').textContent(), 'plan_account');
+    assert.equal((await sameAccount.locator('#blank-nickname').textContent()).trim(), '');
+    await sameAccount.close();
     planUsers[3].real_name = '新账号计划同学';
     planStatus = 200;
     friendStatus = 200;

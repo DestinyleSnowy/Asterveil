@@ -1,6 +1,10 @@
 import { browser } from 'wxt/browser';
 import { defineBackground } from 'wxt/utils/define-background';
 import { createAvatarRuleService } from '../background/avatar-rules';
+import {
+  codeEditorLayoutTarget,
+  refreshNativeCodeEditorLayout,
+} from '../background/code-editor-layout';
 import { createEditionPriority } from '../background/edition-priority';
 import { fetchExportImage } from '../background/export-image';
 import { observeImageRedirects } from '../background/image-redirects';
@@ -8,7 +12,9 @@ import { isSettingsSender } from '../background/settings-sender';
 import { createSettingsService } from '../background/settings-service';
 import { createSubmitterService } from '../background/submitter-service';
 import { createUpdaterService } from '../background/updater-service';
+import { createUserNameCache } from '../background/user-name-cache';
 import { localSettings, watchSettings } from '../platform/settings-repository';
+import { isCodeEditorLayoutRequest } from '../shared/code-editor';
 import { pdfEnabled } from '../shared/edition';
 import { editionCheckMessage } from '../shared/edition-coordination';
 import {
@@ -20,7 +26,12 @@ import {
 } from '../shared/export-image';
 import { isSettingsRequest, type SettingsResponse } from '../shared/protocol';
 import { isUpdateRequest } from '../shared/updater';
-import { decryptOfficialUserNames, userNameEntryDatabase } from '../shared/user-name-database';
+import { isUserNameCacheRequest, userNameCacheKey } from '../shared/user-name-cache';
+import {
+  decryptOfficialUserNames,
+  officialUserNameDatabaseRevision,
+  userNameEntryDatabase,
+} from '../shared/user-name-database';
 import { isSubmitterRequest } from '../submitter/model';
 
 export default defineBackground(() => {
@@ -69,8 +80,52 @@ export default defineBackground(() => {
   let activeSubmissions = 0;
   const updater = createUpdaterService(() => activeSubmissions > 0);
   const popupUrl = browser.runtime.getURL('/popup.html');
+  const nameCache = createUserNameCache(
+    {
+      read: async () => (await browser.storage.session.get(userNameCacheKey))[userNameCacheKey],
+      write: (state) => browser.storage.session.set({ [userNameCacheKey]: state }),
+    },
+    `${browser.runtime.getManifest().version}:${officialUserNameDatabaseRevision}`,
+    (client, notice) => {
+      void browser.tabs
+        .sendMessage(client.tabId, notice, { documentId: client.documentId })
+        .catch(() => undefined);
+    },
+  );
 
   browser.runtime.onMessage.addListener((message: unknown, sender, sendResponse) => {
+    if (isUserNameCacheRequest(message)) {
+      if (
+        !isSettingsSender(sender, browser.runtime.id) ||
+        !sender.documentId ||
+        sender.tab?.id === undefined
+      )
+        return false;
+      void nameCache(message, {
+        origin: new URL(sender.url ?? '').origin,
+        documentId: sender.documentId,
+        tabId: sender.tab.id,
+      }).then(sendResponse, () =>
+        sendResponse({ ok: false, error: '会话缓存暂不可用', clearCache: false }),
+      );
+      return true;
+    }
+    if (isCodeEditorLayoutRequest(message)) {
+      const target = codeEditorLayoutTarget(sender, browser.runtime.id);
+      if (!target) return false;
+      void browser.scripting
+        .executeScript({
+          target,
+          world: 'MAIN',
+          func: refreshNativeCodeEditorLayout,
+          args: [message.fonts],
+        })
+        .then(
+          (results) => sendResponse({ ok: true, available: results[0]?.result === true }),
+          () => sendResponse({ ok: false }),
+        );
+      return true;
+    }
     if (isExportImageAccessRequest(message)) {
       if (!isSettingsSender(sender, browser.runtime.id)) return false;
       // Request immediately to preserve the editor action's user gesture.

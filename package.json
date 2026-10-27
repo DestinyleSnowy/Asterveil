@@ -1,6 +1,6 @@
 {
   "name": "asterveil",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "license": "Apache-2.0",
   "description": "The next generation of Better Names.",
@@ -22,6 +22,7 @@
     "test": "node --test",
     "test:user-names:browser": "npm run build:all && node tests/user-names.browser.mjs",
     "test:problem-copy:browser": "npm run build:all && node tests/problem-copy.browser.mjs",
+    "test:code-editor:browser": "npm run build:all && node tests/code-editor.browser.mjs",
     "update:user-names": "node build/update-user-names.mjs",
     "encrypt:user-names": "node build/encrypt-user-names.mjs",
     "test:homework:browser": "node tests/homework.browser.mjs",
@@ -33,9 +34,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@fontsource/fira-mono": "5.3.0",
     "@types/katex": "^0.16.8",
     "@types/node": "^22.20.4",
     "linkedom": "0.18.13",
+    "monaco-editor": "0.18.1",
     "playwright": "1.61.0",
     "typescript": "6.0.3",
     "wxt": "0.21.4"

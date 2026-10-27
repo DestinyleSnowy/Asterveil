@@ -425,6 +425,16 @@ test('palette edits, mode changes and reset persist without overwriting imported
   assert.equal(repo.state().userNames.palette.colors.g1, '#aabbcc');
   await repo.service({ type: 'settings.user-names.palette.mode', mode: 'default' });
   assert.equal(palette.userGradeColor('g1', repo.state().userNames.palette), '#96cc00');
+  const classic = { type: 'settings.user-names.palette.mode', mode: 'classic' };
+  assert.equal(isSettingsRequest({ channel: 'asterveil', ...classic }), true);
+  await repo.service(classic);
+  const restored = decodeSettings(plain(repo.state()));
+  assert.equal(restored.userNames.palette.mode, 'classic');
+  assert.equal(palette.userGradeColor('g1', restored.userNames.palette), '#faad14');
+  assert.equal(palette.userGradeColor('g2', restored.userNames.palette), '#ca00ca');
+  assert.equal(palette.userGradeColor('clear', restored.userNames.palette), undefined);
+  assert.equal(restored.userNames.palette.colors.g1, '#aabbcc');
+  assert.deepEqual(plain(restored.userNames.sources), sources);
   await repo.service({ type: 'settings.user-names.palette.mode', mode: 'custom' });
   assert.equal(palette.userGradeColor('g1', repo.state().userNames.palette), '#aabbcc');
   const writes = repo.writes();
@@ -437,6 +447,7 @@ test('palette edits, mode changes and reset persist without overwriting imported
     id: repo.state().userNames.sources[1].id,
   });
   assert.equal(repo.state().userNames.palette.colors.g1, '#aabbcc');
+  await repo.service(classic);
   await repo.service({ type: 'settings.user-names.palette.reset' });
   assert.deepEqual(plain(repo.state().userNames.palette), plain(palette.defaultUserGradePalette()));
   assert.deepEqual(plain(repo.state().userNames.sources), sources);

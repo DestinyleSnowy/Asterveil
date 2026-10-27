@@ -127,6 +127,39 @@ test('the grade palette preserves cohort labels and returns the exact saved colo
   assert.equal(palette.userGradeColor('clear', defaults), undefined);
   for (const { key, color } of palette.userGradeDefinitions)
     assert.equal(palette.userGradeColor(key, defaults), color);
+  const classic = { ...defaults, mode: 'classic' };
+  for (const [key, color] of [
+    ['x4', '#5e6e5e'],
+    ['x5', '#8c8c8c'],
+    ['x6', '#722ed1'],
+    ['c1', '#9254de'],
+    ['c2', '#ff4d4f'],
+    ['c3', '#fa8c16'],
+    ['g1', '#faad14'],
+    ['g2', '#ca00ca'],
+    ['g3', '#52c41a'],
+    ['d1', '#13c2c2'],
+    ['d2', '#9254de'],
+    ['d3', '#597ef7'],
+    ['d4', '#73d13d'],
+    ['by', '#8c8c8c'],
+    ['jl', '#ff85c0'],
+    ['uk', '#5e6e5e'],
+  ])
+    assert.equal(
+      palette.userGradeColor(key, classic),
+      color,
+      `${palette.userGradeLabel(key)} keeps its original classic color`,
+    );
+  for (const [before, after, color] of [
+    ['小2020级', '初2026级', '#9254de'],
+    ['初2023级', '高2026级', '#faad14'],
+    ['高2023级', '大2026级', '#13c2c2'],
+  ]) {
+    const grade = palette.normalizeUserGrade(before);
+    assert.equal(palette.userGradeLabel(grade), after);
+    assert.equal(palette.userGradeColor(grade, classic), color);
+  }
   for (const color of ['#000000', '#ffffff', '#70dbff', '#96cc00'])
     assert.equal(
       palette.userGradeColor('g1', { mode: 'custom', colors: { ...defaults.colors, g1: color } }),
@@ -179,6 +212,35 @@ test('the 2026 snapshot promotes every school stage and preserves status grades'
 
 test('untouched legacy default palettes adopt the current colors while custom colors remain intact', () => {
   const palette = loader()('src/shared/user-name-palette.ts');
+  const legacyClassic = [
+    '#8c8c8c',
+    '#722ed1',
+    '#9254de',
+    '#ff4d4f',
+    '#fa8c16',
+    '#faad14',
+    '#ca00ca',
+    '#52c41a',
+    '#13c2c2',
+    '#9254de',
+    '#597ef7',
+    '#73d13d',
+    '#bfbfbf',
+    '#8c8c8c',
+    '#ff85c0',
+    '#5e6e5e',
+  ];
+  const legacyColors = Object.fromEntries(
+    palette.userGradeDefinitions.map(({ key }, index) => [key, legacyClassic[index]]),
+  );
+  assert.equal(
+    palette.decodeUserGradePalette({ mode: 'default', colors: legacyColors }).colors.g1,
+    '#96cc00',
+  );
+  assert.equal(
+    palette.decodeUserGradePalette({ mode: 'custom', colors: legacyColors }).colors.g1,
+    '#ca00ca',
+  );
   const oldColors = [
     '#8b6da8',
     '#785b97',
